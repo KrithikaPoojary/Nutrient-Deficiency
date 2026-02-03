@@ -39,29 +39,40 @@ def create_tables():
     conn.commit()
     conn.close()
 
-# ---------------- BASIC TEST ROUTE ----------------
+# ---------------- FOOD → NUTRIENT MAPPING ----------------
+# Simple relative values (can be improved later)
+
+food_nutrients = {
+    "rice": {"iron": 1, "vitamin_b12": 0, "vitamin_d": 0},
+    "milk": {"iron": 0, "vitamin_b12": 1, "vitamin_d": 1},
+    "egg": {"iron": 1, "vitamin_b12": 2, "vitamin_d": 1},
+    "spinach": {"iron": 3, "vitamin_b12": 0, "vitamin_d": 0},
+    "banana": {"iron": 1, "vitamin_b12": 0, "vitamin_d": 0}
+}
+
+# ---------------- BASIC ROUTE ----------------
 
 @app.route("/")
 def home():
     return "Backend is running successfully!"
 
-# ---------------- USER REGISTRATION API ----------------
+# ---------------- USER REGISTRATION ----------------
 
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
-
-    name = data.get("name")
-    age = data.get("age")
-    gender = data.get("gender")
-    lifestyle = data.get("lifestyle")
 
     conn = connect_db()
     cursor = conn.cursor()
 
     cursor.execute(
         "INSERT INTO users (name, age, gender, lifestyle) VALUES (?, ?, ?, ?)",
-        (name, age, gender, lifestyle)
+        (
+            data.get("name"),
+            data.get("age"),
+            data.get("gender"),
+            data.get("lifestyle")
+        )
     )
 
     conn.commit()
@@ -69,29 +80,76 @@ def register():
 
     return jsonify({"message": "User registered successfully"})
 
-# ---------------- FOOD INTAKE API ----------------
+# ---------------- FOOD LOGGING ----------------
 
 @app.route("/food-log", methods=["POST"])
 def food_log():
     data = request.json
-
-    user_id = data.get("user_id")
-    food_name = data.get("food_name")
-    quantity = data.get("quantity")
-    date = data.get("date")
 
     conn = connect_db()
     cursor = conn.cursor()
 
     cursor.execute(
         "INSERT INTO food_intake (user_id, food_name, quantity, date) VALUES (?, ?, ?, ?)",
-        (user_id, food_name, quantity, date)
+        (
+            data.get("user_id"),
+            data.get("food_name").lower(),
+            data.get("quantity"),
+            data.get("date")
+        )
     )
 
     conn.commit()
     conn.close()
 
     return jsonify({"message": "Food intake logged successfully"})
+
+# ---------------- FETCH FOOD LOGS ----------------
+
+def get_food_logs(user_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT food_name, quantity FROM food_intake WHERE user_id = ?",
+        (user_id,)
+    )
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    food_logs = []
+    for row in rows:
+        food_logs.append({
+            "food_name": row[0],
+            "quantity": row[1]
+        })
+
+    return food_logs
+
+# ---------------- NUTRIENT CALCULATION ----------------
+
+def calculate_nutrients(food_logs):
+    totals = {"iron": 0, "vitamin_b12": 0, "vitamin_d": 0}
+
+    for item in food_logs:
+        food = item["food_name"]
+        quantity = item["quantity"]
+
+        if food in food_nutrients:
+            for nutrient in totals:
+                totals[nutrient] += food_nutrients[food][nutrient] * quantity
+
+    return totals
+
+# ---------------- NUTRIENT SUMMARY API ----------------
+
+@app.route("/nutrient-summary/<int:user_id>", methods=["GET"])
+def nutrient_summary(user_id):
+    food_logs = get_food_logs(user_id)
+    totals = calculate_nutrients(food_logs)
+
+    return jsonify(totals)
 
 # ---------------- MAIN ----------------
 
