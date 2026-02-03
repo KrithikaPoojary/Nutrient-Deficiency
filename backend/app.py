@@ -14,7 +14,6 @@ def create_tables():
     conn = connect_db()
     cursor = conn.cursor()
 
-    # Users table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,7 +24,6 @@ def create_tables():
     )
     """)
 
-    # Food intake table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS food_intake (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,7 +38,6 @@ def create_tables():
     conn.close()
 
 # ---------------- FOOD → NUTRIENT MAPPING ----------------
-# Simple relative values (can be improved later)
 
 food_nutrients = {
     "rice": {"iron": 1, "vitamin_b12": 0, "vitamin_d": 0},
@@ -48,6 +45,14 @@ food_nutrients = {
     "egg": {"iron": 1, "vitamin_b12": 2, "vitamin_d": 1},
     "spinach": {"iron": 3, "vitamin_b12": 0, "vitamin_d": 0},
     "banana": {"iron": 1, "vitamin_b12": 0, "vitamin_d": 0}
+}
+
+# ---------------- RECOMMENDED DAILY INTAKE ----------------
+
+RDI = {
+    "iron": 18,
+    "vitamin_b12": 2,
+    "vitamin_d": 15
 }
 
 # ---------------- BASIC ROUTE ----------------
@@ -67,12 +72,7 @@ def register():
 
     cursor.execute(
         "INSERT INTO users (name, age, gender, lifestyle) VALUES (?, ?, ?, ?)",
-        (
-            data.get("name"),
-            data.get("age"),
-            data.get("gender"),
-            data.get("lifestyle")
-        )
+        (data["name"], data["age"], data["gender"], data["lifestyle"])
     )
 
     conn.commit()
@@ -91,12 +91,7 @@ def food_log():
 
     cursor.execute(
         "INSERT INTO food_intake (user_id, food_name, quantity, date) VALUES (?, ?, ?, ?)",
-        (
-            data.get("user_id"),
-            data.get("food_name").lower(),
-            data.get("quantity"),
-            data.get("date")
-        )
+        (data["user_id"], data["food_name"].lower(), data["quantity"], data["date"])
     )
 
     conn.commit()
@@ -118,14 +113,7 @@ def get_food_logs(user_id):
     rows = cursor.fetchall()
     conn.close()
 
-    food_logs = []
-    for row in rows:
-        food_logs.append({
-            "food_name": row[0],
-            "quantity": row[1]
-        })
-
-    return food_logs
+    return [{"food_name": row[0], "quantity": row[1]} for row in rows]
 
 # ---------------- NUTRIENT CALCULATION ----------------
 
@@ -142,14 +130,122 @@ def calculate_nutrients(food_logs):
 
     return totals
 
-# ---------------- NUTRIENT SUMMARY API ----------------
+# ---------------- DEFICIENCY DETECTION ----------------
 
-@app.route("/nutrient-summary/<int:user_id>", methods=["GET"])
-def nutrient_summary(user_id):
+def detect_deficiency(nutrients):
+    return {
+        nutrient: "Deficient" if value < RDI[nutrient] else "Normal"
+        for nutrient, value in nutrients.items()
+    }
+
+# ---------------- SEVERITY LEVEL DETECTION ----------------
+
+def detect_severity(nutrients):
+    severity = {}
+
+    for nutrient, value in nutrients.items():
+        req = RDI[nutrient]
+        if value >= req:
+            severity[nutrient] = "Normal"
+        elif value >= 0.7 * req:
+            severity[nutrient] = "Mild"
+        elif value >= 0.4 * req:
+            severity[nutrient] = "Moderate"
+        else:
+            severity[nutrient] = "Severe"
+
+    return severity
+
+# ---------------- USER DETAILS ----------------
+
+def get_user_details(user_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT age, gender, lifestyle FROM users WHERE id = ?",
+        (user_id,)
+    )
+
+    row = cursor.fetchone()
+    conn.close()
+
+    return {"age": row[0], "gender": row[1], "lifestyle": row[2]} if row else None
+
+# ---------------- PERSONALIZED RECOMMENDATIONS ----------------
+
+def generate_recommendations(severity, lifestyle):
+    rec = {}
+
+    for nutrient, level in severity.items():
+        if level == "Normal":
+            rec[nutrient] = "Maintain current diet."
+
+        elif nutrient == "iron":
+            rec[nutrient] = (
+                "Increase leafy vegetables and pulses."
+                if level != "Severe"
+                else "Consult doctor and take iron supplements."
+            )
+
+        elif nutrient == "vitamin_b12":
+            rec[nutrient] = (
+                "Consume milk and eggs."
+                if level != "Severe"
+                else "Medical consultation recommended."
+            )
+
+        elif nutrient == "vitamin_d":
+            rec[nutrient] = (
+                "Increase sunlight exposure."
+                if lifestyle == "indoor"
+                else "Maintain sunlight and balanced diet."
+            )
+
+    return rec
+
+# ---------------- FINAL API ----------------
+
+@app.route("/analysis/<int:user_id>", methods=["GET"])
+def full_analysis(user_id):
     food_logs = get_food_logs(user_id)
-    totals = calculate_nutrients(food_logs)
+    nutrients = calculate_nutrients(food_logs)
+    deficiency = detect_deficiency(nutrients)
+    severity = detect_severity(nutrients)
+    user = get_user_details(user_id)
 
-    return jsonify(totals)
+    if user is None:
+        return jsonify({"error": "User not found. Please register the user first."})
+
+    recommendations = generate_recommendations(severity, user["lifestyle"])
+
+
+    return jsonify({
+        "nutrient_intake": nutrients,
+        "deficiency_status": deficiency,
+        "severity_level": severity,
+        "personalized_recommendations": recommendations
+    })
+
+# ---------------- MONITORING (HISTORY) ----------------
+
+@app.route("/history/<int:user_id>", methods=["GET"])
+def history(user_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT food_name, quantity, date FROM food_intake WHERE user_id = ?",
+        (user_id,)
+    )
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    return jsonify([
+        {"food": row[0], "quantity": row[1], "date": row[2]}
+        for row in rows
+    ])
 
 # ---------------- MAIN ----------------
 
