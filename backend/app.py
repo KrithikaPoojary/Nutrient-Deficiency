@@ -1,20 +1,21 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sqlite3
+import numpy as np
+import joblib
 
 app = Flask(__name__)
 CORS(app)
 
-# ---------------- DATABASE FUNCTIONS ----------------
-
+# ---------- DB ----------
 def connect_db():
     return sqlite3.connect("nutrient.db")
 
 def create_tables():
     conn = connect_db()
-    cursor = conn.cursor()
+    cur = conn.cursor()
 
-    cursor.execute("""
+    cur.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
@@ -24,7 +25,7 @@ def create_tables():
     )
     """)
 
-    cursor.execute("""
+    cur.execute("""
     CREATE TABLE IF NOT EXISTS food_intake (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER,
@@ -37,8 +38,7 @@ def create_tables():
     conn.commit()
     conn.close()
 
-# ---------------- FOOD → NUTRIENT MAPPING ----------------
-
+# ---------- FOOD MAP ----------
 food_nutrients = {
     "rice": {"iron": 1, "vitamin_b12": 0, "vitamin_d": 0},
     "milk": {"iron": 0, "vitamin_b12": 1, "vitamin_d": 1},
@@ -47,208 +47,109 @@ food_nutrients = {
     "banana": {"iron": 1, "vitamin_b12": 0, "vitamin_d": 0}
 }
 
-# ---------------- RECOMMENDED DAILY INTAKE ----------------
+RDI = {"iron": 18, "vitamin_b12": 2, "vitamin_d": 15}
 
-RDI = {
-    "iron": 18,
-    "vitamin_b12": 2,
-    "vitamin_d": 15
-}
-
-# ---------------- BASIC ROUTE ----------------
-
+# ---------- ROUTES ----------
 @app.route("/")
 def home():
-    return "Backend is running successfully!"
-
-# ---------------- USER REGISTRATION ----------------
+    return "Backend running"
 
 @app.route("/register", methods=["POST"])
 def register():
-    data = request.json
-
+    d = request.json
     conn = connect_db()
-    cursor = conn.cursor()
-
-    cursor.execute(
+    cur = conn.cursor()
+    cur.execute(
         "INSERT INTO users (name, age, gender, lifestyle) VALUES (?, ?, ?, ?)",
-        (data["name"], data["age"], data["gender"], data["lifestyle"])
+        (d["name"], d["age"], d["gender"], d["lifestyle"])
     )
-
     conn.commit()
     conn.close()
-
-    return jsonify({"message": "User registered successfully"})
-
-# ---------------- FOOD LOGGING ----------------
+    return jsonify({"message": "Registered"})
 
 @app.route("/food-log", methods=["POST"])
 def food_log():
-    data = request.json
-
+    d = request.json
     conn = connect_db()
-    cursor = conn.cursor()
-
-    cursor.execute(
+    cur = conn.cursor()
+    cur.execute(
         "INSERT INTO food_intake (user_id, food_name, quantity, date) VALUES (?, ?, ?, ?)",
-        (data["user_id"], data["food_name"].lower(), data["quantity"], data["date"])
+        (d["user_id"], d["food_name"].lower(), d["quantity"], d["date"])
     )
-
     conn.commit()
     conn.close()
+    return jsonify({"message": "Food logged"})
 
-    return jsonify({"message": "Food intake logged successfully"})
-
-# ---------------- FETCH FOOD LOGS ----------------
-
+# ---------- HELPERS ----------
 def get_food_logs(user_id):
     conn = connect_db()
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "SELECT food_name, quantity FROM food_intake WHERE user_id = ?",
-        (user_id,)
-    )
-
-    rows = cursor.fetchall()
+    cur = conn.cursor()
+    cur.execute("SELECT food_name, quantity FROM food_intake WHERE user_id=?", (user_id,))
+    rows = cur.fetchall()
     conn.close()
+    return [{"food": r[0], "qty": r[1]} for r in rows]
 
-    return [{"food_name": row[0], "quantity": row[1]} for row in rows]
+def calculate_nutrients(logs):
+    total = {"iron": 0, "vitamin_b12": 0, "vitamin_d": 0}
+    for i in logs:
+        if i["food"] in food_nutrients:
+            for n in total:
+                total[n] += food_nutrients[i["food"]][n] * i["qty"]
+    return total
 
-# ---------------- NUTRIENT CALCULATION ----------------
+def detect_deficiency(n):
+    return {k: ("Deficient" if n[k] < RDI[k] else "Normal") for k in n}
 
-def calculate_nutrients(food_logs):
-    totals = {"iron": 0, "vitamin_b12": 0, "vitamin_d": 0}
+def load_model():
+    return joblib.load("severity_model.pkl")
 
-    for item in food_logs:
-        food = item["food_name"]
-        quantity = item["quantity"]
+def predict_severity(nutrients):
+    model = load_model()
+    X = np.array([[nutrients["iron"], nutrients["vitamin_b12"], nutrients["vitamin_d"]]])
+    pred = model.predict(X)[0]
+    return str(pred)   # 🔥 FIXED
 
-        if food in food_nutrients:
-            for nutrient in totals:
-                totals[nutrient] += food_nutrients[food][nutrient] * quantity
-
-    return totals
-
-# ---------------- DEFICIENCY DETECTION ----------------
-
-def detect_deficiency(nutrients):
-    return {
-        nutrient: "Deficient" if value < RDI[nutrient] else "Normal"
-        for nutrient, value in nutrients.items()
-    }
-
-# ---------------- SEVERITY LEVEL DETECTION ----------------
-
-def detect_severity(nutrients):
-    severity = {}
-
-    for nutrient, value in nutrients.items():
-        req = RDI[nutrient]
-        if value >= req:
-            severity[nutrient] = "Normal"
-        elif value >= 0.7 * req:
-            severity[nutrient] = "Mild"
-        elif value >= 0.4 * req:
-            severity[nutrient] = "Moderate"
-        else:
-            severity[nutrient] = "Severe"
-
-    return severity
-
-# ---------------- USER DETAILS ----------------
-
-def get_user_details(user_id):
+def get_lifestyle(user_id):
     conn = connect_db()
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "SELECT age, gender, lifestyle FROM users WHERE id = ?",
-        (user_id,)
-    )
-
-    row = cursor.fetchone()
+    cur = conn.cursor()
+    cur.execute("SELECT lifestyle FROM users WHERE id=?", (user_id,))
+    row = cur.fetchone()
     conn.close()
+    return row[0] if row else None
 
-    return {"age": row[0], "gender": row[1], "lifestyle": row[2]} if row else None
+def recommendations(severity, lifestyle):
+    rec = []
+    if severity == "Severe":
+        rec.append("Consult doctor immediately")
+    elif severity == "Moderate":
+        rec.append("Follow diet plan & supplements")
+    else:
+        rec.append("Maintain current diet")
 
-# ---------------- PERSONALIZED RECOMMENDATIONS ----------------
-
-def generate_recommendations(severity, lifestyle):
-    rec = {}
-
-    for nutrient, level in severity.items():
-        if level == "Normal":
-            rec[nutrient] = "Maintain current diet."
-
-        elif nutrient == "iron":
-            rec[nutrient] = (
-                "Increase leafy vegetables and pulses."
-                if level != "Severe"
-                else "Consult doctor and take iron supplements."
-            )
-
-        elif nutrient == "vitamin_b12":
-            rec[nutrient] = (
-                "Consume milk and eggs."
-                if level != "Severe"
-                else "Medical consultation recommended."
-            )
-
-        elif nutrient == "vitamin_d":
-            rec[nutrient] = (
-                "Increase sunlight exposure."
-                if lifestyle == "indoor"
-                else "Maintain sunlight and balanced diet."
-            )
-
+    if lifestyle == "indoor":
+        rec.append("Increase sunlight exposure")
     return rec
 
-# ---------------- FINAL API ----------------
-
-@app.route("/analysis/<int:user_id>", methods=["GET"])
-def full_analysis(user_id):
-    food_logs = get_food_logs(user_id)
-    nutrients = calculate_nutrients(food_logs)
+# ---------- FINAL API ----------
+@app.route("/analysis/<int:user_id>")
+def analysis(user_id):
+    logs = get_food_logs(user_id)
+    nutrients = calculate_nutrients(logs)
     deficiency = detect_deficiency(nutrients)
-    severity = detect_severity(nutrients)
-    user = get_user_details(user_id)
+    severity = predict_severity(nutrients)
+    lifestyle = get_lifestyle(user_id)
 
-    if user is None:
-        return jsonify({"error": "User not found. Please register the user first."})
-
-    recommendations = generate_recommendations(severity, user["lifestyle"])
-
+    if lifestyle is None:
+        return jsonify({"error": "User not found"}), 404
 
     return jsonify({
         "nutrient_intake": nutrients,
         "deficiency_status": deficiency,
-        "severity_level": severity,
-        "personalized_recommendations": recommendations
+        "predicted_severity": severity,
+        "personalized_recommendations": recommendations(severity, lifestyle)
     })
 
-# ---------------- MONITORING (HISTORY) ----------------
-
-@app.route("/history/<int:user_id>", methods=["GET"])
-def history(user_id):
-    conn = connect_db()
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "SELECT food_name, quantity, date FROM food_intake WHERE user_id = ?",
-        (user_id,)
-    )
-
-    rows = cursor.fetchall()
-    conn.close()
-
-    return jsonify([
-        {"food": row[0], "quantity": row[1], "date": row[2]}
-        for row in rows
-    ])
-
-# ---------------- MAIN ----------------
-
+# ---------- RUN ----------
 if __name__ == "__main__":
     create_tables()
     app.run(debug=True)
