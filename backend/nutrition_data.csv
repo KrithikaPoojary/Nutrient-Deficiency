@@ -1,0 +1,11 @@
+age,gender,lifestyle,iron,vitamin_b12,vitamin_d,severity
+22,female,indoor,4,1,3,Severe
+25,male,outdoor,15,2,10,Moderate
+30,female,indoor,18,3,15,Normal
+40,male,indoor,8,1,5,Moderate
+35,female,outdoor,20,4,18,Normal
+28,male,indoor,3,0,2,Severe
+50,female,indoor,10,1,6,Moderate
+60,male,outdoor,16,2,14,Mild
+45,female,indoor,5,1,4,Severe
+32,male,outdoor,14,2,12,Mild
