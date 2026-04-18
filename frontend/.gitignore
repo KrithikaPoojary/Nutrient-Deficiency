@@ -56,3 +56,5 @@ Thumbs.db
 # ===============================
 # Uncomment if your model is large
 # model/*.pkl
+
+backend/model/*.pkl
