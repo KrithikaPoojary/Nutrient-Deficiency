@@ -1,0 +1,5 @@
+backend/model/*.pkl
+frontend/node_modules/
+backend/__pycache__/
+*.pyc
+.env
