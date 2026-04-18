@@ -1,0 +1,1370 @@
+food_name,protein,iron,vitamin_c,vitamin_d,fiber,category
+spicy barley,5.64,2.91,36.26,3.17,9.2,other
+restaurant style chana masala,11.27,3.7,58.32,7.51,2.46,legume
+steamed chana masala,5.3,6.83,52.77,5.54,7.12,legume
+masala cornflakes,12.85,0.49,98.5,8.81,11.7,other
+dry grapes,1.28,3.5,57.16,9.0,8.87,fruit
+restaurant style coffee,12.31,1.85,7.02,5.92,0.15,other
+baked brownie,4.25,5.18,27.39,1.93,3.33,other
+restaurant style guava,5.1,3.43,85.13,2.81,6.04,other
+steamed mutton,23.3,1.87,14.71,3.8,4.43,protein
+roasted grapes,10.39,9.77,63.88,12.17,6.93,fruit
+homemade idli,14.95,2.73,82.71,5.78,12.39,other
+low fat pineapple juice,13.44,2.66,22.05,4.18,14.31,fruit
+restaurant style donut,12.73,2.14,76.29,6.04,9.22,other
+high protein orange juice,24.6,2.07,43.08,9.31,9.31,fruit
+fried strawberry,2.59,9.73,34.0,5.8,0.18,other
+plain barley,6.07,8.43,99.12,5.77,5.86,other
+chole,13.72,6.72,16.93,1.54,2.68,other
+restaurant style quinoa,8.68,3.34,75.97,3.96,4.02,other
+plain broccoli,11.1,3.12,0.81,13.79,10.72,other
+roasted paratha,7.79,1.73,53.82,13.68,14.79,other
+biryani,10.78,6.03,27.13,10.83,13.66,other
+plain pasta,10.63,5.2,19.56,12.47,7.7,other
+apple,0.9,5.74,31.97,7.39,6.71,fruit
+papaya,3.99,1.03,3.82,3.32,1.78,fruit
+restaurant style capsicum,8.84,0.69,52.09,10.13,12.22,other
+masala guava,0.86,3.67,0.28,14.16,7.14,other
+plain beans,14.45,3.55,48.35,8.03,14.31,legume
+low fat cucumber,4.84,1.23,29.72,13.0,3.84,other
+grilled broccoli,3.43,7.3,27.13,7.69,2.38,other
+quinoa,9.37,1.66,13.95,3.68,13.71,other
+plain chicken,20.6,4.65,6.18,1.06,14.77,protein
+baked millet,8.67,9.17,58.01,9.68,8.93,other
+street style butter chicken,28.1,3.69,91.24,8.63,11.57,protein
+high protein burger,25.55,3.88,75.94,4.67,7.37,other
+homemade onion,9.74,8.5,17.92,10.5,6.53,other
+chapati,3.5,2.55,75.64,12.75,4.56,other
+spicy orange,9.29,5.54,14.9,5.9,12.31,fruit
+low fat grapes,5.15,3.07,25.64,11.19,14.43,fruit
+spicy ice cream,14.63,9.65,12.59,14.16,8.35,other
+boiled paratha,2.18,5.75,30.67,3.32,7.12,other
+tandoori butter chicken,19.64,3.45,51.0,3.34,3.19,protein
+plain pear,12.42,4.75,60.48,7.85,8.32,other
+grilled aloo gobi,14.38,2.17,19.92,3.3,5.87,other
+restaurant style milkshake,12.74,0.18,66.33,9.44,12.44,dairy
+restaurant style chicken,13.98,6.62,70.93,12.23,6.19,protein
+restaurant style mango,14.28,7.85,88.62,4.14,9.19,fruit
+baked protein shake,26.73,4.65,39.36,9.88,6.37,other
+steamed lentils,13.92,4.34,12.2,14.71,12.85,legume
+boiled carrot,6.75,2.82,85.48,2.65,2.35,vegetable
+high protein watermelon,24.67,7.68,47.17,13.16,8.39,other
+butter chicken,21.07,1.3,14.41,2.83,4.14,protein
+high protein paneer,10.39,0.47,50.2,1.18,9.12,dairy
+low fat semolina,7.63,7.63,36.49,0.05,0.45,other
+boiled butter chicken,22.87,7.49,93.6,10.1,2.92,protein
+millet,13.71,9.26,17.5,13.8,14.89,other
+restaurant style fish,27.18,9.22,70.6,8.21,12.08,protein
+street style burger,7.14,7.78,46.97,2.7,13.35,other
+steamed cake,1.48,1.44,55.51,6.35,4.74,other
+dry lassi,10.11,0.24,75.77,7.2,7.72,other
+boiled chicken,17.42,1.06,2.37,4.19,6.26,protein
+grilled dosa,13.98,5.82,53.94,0.03,10.57,other
+plain beetroot,4.51,5.27,95.58,14.78,2.05,other
+grilled protein shake,18.29,4.87,97.02,4.63,13.3,other
+boiled palak paneer,29.51,8.08,15.97,9.84,4.3,vegetable
+roasted nachos,14.18,9.34,26.53,9.97,2.6,other
+soy chunks,21.38,6.2,7.29,14.34,12.18,other
+roasted grilled chicken,15.03,9.19,69.06,11.44,7.7,protein
+boiled blueberry,8.32,8.52,44.83,13.15,0.2,other
+tandoori coffee,8.65,8.49,75.09,4.17,7.9,other
+mutton,12.72,9.82,45.36,4.55,13.23,protein
+dry cucumber,12.5,1.24,74.04,10.88,6.17,other
+homemade khichdi,5.48,8.64,16.33,7.17,4.46,other
+dry fried chicken,10.11,2.0,75.49,8.18,4.96,protein
+steamed burger,3.88,0.37,83.19,3.3,10.11,other
+baked beetroot,6.87,6.85,11.34,11.75,6.23,other
+homemade sweet potato,4.79,0.58,20.19,1.15,8.46,other
+roasted omelette,0.95,6.95,33.22,12.6,5.42,other
+grilled boiled egg,22.19,0.37,66.4,7.57,1.15,protein
+high protein apple juice,16.19,5.37,75.04,8.73,12.45,fruit
+plain orange juice,0.57,3.49,71.54,3.38,4.46,fruit
+tandoori onion,1.83,8.0,71.69,10.89,6.4,other
+low fat grilled fish,22.47,9.13,71.32,1.96,12.91,protein
+fried grape juice,3.98,5.27,60.54,0.98,4.38,other
+masala fries,9.99,7.6,82.95,4.21,0.41,other
+spicy blueberry,1.35,1.49,33.86,7.88,12.77,other
+high protein brownie,10.64,3.58,16.09,7.96,5.78,other
+kidney beans,16.96,8.37,30.09,3.73,3.26,legume
+boiled burger,11.19,1.39,7.9,6.11,1.51,other
+masala jowar,14.4,1.73,44.19,8.27,0.89,other
+street style bread,11.49,2.4,41.33,0.84,2.05,other
+restaurant style idli,6.48,4.29,87.62,3.16,13.61,other
+baked smoothie,14.32,9.4,11.12,14.62,11.82,other
+high protein cabbage,18.36,2.42,63.8,11.71,4.6,other
+tandoori carrot,11.54,2.92,72.4,1.79,14.38,vegetable
+dry pineapple,11.2,3.81,27.01,3.65,14.25,fruit
+low fat rajma,9.08,5.87,79.72,5.23,11.0,other
+low fat paneer,20.45,6.68,25.95,4.59,8.73,dairy
+with sauce donut,13.19,9.66,32.04,8.17,12.17,other
+homemade watermelon,1.39,8.87,6.16,6.59,12.36,other
+boiled tea,8.2,9.28,37.22,12.06,10.01,other
+dry barley,2.05,6.64,99.51,8.71,7.68,other
+burger,5.15,4.22,69.3,12.47,6.07,other
+baked bread,5.98,7.25,47.17,8.2,11.36,other
+with sauce brown bread,7.15,8.26,89.06,6.81,4.25,other
+steamed semolina,10.98,3.77,71.54,14.59,8.29,other
+masala brown bread,2.17,0.73,16.0,3.04,13.77,other
+fried milkshake,1.9,6.52,73.07,11.01,10.95,dairy
+with sauce tofu,11.6,6.8,35.43,11.72,4.72,other
+tandoori peas,9.56,8.14,11.95,12.63,12.7,other
+restaurant style orange juice,10.98,1.38,59.5,1.23,8.59,fruit
+low fat pakora,3.48,7.86,69.27,5.34,11.96,other
+restaurant style mutton,14.31,4.58,5.95,12.48,2.32,protein
+high protein grilled chicken,14.39,7.12,94.38,8.92,4.65,protein
+grape juice,4.71,1.55,43.08,14.17,2.3,other
+homemade cake,3.29,4.55,21.61,12.09,6.57,other
+street style banana,4.16,6.19,9.07,10.28,0.3,fruit
+restaurant style fish curry,15.2,7.97,34.79,12.93,11.06,protein
+masala donut,14.6,1.69,15.49,3.38,0.76,other
+grilled sweet potato,0.93,6.48,1.66,9.31,4.64,other
+masala bread,11.05,9.47,65.51,8.46,11.72,other
+high protein egg,25.49,9.28,79.14,1.61,9.16,protein
+roasted oats,13.47,4.63,18.51,0.28,6.52,other
+with sauce coffee,5.6,5.52,93.23,14.03,4.82,other
+grilled apple juice,7.4,7.57,78.87,1.9,14.48,fruit
+street style watermelon,4.16,1.05,27.6,8.39,14.32,other
+watermelon,10.21,1.72,69.67,13.46,10.24,other
+plain rasam,10.4,4.02,7.84,10.43,4.7,other
+low fat papaya,5.16,3.82,48.96,14.13,13.77,fruit
+baked upma,10.33,1.67,3.47,4.68,4.72,other
+spicy coconut water,10.72,0.86,97.83,5.88,3.09,other
+plain jowar,8.74,0.65,12.2,6.34,8.72,other
+street style palak paneer,25.16,0.05,77.57,5.34,11.75,vegetable
+roasted beans,20.59,1.01,33.54,10.61,3.61,legume
+tandoori soy chunks,24.52,7.32,21.17,1.85,14.69,other
+with sauce palak paneer,20.52,1.09,40.61,9.34,12.51,vegetable
+boiled omelette,8.45,1.63,60.73,5.64,2.63,other
+steamed cornflakes,3.73,8.53,21.56,13.64,2.48,other
+roasted pasta,11.59,6.85,89.87,2.53,5.03,other
+masala pasta,9.83,1.26,58.19,1.66,5.86,other
+spicy pizza,4.39,1.24,11.78,1.1,12.17,other
+street style grape juice,5.34,7.02,91.03,1.15,7.12,other
+spicy rice,2.56,7.99,73.44,7.99,11.16,other
+fried mutton curry,19.22,8.72,91.69,9.99,13.87,protein
+plain apple juice,7.61,5.91,63.44,10.42,0.12,fruit
+fried buttermilk,11.66,2.73,71.24,8.19,1.01,dairy
+low fat pear,11.2,1.47,62.76,3.3,5.46,other
+dry noodles,1.84,3.11,90.6,1.31,14.27,other
+roasted coffee,5.22,9.09,76.37,3.31,0.01,other
+grilled cauliflower,3.86,2.53,67.75,3.33,6.37,other
+spicy soy chunks,13.77,3.08,88.36,1.99,8.67,other
+low fat noodles,1.85,9.35,16.23,1.6,8.9,other
+homemade paneer,12.03,9.36,97.72,4.71,2.95,dairy
+masala chickpeas,17.38,9.11,82.99,13.23,10.52,other
+street style beans,15.27,6.09,73.11,7.07,4.36,legume
+baked tea,12.92,0.47,45.78,11.19,3.07,other
+tandoori sambar,6.31,8.11,62.86,0.72,5.23,other
+roasted samosa,3.76,8.07,29.95,12.77,2.23,other
+coconut water,7.65,9.91,0.77,13.82,10.42,other
+high protein boiled egg,24.09,7.65,15.26,7.88,14.99,protein
+boiled grilled chicken,10.07,9.89,71.15,8.92,13.35,protein
+steamed lettuce,9.72,9.68,99.25,9.38,2.8,other
+roasted lentils,13.33,7.49,31.42,10.73,2.37,legume
+baked paneer,26.76,6.79,73.13,2.73,11.46,dairy
+baked cake,9.3,7.5,54.36,12.63,9.33,other
+grilled quinoa,2.23,2.46,60.85,8.04,9.94,other
+low fat beetroot,5.81,4.8,37.96,5.39,12.25,other
+low fat jowar,14.99,8.48,48.94,13.23,9.23,other
+grilled barley,5.31,7.12,91.3,3.39,11.9,other
+dry cabbage,7.05,3.76,15.3,8.28,9.95,other
+fried pasta,14.47,5.6,55.62,8.36,6.28,other
+restaurant style beans,12.28,9.09,84.36,5.12,12.81,legume
+low fat oats,3.56,6.3,95.35,7.33,13.46,other
+aloo gobi,2.87,2.56,65.89,11.28,12.25,other
+baked mutton,28.5,1.76,33.49,10.16,13.88,protein
+plain carrot,12.89,9.83,5.15,1.79,6.62,vegetable
+low fat orange,11.39,2.98,82.64,1.62,2.39,fruit
+restaurant style upma,5.59,1.5,19.69,10.3,5.8,other
+restaurant style chickpeas,28.56,9.92,32.44,14.68,1.0,other
+tandoori black coffee,11.72,5.62,69.69,0.94,6.25,other
+high protein coffee,13.41,6.38,66.02,14.25,11.83,other
+spicy cabbage,2.85,6.12,36.62,0.71,6.38,other
+dry rice,14.46,3.62,39.53,8.13,7.09,other
+tandoori poha,8.04,1.37,83.87,14.93,0.57,other
+masala cauliflower,13.13,6.9,97.8,4.56,14.72,other
+restaurant style samosa,10.24,1.22,58.22,5.13,0.91,other
+roasted cornflakes,7.37,9.4,31.87,14.45,11.17,other
+with sauce fish,25.17,2.89,80.32,1.93,10.45,protein
+street style beetroot,6.79,3.94,26.0,9.22,13.75,other
+dry milkshake,3.96,3.79,98.61,3.21,9.61,dairy
+high protein dal,12.6,5.91,25.6,7.63,4.88,legume
+high protein capsicum,21.08,2.34,26.24,8.92,1.97,other
+low fat barley,2.18,5.17,91.37,11.31,12.77,other
+roasted onion,2.53,1.15,68.19,9.75,5.8,other
+homemade smoothie,13.68,2.37,38.25,5.61,4.37,other
+paneer,25.34,3.88,42.38,0.27,2.61,dairy
+plain khichdi,0.83,5.87,78.93,8.05,0.92,other
+fried ragi,0.06,9.2,85.17,2.66,12.56,other
+fried boiled egg,19.51,9.41,71.94,6.92,0.06,protein
+dry omelette,7.91,2.81,63.16,0.98,4.04,other
+boiled fried chicken,20.68,3.99,51.6,4.04,10.05,protein
+tandoori apple,8.91,9.06,19.64,11.36,11.51,fruit
+grilled sambar,4.7,9.28,59.17,14.44,0.81,other
+roasted jowar,7.18,4.35,80.38,12.15,1.45,other
+lassi,6.55,3.85,92.19,1.53,10.12,other
+plain butter chicken,15.21,5.13,86.99,3.89,10.53,protein
+donut,13.23,4.63,73.23,13.31,11.89,other
+grilled pomegranate,11.68,1.27,71.19,12.37,5.61,other
+street style cauliflower,4.75,0.61,63.26,2.26,6.48,other
+dry fish curry,11.2,1.48,27.49,0.48,14.23,protein
+dosa,11.17,8.71,59.96,14.68,9.45,other
+masala pear,12.76,7.04,36.57,0.59,11.6,other
+street style mutton curry,18.68,0.42,69.8,3.89,4.64,protein
+spicy cornflakes,12.83,1.28,7.41,7.78,4.85,other
+roasted millet,3.85,7.31,30.94,9.83,2.26,other
+with sauce broccoli,12.88,0.48,91.48,0.2,1.18,other
+restaurant style buttermilk,5.14,0.77,52.64,5.07,8.17,dairy
+street style noodles,8.51,4.97,55.51,6.33,5.71,other
+grilled omelette,11.24,3.5,50.04,2.05,2.42,other
+steamed orange,6.42,0.38,21.61,5.11,0.13,fruit
+with sauce watermelon,3.1,1.22,98.98,6.76,1.15,other
+grilled onion,0.8,8.7,31.37,13.17,11.45,other
+grilled beetroot,5.65,0.01,0.81,2.74,6.46,other
+dry lemon juice,2.34,5.12,26.92,13.55,3.96,other
+plain maize,2.62,6.52,60.57,12.96,8.56,other
+grilled jowar,2.13,4.12,77.4,7.54,8.78,other
+roasted protein shake,17.22,0.91,7.95,7.63,2.81,other
+steamed dal,7.59,5.24,67.02,6.64,5.8,legume
+fried paneer curry,12.02,8.71,59.18,1.93,6.8,dairy
+high protein sambar,22.72,2.49,12.28,14.58,8.81,other
+baked boiled egg,18.86,1.31,55.46,0.79,6.31,protein
+roasted fish curry,29.81,1.02,22.59,1.94,14.05,protein
+with sauce brownie,8.03,0.6,76.36,4.71,12.48,other
+street style cabbage,7.99,2.09,42.31,10.8,10.44,other
+baked corn,2.48,8.73,7.66,14.59,14.27,other
+baked pear,12.98,0.38,22.81,7.89,13.82,other
+street style capsicum,9.67,8.95,80.55,1.84,0.02,other
+low fat upma,0.63,1.63,95.83,3.64,2.34,other
+dry grilled fish,11.36,1.69,63.95,8.23,12.61,protein
+roasted dal,11.55,2.99,89.45,9.49,7.87,legume
+tandoori pasta,9.22,9.17,41.7,8.73,1.67,other
+boiled pear,7.11,6.82,21.25,0.95,6.06,other
+low fat brownie,11.57,2.29,33.36,8.08,3.39,other
+fried onion,8.91,3.37,51.62,5.64,14.23,other
+spicy smoothie,0.14,4.98,76.62,6.88,7.97,other
+steamed lassi,1.23,6.75,36.79,6.37,0.35,other
+low fat omelette,10.24,2.2,3.43,14.71,10.72,other
+boiled beans,14.43,7.68,84.68,0.14,6.73,legume
+with sauce black coffee,13.23,0.99,25.12,13.82,5.01,other
+restaurant style coconut water,14.34,8.96,23.75,5.31,0.36,other
+restaurant style banana,1.07,3.51,8.67,4.39,6.87,fruit
+grilled kidney beans,20.03,4.83,59.1,7.89,3.69,legume
+plain coconut water,6.33,3.52,60.19,7.78,14.76,other
+spicy brown bread,3.45,0.1,96.77,13.15,11.99,other
+baked chana masala,10.19,5.97,3.75,13.58,9.07,legume
+masala cabbage,8.09,2.91,39.39,12.64,11.78,other
+steamed strawberry,12.36,8.79,53.88,11.82,14.46,other
+boiled paneer curry,13.26,2.37,76.76,6.71,13.64,dairy
+restaurant style chapati,12.4,9.75,63.04,10.03,0.4,other
+plain chickpeas,23.27,8.92,59.5,14.52,2.4,other
+tandoori noodles,4.71,6.34,41.13,9.72,14.93,other
+with sauce grape juice,12.69,4.94,17.54,3.78,2.27,other
+masala spinach,0.76,5.72,26.42,14.78,0.52,vegetable
+tandoori rice,5.22,2.46,53.39,2.06,1.82,other
+roasted coconut water,9.55,1.03,90.47,0.7,6.0,other
+boiled chole,2.84,3.33,50.62,13.74,4.84,other
+homemade tea,1.78,1.72,57.58,12.73,1.15,other
+plain pizza,1.6,9.26,57.82,5.7,10.82,other
+baked tofu,18.97,2.69,17.68,11.52,4.26,other
+street style samosa,13.54,1.46,72.03,7.01,8.4,other
+high protein beans,23.47,9.85,92.5,1.23,11.85,legume
+grilled poha,12.85,3.22,78.77,6.85,6.4,other
+masala oats,7.48,0.27,63.01,9.12,10.45,other
+samosa,6.76,7.55,55.01,5.78,1.98,other
+grilled cornflakes,4.7,1.39,71.2,11.67,3.83,other
+spicy kidney beans,22.29,5.38,26.48,3.22,0.58,legume
+plain omelette,11.16,6.48,56.07,13.33,14.72,other
+low fat pasta,3.81,5.23,15.39,9.88,4.73,other
+with sauce corn,7.01,9.65,48.86,2.8,10.37,other
+with sauce potato,4.4,3.19,75.58,3.52,4.45,other
+homemade spinach,11.36,0.16,42.04,6.75,6.45,vegetable
+with sauce paneer,21.27,3.66,26.39,11.35,9.63,dairy
+restaurant style beetroot,13.37,3.54,16.47,10.25,11.39,other
+low fat lettuce,7.76,1.8,95.45,13.78,5.95,other
+high protein aloo gobi,25.8,7.34,55.26,11.69,9.69,other
+with sauce coconut water,4.2,8.58,98.49,0.26,1.0,other
+homemade lentils,10.07,5.86,64.56,7.97,8.78,legume
+low fat banana,8.86,6.55,2.09,0.05,13.5,fruit
+tandoori cornflakes,11.05,8.52,1.96,10.53,4.94,other
+with sauce khichdi,11.45,6.36,37.37,6.54,3.51,other
+fried apple juice,2.73,2.61,88.13,3.36,14.25,fruit
+grilled ragi,5.51,1.18,28.0,9.9,7.17,other
+grilled oats,14.24,6.55,30.97,6.64,4.13,other
+baked buttermilk,2.33,7.38,34.95,9.32,1.63,dairy
+lentils,24.31,6.28,24.94,6.25,11.04,legume
+steamed samosa,4.23,7.37,15.13,7.31,9.86,other
+boiled chickpeas,24.58,1.33,43.54,13.03,5.66,other
+spicy pasta,7.27,9.98,93.38,5.78,3.22,other
+low fat paratha,9.75,7.48,35.44,4.0,9.21,other
+steamed kidney beans,18.27,7.61,56.27,8.75,1.17,legume
+plain guava,8.52,2.65,5.25,3.46,11.02,other
+fish,29.99,0.68,10.56,2.82,7.62,protein
+masala fish curry,14.31,2.94,98.24,3.54,9.73,protein
+fried chana masala,6.32,0.18,61.39,14.91,2.89,legume
+with sauce maize,13.04,0.46,56.65,7.31,5.11,other
+plain strawberry,4.97,4.3,9.19,11.73,10.82,other
+restaurant style soy chunks,11.57,3.44,8.12,13.0,9.77,other
+spicy coffee,7.77,9.83,57.55,13.71,4.75,other
+fried broccoli,11.87,9.31,33.17,0.84,3.08,other
+low fat chicken,26.1,2.63,68.93,3.6,11.52,protein
+low fat butter chicken,14.47,1.0,99.47,10.84,5.57,protein
+high protein millet,14.39,4.69,82.0,4.73,2.6,other
+tandoori beans,23.99,8.76,34.87,1.88,3.52,legume
+roasted semolina,11.86,1.51,58.48,13.83,10.14,other
+high protein rice,12.7,5.41,21.43,14.18,0.86,other
+restaurant style green tea,11.46,5.59,3.47,2.62,5.39,other
+masala noodles,13.58,5.04,51.76,10.33,9.83,other
+dry cauliflower,6.39,7.23,68.01,2.97,12.43,other
+low fat watermelon,4.18,4.78,66.09,2.62,6.85,other
+spicy protein shake,29.57,6.75,88.9,13.24,2.44,other
+dry chapati,14.08,0.4,79.76,7.61,9.33,other
+restaurant style strawberry,14.57,1.0,27.06,3.34,2.46,other
+roasted fried chicken,21.82,8.16,37.25,0.85,3.53,protein
+homemade sambar,14.44,8.8,14.14,10.34,9.2,other
+roasted brownie,0.42,9.33,31.44,7.38,11.0,other
+roasted rice,12.33,9.07,39.94,2.42,9.87,other
+boiled ice cream,4.42,9.83,75.24,9.37,1.97,other
+barley,0.19,8.88,39.83,4.82,2.1,other
+dry broccoli,3.6,0.98,31.14,0.97,1.88,other
+masala rice,8.09,5.8,78.82,5.63,12.25,other
+fried coffee,8.39,0.11,43.07,2.86,1.4,other
+fried coconut water,1.31,7.01,68.79,7.41,0.33,other
+homemade tofu,22.22,8.18,56.99,0.45,7.91,other
+restaurant style chole,2.55,0.02,12.24,12.07,7.94,other
+restaurant style tomato,6.81,0.99,65.82,5.91,13.7,vegetable
+pizza,1.24,1.22,57.58,6.41,12.67,other
+street style peas,12.57,5.61,22.7,6.61,10.53,other
+roasted lassi,13.45,2.98,54.86,12.83,11.2,other
+high protein ice cream,25.25,7.6,85.19,0.12,9.17,other
+restaurant style grape juice,13.9,3.77,80.0,11.62,3.91,other
+restaurant style mango juice,1.44,9.2,79.03,5.89,1.01,fruit
+high protein tofu,10.29,8.84,82.71,3.94,4.98,other
+masala samosa,7.16,5.35,3.9,3.35,14.24,other
+grilled brown bread,3.53,7.42,63.66,8.45,14.6,other
+steamed cauliflower,3.72,8.03,96.45,0.74,5.58,other
+grilled capsicum,6.27,9.02,3.59,6.32,3.91,other
+fried tea,1.19,1.45,31.47,13.3,14.49,other
+with sauce boiled egg,27.27,3.31,80.04,4.67,7.95,protein
+street style fish curry,13.19,2.25,8.35,12.65,11.18,protein
+grilled paneer,29.34,8.44,43.09,9.85,2.02,dairy
+masala mango juice,13.43,6.7,87.8,13.72,5.07,fruit
+low fat onion,2.14,5.53,26.74,2.91,5.59,other
+steamed ice cream,6.34,2.92,90.72,3.9,12.24,other
+plain palak paneer,29.28,7.06,94.02,12.11,9.68,vegetable
+fried pulao,10.89,3.41,72.58,8.02,14.0,other
+spicy guava,13.96,2.5,51.52,7.02,11.88,other
+steamed omelette,4.55,2.81,73.78,11.74,4.99,other
+high protein paneer curry,13.06,4.71,99.19,10.22,12.01,dairy
+dal,6.37,4.69,71.57,0.41,6.73,legume
+baked khichdi,5.36,3.28,55.85,13.93,1.72,other
+masala sambar,13.55,2.9,65.29,6.43,4.82,other
+fried guava,2.39,9.33,24.97,10.52,12.75,other
+boiled grape juice,4.02,0.22,0.24,10.76,0.26,other
+roasted pear,11.22,0.05,3.87,6.38,12.88,other
+boiled tomato,10.53,0.84,83.35,0.52,14.86,vegetable
+dry sambar,7.14,0.4,42.01,7.8,7.96,other
+plain poha,0.57,7.27,50.47,10.48,11.17,other
+low fat chickpeas,27.91,3.02,40.91,1.02,2.06,other
+steamed buttermilk,11.7,6.19,48.66,5.56,3.44,dairy
+boiled kidney beans,18.53,8.6,38.51,7.86,11.91,legume
+fried ice cream,6.07,7.69,1.4,11.25,3.15,other
+street style kiwi,11.67,3.88,41.55,12.58,12.32,other
+low fat chapati,10.48,4.23,66.89,12.4,0.79,other
+masala omelette,10.81,4.26,41.66,6.62,1.73,other
+steamed brown bread,2.97,5.27,54.7,10.88,8.36,other
+restaurant style grapes,1.39,3.34,76.14,4.35,5.08,fruit
+plain green tea,2.64,9.27,17.25,12.11,5.58,other
+grilled cucumber,13.65,6.51,1.85,3.83,10.95,other
+boiled green tea,5.43,9.01,25.01,2.88,3.81,other
+tandoori pizza,7.53,7.31,73.28,9.6,12.73,other
+baked fish curry,25.46,2.31,44.06,6.01,13.79,protein
+boiled apple,13.9,6.85,8.86,4.54,9.59,fruit
+homemade apple,12.68,8.18,10.95,1.33,10.42,fruit
+steamed chicken,24.13,9.6,39.41,13.11,7.68,protein
+roasted mango,14.65,8.49,78.27,3.23,2.24,fruit
+homemade fish curry,29.31,1.04,29.77,14.76,14.43,protein
+roasted tomato,11.81,8.91,70.07,12.97,3.06,vegetable
+street style lentils,28.04,5.85,78.64,13.12,2.4,legume
+dry bread,2.86,9.35,96.18,5.06,10.19,other
+plain sweet potato,12.27,5.27,73.47,4.23,2.18,other
+street style maize,13.34,9.8,96.12,11.74,2.91,other
+restaurant style paratha,0.81,8.83,29.86,6.22,2.17,other
+street style smoothie,2.39,6.91,69.61,11.43,10.19,other
+baked semolina,4.56,2.34,69.42,5.35,3.22,other
+street style pizza,0.6,1.01,28.03,1.14,4.68,other
+dry chicken,27.16,4.58,43.75,4.25,4.66,protein
+spring roll,9.12,5.99,62.33,0.41,7.79,other
+restaurant style lettuce,8.93,0.35,3.72,12.75,2.1,other
+fried semolina,10.47,3.02,60.88,5.47,3.81,other
+homemade dal,11.47,6.45,93.27,8.11,2.01,legume
+steamed spinach,0.71,4.87,49.41,14.9,10.8,vegetable
+homemade pulao,4.88,1.57,34.1,14.56,4.51,other
+high protein peas,16.6,1.1,39.75,13.26,4.28,other
+restaurant style ragi,14.12,7.16,14.64,2.6,4.13,other
+steamed onion,11.21,3.21,96.78,0.92,4.08,other
+low fat strawberry,14.9,8.17,12.92,14.66,10.64,other
+with sauce pakora,6.85,4.3,30.64,4.35,8.2,other
+tandoori chickpeas,26.73,0.23,31.28,4.24,7.94,other
+masala ice cream,2.28,5.87,72.44,0.89,3.27,other
+baked apple,8.37,1.46,43.29,1.39,12.72,fruit
+grilled noodles,7.81,2.34,59.41,3.48,14.85,other
+restaurant style spinach,2.87,6.15,16.64,7.71,2.99,vegetable
+roasted mango juice,13.55,7.93,82.64,1.15,4.76,fruit
+chana masala,1.38,3.28,31.99,3.94,2.14,legume
+steamed fries,4.9,3.83,64.85,10.23,2.62,other
+roasted sambar,5.06,3.68,52.14,14.78,1.52,other
+low fat pizza,10.67,0.97,69.81,4.69,0.81,other
+low fat sweet potato,11.81,3.84,16.85,1.3,4.19,other
+dry millet,5.27,1.07,40.98,0.69,12.25,other
+high protein buttermilk,13.66,2.71,16.92,10.07,3.26,dairy
+with sauce fries,14.55,6.02,30.98,7.95,14.31,other
+street style apple,5.53,0.76,18.74,0.64,7.98,fruit
+fried quinoa,7.88,4.68,61.57,9.24,9.74,other
+street style boiled egg,12.08,0.58,27.17,13.51,9.99,protein
+street style sweet potato,0.34,8.76,31.82,11.26,11.14,other
+baked rajma,10.6,5.14,1.12,4.11,4.08,other
+with sauce pineapple juice,9.98,0.69,19.26,4.12,12.2,fruit
+dry cornflakes,5.12,9.4,54.58,10.09,11.35,other
+tandoori barley,1.12,9.75,40.17,10.6,1.13,other
+low fat tomato,9.54,2.62,44.56,12.44,7.03,vegetable
+kiwi,7.46,2.48,69.64,1.06,8.93,other
+homemade paratha,9.39,0.02,25.59,4.0,2.27,other
+plain semolina,4.03,0.59,86.85,11.42,3.2,other
+grapes,11.95,1.69,75.84,13.38,8.52,fruit
+homemade grape juice,7.51,9.22,62.58,13.36,7.89,other
+street style brinjal,7.42,2.01,42.63,10.74,12.95,other
+masala nachos,5.43,4.25,74.49,12.0,4.89,other
+dry paneer,28.65,0.46,43.63,1.46,0.25,dairy
+low fat carrot,5.37,1.33,6.53,14.24,6.85,vegetable
+steamed brownie,13.55,4.19,37.62,7.7,13.39,other
+plain nachos,6.57,9.57,14.23,2.09,14.23,other
+steamed banana,11.54,4.27,62.57,12.96,14.54,fruit
+roasted maize,9.08,7.29,88.86,4.12,7.65,other
+fried apple,6.1,3.68,42.86,7.35,6.78,fruit
+street style soy chunks,22.01,5.48,48.56,8.21,1.08,other
+fried lettuce,5.75,2.97,2.27,11.57,7.1,other
+restaurant style pineapple juice,14.16,5.16,95.27,0.56,6.72,fruit
+tandoori mutton curry,25.81,3.26,12.95,12.07,0.24,protein
+fried chole,5.62,0.88,24.08,1.34,7.15,other
+upma,4.47,5.51,17.43,5.11,12.26,other
+plain grilled chicken,18.64,6.86,63.42,6.08,1.65,protein
+steamed pear,10.1,9.7,45.43,6.15,8.41,other
+boiled pineapple,12.77,6.98,10.11,5.8,12.44,fruit
+brown bread,2.42,0.19,56.23,12.87,8.79,other
+plain tofu,17.67,3.02,6.61,12.96,4.44,other
+spicy burger,5.23,0.09,55.09,3.93,0.03,other
+boiled guava,3.24,7.48,84.63,9.44,10.88,other
+high protein soy chunks,26.24,9.64,25.04,7.54,0.06,other
+dry orange,3.75,4.5,68.15,11.49,13.26,fruit
+smoothie,2.21,8.61,43.55,12.02,11.24,other
+fried donut,11.75,9.12,84.01,11.6,5.49,other
+high protein samosa,27.25,6.18,60.97,3.12,7.37,other
+spicy capsicum,3.96,0.41,47.67,3.84,7.28,other
+restaurant style cauliflower,12.22,4.63,1.82,14.87,4.17,other
+homemade pasta,8.66,1.32,80.5,5.41,10.51,other
+baked dosa,12.65,1.62,87.37,1.88,4.71,other
+steamed boiled egg,27.7,2.44,47.45,0.79,3.39,protein
+steamed tea,9.13,4.65,29.01,2.3,0.53,other
+restaurant style boiled egg,22.45,3.55,45.15,6.97,10.03,protein
+homemade nachos,3.17,3.74,73.17,2.31,5.86,other
+homemade spring roll,13.69,8.75,64.08,8.26,9.49,other
+restaurant style rice,14.22,0.87,14.25,6.38,10.24,other
+dry apple juice,3.72,9.77,67.96,7.84,0.41,fruit
+roasted aloo gobi,0.27,0.81,31.71,4.28,8.6,other
+steamed pizza,2.39,8.17,20.92,14.02,14.8,other
+masala strawberry,12.86,4.5,76.45,1.94,9.39,other
+restaurant style rasam,11.28,1.61,88.0,6.67,0.07,other
+boiled brownie,6.74,5.71,87.37,0.88,0.71,other
+plain kiwi,0.65,0.98,71.42,13.72,3.03,other
+with sauce blueberry,9.15,3.13,20.09,14.74,0.98,other
+dry guava,5.78,2.4,86.9,1.91,14.56,other
+steamed sweet potato,13.06,1.91,19.84,2.12,6.3,other
+steamed tomato,2.3,9.58,83.79,5.56,4.8,vegetable
+steamed milkshake,10.06,8.54,48.14,0.74,1.23,dairy
+street style spring roll,14.25,4.09,23.43,9.65,9.63,other
+high protein omelette,23.63,0.85,59.18,9.57,1.93,other
+masala beetroot,11.05,0.13,49.3,6.86,0.53,other
+homemade broccoli,5.29,7.63,50.04,0.9,10.32,other
+spicy nachos,5.82,6.99,7.05,2.26,11.43,other
+low fat spring roll,0.97,3.93,29.48,6.52,8.19,other
+with sauce dosa,4.72,5.43,66.35,2.87,4.71,other
+with sauce lemon juice,12.18,4.67,86.48,1.76,7.18,other
+roasted chole,0.02,1.38,52.48,4.73,11.36,other
+tandoori cake,13.34,5.57,67.23,14.44,11.19,other
+steamed cabbage,2.42,6.09,71.24,14.37,9.69,other
+dry palak paneer,21.48,6.0,15.29,7.28,4.39,vegetable
+baked coconut water,0.71,3.57,22.17,0.34,13.67,other
+restaurant style grilled fish,22.38,9.62,18.2,5.64,3.07,protein
+baked sambar,1.09,2.65,8.04,13.32,13.53,other
+masala papaya,9.7,1.45,16.69,9.23,4.53,fruit
+fried noodles,10.19,3.06,32.21,8.64,12.98,other
+high protein ragi,24.99,6.92,36.15,4.49,1.6,other
+with sauce millet,1.34,6.15,46.54,5.11,5.0,other
+lettuce,12.94,8.41,96.46,0.52,7.02,other
+corn,3.26,3.16,98.51,5.28,4.9,other
+fried tofu,14.27,8.78,10.82,6.65,0.97,other
+steamed broccoli,1.94,8.43,61.11,8.16,14.87,other
+onion,14.63,7.45,8.02,8.05,9.51,other
+boiled jowar,4.46,5.76,84.88,4.65,4.74,other
+restaurant style cornflakes,8.36,5.1,94.27,3.32,0.86,other
+steamed pomegranate,11.99,8.26,88.27,12.32,13.35,other
+low fat corn,10.63,0.14,60.98,2.71,11.98,other
+grilled pear,6.71,7.77,42.81,8.13,2.81,other
+boiled pulao,13.9,0.32,6.69,10.83,9.6,other
+tandoori khichdi,9.99,5.25,75.17,5.72,7.13,other
+boiled tofu,13.33,3.15,49.33,1.82,3.82,other
+street style pineapple juice,13.15,0.81,64.13,6.15,7.71,fruit
+restaurant style poha,7.65,4.36,63.85,5.74,12.78,other
+low fat sambar,10.08,9.7,71.1,2.25,7.86,other
+grilled bread,4.69,1.79,53.5,2.93,12.76,other
+fried omelette,7.39,1.22,52.75,8.82,7.17,other
+dry blueberry,4.1,2.05,87.81,9.86,9.32,other
+steamed jowar,4.94,2.94,45.21,13.56,2.02,other
+with sauce spinach,5.28,1.76,71.48,13.28,0.89,vegetable
+restaurant style corn,5.18,7.29,65.64,6.64,14.48,other
+boiled millet,12.04,6.82,10.14,11.37,12.37,other
+with sauce rice,13.01,5.54,60.3,5.57,9.27,other
+street style pomegranate,13.69,0.53,49.57,9.39,10.24,other
+roasted chana masala,1.88,2.87,38.42,12.46,13.13,legume
+restaurant style pasta,9.98,6.15,77.42,8.4,1.14,other
+boiled rasam,6.73,7.06,88.16,7.62,5.97,other
+plain boiled egg,19.54,7.93,55.18,9.63,1.68,protein
+homemade kiwi,13.96,7.15,78.27,9.91,7.9,other
+spicy tofu,27.39,6.89,40.82,4.86,0.26,other
+fish curry,10.07,8.91,12.81,3.24,6.92,protein
+paratha,4.53,3.25,37.71,9.87,7.7,other
+low fat soy chunks,23.28,8.7,80.6,8.51,5.96,other
+roasted poha,4.49,9.13,24.22,2.96,14.22,other
+tandoori lassi,6.63,5.83,85.44,14.81,10.32,other
+spicy brownie,10.75,3.64,68.63,9.28,7.78,other
+spicy mutton,17.2,6.4,82.98,4.2,9.91,protein
+low fat mango,11.14,3.89,2.67,12.1,12.08,fruit
+with sauce samosa,13.22,9.84,14.39,3.21,6.25,other
+fried brown bread,3.9,5.83,86.81,12.93,11.16,other
+plain orange,13.59,0.92,34.95,4.94,1.24,fruit
+homemade fish,28.41,9.95,29.07,14.63,4.56,protein
+fried chapati,11.46,1.88,34.93,13.15,13.63,other
+low fat rasam,11.33,3.45,35.09,8.23,0.13,other
+steamed peas,0.77,3.45,9.8,13.67,13.13,other
+dry soy chunks,28.03,5.52,66.4,9.47,9.18,other
+spicy onion,10.29,6.11,85.4,11.12,11.3,other
+cucumber,10.19,9.16,81.96,3.71,4.0,other
+fried capsicum,14.68,3.23,97.62,10.57,12.5,other
+spicy chicken,18.09,3.32,29.05,14.55,2.07,protein
+roasted boiled egg,23.68,0.11,36.9,2.8,8.37,protein
+tandoori rajma,1.46,1.06,34.87,14.95,6.52,other
+banana,3.7,3.81,40.19,14.38,8.31,fruit
+fried potato,13.23,9.49,68.2,7.47,7.62,other
+homemade banana,6.9,5.0,25.61,10.99,10.2,fruit
+boiled broccoli,4.37,0.78,4.63,12.91,10.28,other
+dry carrot,8.94,1.31,56.36,2.96,10.68,vegetable
+with sauce aloo gobi,2.56,8.43,65.75,8.14,11.65,other
+baked orange,5.23,7.15,75.9,5.91,6.7,fruit
+street style brownie,5.01,7.64,13.69,9.29,12.58,other
+tandoori milkshake,5.21,7.63,5.87,6.85,13.17,dairy
+plain tomato,10.27,9.09,9.26,10.67,12.1,vegetable
+high protein cornflakes,25.56,7.45,79.76,7.06,9.29,other
+with sauce apple,4.24,6.33,62.13,9.28,13.19,fruit
+with sauce paneer curry,15.57,6.37,50.98,13.98,1.02,dairy
+street style paneer curry,20.26,3.93,61.03,2.3,9.36,dairy
+masala green tea,12.15,5.01,7.17,7.13,6.64,other
+spicy strawberry,5.97,3.69,44.16,14.12,5.64,other
+spicy orange juice,3.6,0.11,68.64,13.1,13.92,fruit
+street style dal,11.65,2.28,82.66,12.7,4.3,legume
+homemade sandwich,5.21,1.24,5.72,12.36,6.22,other
+roasted mutton,10.23,4.38,65.19,0.19,2.84,protein
+apple juice,12.22,3.68,17.09,9.1,0.81,fruit
+masala grape juice,12.53,5.45,30.33,10.34,10.25,other
+steamed butter chicken,25.41,7.79,92.53,6.34,14.54,protein
+grilled pizza,6.84,9.4,42.41,0.56,13.09,other
+low fat fried chicken,11.25,6.64,81.81,2.5,13.5,protein
+roasted green tea,14.26,1.02,12.37,3.27,1.78,other
+high protein black coffee,13.11,6.56,16.38,11.06,9.92,other
+steamed apple,11.4,6.08,79.36,0.63,8.91,fruit
+masala fish,22.27,4.44,39.02,3.18,3.86,protein
+tandoori paneer curry,15.34,8.92,19.63,13.45,4.65,dairy
+baked chickpeas,28.72,6.92,13.03,6.82,0.03,other
+high protein nachos,27.89,6.06,26.23,8.95,11.96,other
+low fat brinjal,12.4,4.01,60.24,13.82,1.56,other
+with sauce pineapple,14.01,9.31,94.96,0.58,0.48,fruit
+boiled cake,8.42,2.66,94.24,1.28,10.25,other
+grilled fish,18.17,6.38,39.93,14.14,10.5,protein
+blueberry,10.96,2.09,1.52,4.37,9.8,other
+tandoori dal,8.82,2.55,23.93,1.91,5.07,legume
+spicy lemon juice,14.83,2.99,75.79,13.27,1.18,other
+spicy chapati,2.84,2.36,40.19,4.26,12.49,other
+high protein khichdi,14.05,4.02,46.2,6.74,3.97,other
+sandwich,10.18,9.23,64.63,5.43,13.28,other
+with sauce egg,23.91,0.69,82.04,10.31,0.25,protein
+spicy dosa,5.4,0.11,45.61,5.92,8.48,other
+street style coconut water,6.09,4.94,95.44,5.66,14.77,other
+dry paratha,6.32,8.72,69.27,4.63,14.99,other
+with sauce nachos,4.43,2.35,6.53,12.92,14.63,other
+grilled mango juice,12.95,1.47,67.61,5.6,1.66,fruit
+homemade grapes,1.48,4.22,97.43,13.2,0.11,fruit
+grilled dal,11.15,7.77,55.33,3.29,11.25,legume
+with sauce sambar,14.43,5.83,88.41,3.46,0.15,other
+low fat mutton,23.17,0.18,90.06,11.12,3.72,protein
+masala sweet potato,1.84,7.12,26.43,8.09,11.22,other
+baked pizza,7.5,4.92,49.65,9.32,2.14,other
+homemade papaya,8.42,1.06,13.47,3.73,10.28,fruit
+grilled fried chicken,23.23,1.03,8.93,10.74,2.25,protein
+tandoori apple juice,3.7,2.22,48.77,11.08,5.13,fruit
+restaurant style paneer curry,20.99,0.85,88.54,0.89,12.12,dairy
+grilled chole,1.62,7.0,73.27,0.7,8.19,other
+homemade palak paneer,20.48,3.24,5.34,5.26,11.83,vegetable
+boiled barley,12.66,6.85,36.44,11.7,6.48,other
+boiled orange juice,0.11,1.92,82.75,3.87,10.14,fruit
+tea,6.59,9.89,61.75,7.7,11.33,other
+grilled cake,6.73,4.97,76.16,6.46,14.67,other
+boiled boiled egg,15.74,7.74,51.7,8.08,3.92,protein
+spicy bread,14.47,9.86,9.68,1.55,11.29,other
+roasted grilled fish,22.02,8.36,87.56,1.21,2.06,protein
+grilled orange juice,7.55,3.14,39.12,3.59,14.12,fruit
+high protein rasam,23.21,0.18,55.71,4.55,5.18,other
+street style cake,9.2,4.65,26.47,11.78,8.23,other
+steamed pasta,8.87,8.84,79.9,14.05,14.8,other
+black coffee,11.45,9.66,54.27,9.74,13.79,other
+cake,14.93,6.47,38.75,11.62,10.74,other
+sweet potato,0.27,5.45,92.34,3.79,3.92,other
+homemade beans,28.77,8.3,10.08,12.71,11.18,legume
+milkshake,0.36,7.85,30.89,12.51,0.05,dairy
+fried fish,11.84,6.14,29.6,2.7,13.64,protein
+spicy green tea,13.77,9.2,34.26,2.37,14.03,other
+restaurant style onion,11.92,4.68,85.37,2.73,12.56,other
+fried biryani,1.87,7.1,23.71,2.02,12.88,other
+high protein oats,27.38,2.6,67.21,8.49,13.33,other
+street style poha,12.82,5.38,78.79,0.94,8.58,other
+fried mango juice,6.6,7.05,70.84,13.48,10.08,fruit
+boiled ragi,3.54,3.73,68.37,2.32,14.2,other
+high protein papaya,23.92,2.41,59.49,3.99,4.36,fruit
+homemade donut,2.35,5.8,85.5,14.65,9.86,other
+with sauce chana masala,5.37,9.24,5.34,2.24,6.09,legume
+baked egg,14.25,0.19,23.51,1.34,0.77,protein
+masala pakora,1.69,3.76,80.51,1.79,0.99,other
+low fat soft drink,13.9,2.95,75.39,1.78,2.35,other
+plain banana,0.89,6.84,66.65,1.64,10.17,fruit
+boiled soft drink,6.15,2.52,42.87,6.48,11.94,other
+with sauce tea,7.94,4.55,17.82,13.76,0.01,other
+tandoori blueberry,12.66,1.9,52.1,6.21,12.76,other
+high protein idli,10.87,8.66,27.16,8.5,0.14,other
+low fat peas,4.55,2.82,41.47,13.76,0.04,other
+street style strawberry,13.23,3.36,24.47,6.61,11.57,other
+homemade boiled egg,13.58,6.01,34.6,11.93,10.33,protein
+masala corn,1.03,6.75,60.72,13.93,3.56,other
+dry buttermilk,0.86,4.17,65.1,5.4,5.48,dairy
+fried orange,9.12,2.7,6.21,3.95,6.29,fruit
+fried spring roll,4.08,6.13,33.94,9.35,2.9,other
+orange,9.1,6.9,64.34,12.86,7.16,fruit
+fried egg,20.1,9.3,50.09,5.33,14.95,protein
+plain aloo gobi,4.63,2.68,97.86,4.24,3.86,other
+fried pizza,4.13,9.2,84.49,0.45,6.17,other
+restaurant style sandwich,4.5,6.12,99.16,3.87,1.8,other
+masala black coffee,13.05,3.31,54.54,11.04,13.13,other
+ragi,6.69,6.0,96.25,5.53,14.93,other
+homemade bread,9.58,3.02,45.23,12.9,1.65,other
+roasted lemon juice,14.22,6.72,97.08,2.05,1.7,other
+tandoori dosa,11.99,5.01,77.8,8.74,1.23,other
+street style pulao,8.13,9.57,62.25,13.62,2.13,other
+plain fried chicken,13.27,1.75,71.26,8.46,8.94,protein
+fried blueberry,7.84,9.5,4.08,11.35,9.69,other
+roasted carrot,11.38,3.21,48.81,4.78,10.07,vegetable
+grilled tomato,5.14,4.47,29.8,9.99,4.04,vegetable
+baked aloo gobi,11.12,2.82,67.01,4.85,6.4,other
+boiled bread,7.88,6.29,78.3,14.15,11.63,other
+steamed paratha,12.05,0.93,85.84,8.86,1.94,other
+orange juice,3.12,3.83,4.83,5.04,4.63,fruit
+baked carrot,0.89,1.78,23.04,12.34,4.96,vegetable
+broccoli,8.9,4.63,5.64,3.17,14.02,other
+steamed mutton curry,26.62,7.83,57.68,14.8,3.05,protein
+dry fries,1.27,8.39,3.65,9.28,1.1,other
+dry mutton curry,14.5,2.95,33.93,0.04,7.89,protein
+restaurant style mutton curry,22.78,0.98,28.16,11.33,0.52,protein
+baked capsicum,10.48,1.3,82.06,7.26,11.1,other
+protein shake,27.54,9.9,68.88,8.22,14.1,other
+tandoori lemon juice,10.52,6.75,61.84,12.83,7.73,other
+baked lemon juice,1.2,0.96,83.17,2.19,9.53,other
+rajma,4.41,0.76,7.2,2.53,8.13,other
+roasted quinoa,13.2,9.32,63.37,7.57,10.15,other
+dry beetroot,6.9,7.05,32.94,5.04,14.34,other
+dry ice cream,4.54,3.54,63.69,13.81,2.27,other
+baked quinoa,2.11,1.69,42.34,8.51,7.18,other
+tandoori pineapple,13.75,8.55,58.96,6.29,2.86,fruit
+with sauce sandwich,11.96,1.53,69.6,8.71,3.6,other
+spicy papaya,3.22,6.45,52.57,11.44,14.31,fruit
+boiled sandwich,9.41,7.44,33.66,8.29,1.02,other
+homemade buttermilk,14.63,1.77,83.71,11.95,0.4,dairy
+restaurant style orange,5.76,5.44,89.32,2.91,2.49,fruit
+masala aloo gobi,3.41,2.3,15.54,12.75,9.32,other
+masala chana masala,3.19,2.56,35.22,14.15,8.19,legume
+baked cucumber,13.67,4.57,91.34,10.36,10.47,other
+steamed kiwi,0.05,7.4,56.19,12.41,14.56,other
+fried chicken,19.29,0.91,43.97,10.8,1.79,protein
+baked sandwich,12.99,1.73,22.22,10.27,8.64,other
+street style fried chicken,11.6,9.74,85.49,7.87,14.94,protein
+boiled orange,14.73,9.23,21.13,2.23,2.73,fruit
+steamed apple juice,8.18,6.45,57.09,1.45,2.03,fruit
+roasted noodles,13.64,4.46,71.64,12.09,13.04,other
+cabbage,6.82,3.93,52.8,10.12,11.24,other
+pear,7.27,5.51,57.72,2.42,6.21,other
+fried fried chicken,25.34,3.14,33.23,11.2,12.26,protein
+street style donut,12.99,4.11,19.86,1.32,13.05,other
+fried lassi,9.23,6.38,99.03,8.89,5.55,other
+steamed capsicum,4.42,1.03,25.24,9.62,4.5,other
+tandoori millet,5.83,5.27,92.07,4.37,0.65,other
+low fat nachos,4.54,0.35,79.38,3.18,12.98,other
+dry smoothie,10.75,9.94,22.25,4.81,8.39,other
+street style semolina,1.32,9.53,11.57,5.82,7.5,other
+strawberry,9.83,5.08,51.55,9.4,13.31,other
+restaurant style tofu,27.53,5.42,12.88,11.05,14.75,other
+high protein semolina,20.45,3.52,69.91,11.79,10.61,other
+with sauce cauliflower,11.11,2.17,36.38,11.08,2.76,other
+with sauce burger,0.92,7.91,41.04,14.51,5.07,other
+grilled ice cream,8.18,4.08,79.46,4.38,13.26,other
+high protein chicken,13.24,3.68,51.85,5.93,14.61,protein
+street style blueberry,6.66,7.39,28.3,9.13,9.53,other
+with sauce rajma,9.42,7.05,12.84,9.24,13.31,other
+masala lemon juice,6.7,5.11,98.58,5.32,5.5,other
+grilled semolina,7.01,1.95,41.47,10.56,7.14,other
+tandoori potato,6.56,1.4,12.46,1.68,10.28,other
+homemade soft drink,0.75,7.69,40.31,6.22,4.77,other
+plain corn,4.88,3.65,69.21,11.55,2.56,other
+lemon juice,11.73,2.62,58.46,1.01,11.68,other
+roasted rajma,13.81,6.33,55.32,10.42,11.92,other
+tandoori orange,13.75,3.08,0.88,5.48,5.51,fruit
+high protein lemon juice,28.86,7.25,69.9,9.22,5.58,other
+restaurant style millet,4.16,2.63,28.82,12.64,12.72,other
+tandoori fish,27.66,0.28,7.92,1.0,14.73,protein
+spicy beans,15.96,1.8,53.77,6.46,4.94,legume
+grilled upma,6.21,6.44,37.66,5.8,1.28,other
+plain fish curry,21.64,3.77,74.6,9.49,13.76,protein
+fried pineapple,5.74,9.31,85.16,13.91,11.5,fruit
+tandoori samosa,7.15,3.68,87.99,5.32,6.51,other
+with sauce oats,12.49,8.66,14.16,1.61,1.62,other
+homemade strawberry,9.54,7.22,82.58,7.08,6.91,other
+boiled mutton curry,18.01,6.28,22.45,11.5,11.48,protein
+restaurant style semolina,3.0,4.86,20.75,5.54,7.26,other
+spicy banana,6.61,6.47,48.32,3.84,2.18,fruit
+high protein tea,21.07,2.41,63.56,5.45,4.17,other
+tandoori bread,14.89,6.07,10.93,0.52,8.79,other
+high protein maize,23.74,1.66,61.91,6.23,13.28,other
+street style green tea,1.38,6.27,99.6,6.49,8.81,other
+baked barley,9.86,2.46,31.05,4.03,13.57,other
+low fat khichdi,4.7,5.4,45.01,0.95,5.68,other
+low fat pineapple,11.56,0.11,37.43,8.47,0.81,fruit
+plain spring roll,2.83,5.0,32.92,11.31,9.24,other
+restaurant style apple juice,3.93,6.52,25.65,3.7,1.14,fruit
+spicy cake,7.96,6.25,54.27,14.34,11.22,other
+roasted brinjal,4.39,3.6,70.08,8.43,14.82,other
+grilled chicken,14.8,7.53,20.43,13.87,6.01,protein
+roasted banana,4.68,0.95,27.12,7.64,3.36,fruit
+grilled lassi,10.26,7.45,82.28,2.68,8.53,other
+high protein orange,25.06,0.24,41.91,13.7,12.44,fruit
+homemade grilled chicken,29.71,5.87,47.11,2.9,1.08,protein
+steamed soft drink,6.1,3.03,59.41,11.89,9.59,other
+tandoori biryani,3.61,6.04,64.32,3.52,10.61,other
+grilled chickpeas,15.98,6.4,95.64,3.58,3.99,other
+restaurant style potato,14.46,0.89,76.42,2.66,7.31,other
+high protein kiwi,28.19,2.87,8.72,2.17,10.42,other
+fried dal,10.26,5.07,9.98,7.08,2.98,legume
+rasam,5.18,6.01,6.33,8.26,6.53,other
+masala tea,14.56,1.61,29.71,7.56,11.01,other
+restaurant style brinjal,5.32,3.14,26.94,5.12,13.76,other
+masala protein shake,21.61,2.15,78.46,12.21,9.68,other
+baked jowar,12.17,3.17,1.82,10.07,9.96,other
+boiled fish,15.49,3.57,36.95,10.92,6.15,protein
+restaurant style protein shake,28.35,7.65,48.37,11.88,7.99,other
+steamed maize,10.54,4.66,24.17,1.57,13.04,other
+tandoori spinach,14.05,9.91,86.32,8.86,7.36,vegetable
+baked dal,4.08,7.0,72.24,2.23,7.3,legume
+brinjal,6.06,8.65,34.09,9.41,10.97,other
+spicy palak paneer,29.53,6.85,25.47,10.74,14.11,vegetable
+dry chana masala,10.91,1.77,41.77,7.29,14.59,legume
+with sauce bread,12.37,0.12,38.67,13.47,11.75,other
+masala grapes,6.92,0.12,2.24,8.43,3.69,fruit
+fried green tea,0.07,2.39,24.6,9.26,13.04,other
+low fat fish,23.37,6.04,7.4,12.15,5.12,protein
+dry pear,13.03,5.51,23.9,10.39,5.56,other
+homemade corn,4.62,4.03,7.93,3.1,1.2,other
+grilled coconut water,1.03,9.86,2.02,13.24,0.99,other
+low fat fries,14.01,8.36,23.72,11.47,0.97,other
+street style soft drink,7.65,5.54,80.97,0.56,7.32,other
+low fat dosa,14.31,1.57,67.6,10.3,1.1,other
+boiled lemon juice,4.1,1.87,72.8,5.01,8.05,other
+steamed grilled chicken,12.42,3.5,79.49,4.12,14.76,protein
+high protein sandwich,10.21,5.41,31.83,12.1,5.53,other
+street style chicken,26.32,7.08,69.21,1.18,14.34,protein
+street style tea,14.91,5.15,78.52,9.57,0.75,other
+street style chana masala,0.57,5.72,3.91,2.97,8.24,legume
+steamed bread,6.44,3.66,54.96,3.55,1.48,other
+tandoori corn,11.48,6.33,4.35,9.25,0.88,other
+tandoori pear,0.96,2.58,42.12,8.81,9.61,other
+high protein guava,21.98,4.81,84.81,14.2,6.86,other
+carrot,5.14,7.6,52.42,0.67,1.29,vegetable
+poha,10.02,3.81,99.32,12.28,14.22,other
+tandoori brinjal,2.72,1.58,30.1,0.04,0.14,other
+dry potato,0.88,8.97,84.71,12.43,4.91,other
+spicy kiwi,5.46,9.49,99.38,3.55,11.43,other
+plain apple,2.55,5.77,95.82,11.86,9.95,fruit
+tandoori semolina,4.87,6.72,30.84,7.66,9.45,other
+dry soft drink,13.52,2.03,58.59,12.79,13.76,other
+steamed rasam,9.83,6.12,67.06,12.37,8.56,other
+low fat orange juice,7.69,2.84,42.88,1.59,8.63,fruit
+plain oats,0.36,5.23,32.81,12.94,6.54,other
+with sauce chicken,29.92,3.08,34.19,7.09,14.56,protein
+spicy soft drink,6.18,5.13,20.58,0.21,11.54,other
+spicy donut,8.69,3.35,49.11,2.47,8.51,other
+homemade brinjal,14.73,4.06,93.27,11.81,4.13,other
+steamed fish,10.91,2.08,54.53,14.86,8.98,protein
+fried pear,0.67,4.91,14.33,12.14,4.89,other
+restaurant style lemon juice,11.68,6.49,35.66,0.16,5.06,other
+fried cabbage,7.69,8.69,78.36,6.14,6.19,other
+roasted beetroot,6.96,3.66,4.48,9.16,6.98,other
+restaurant style burger,2.29,3.68,51.75,13.72,1.88,other
+tandoori tea,13.3,2.74,94.72,12.42,10.87,other
+steamed sandwich,9.66,2.82,67.31,11.42,5.92,other
+roasted broccoli,5.29,7.98,1.0,5.98,13.2,other
+steamed fried chicken,26.68,3.19,4.14,3.1,1.08,protein
+fried poha,12.3,3.27,61.31,8.93,6.96,other
+roasted lettuce,9.93,2.54,21.74,13.0,8.96,other
+plain pakora,2.16,7.27,74.49,14.17,12.82,other
+grilled kiwi,11.91,8.72,10.0,2.12,8.53,other
+restaurant style kiwi,4.09,8.6,75.72,4.69,9.74,other
+homemade coffee,7.6,3.72,38.57,3.66,14.84,other
+grilled lemon juice,12.12,2.45,69.17,8.45,8.54,other
+tandoori paratha,4.73,3.65,86.53,10.92,2.86,other
+restaurant style pomegranate,1.36,7.25,83.23,13.15,5.04,other
+roasted apple,8.53,1.45,85.56,6.51,10.5,fruit
+masala coconut water,13.64,7.99,54.96,1.76,9.09,other
+street style chole,2.68,0.25,52.71,7.38,4.96,other
+street style nachos,0.58,7.63,89.74,14.64,5.39,other
+baked milkshake,11.78,4.05,76.08,0.97,3.46,dairy
+baked beans,19.2,3.99,8.51,6.15,13.64,legume
+grilled rajma,8.53,5.88,6.0,6.6,7.53,other
+fried cornflakes,9.47,4.1,69.77,6.98,5.64,other
+tandoori rasam,13.3,4.74,22.67,6.71,14.06,other
+with sauce idli,8.24,4.47,92.68,2.5,12.77,other
+plain quinoa,1.77,6.03,56.1,8.54,7.6,other
+boiled idli,7.73,3.84,16.59,9.74,9.73,other
+boiled lettuce,12.57,7.17,54.27,9.02,11.79,other
+masala lentils,14.63,2.29,38.87,2.23,3.4,legume
+homemade apple juice,8.33,1.13,73.2,13.2,7.65,fruit
+paneer curry,11.15,6.91,65.43,2.19,14.81,dairy
+tandoori ice cream,0.45,2.57,1.66,10.26,8.1,other
+spicy samosa,12.04,5.54,68.53,6.67,13.32,other
+boiled cornflakes,2.26,4.89,98.05,11.4,10.81,other
+plain chana masala,9.15,0.98,60.78,0.7,0.36,legume
+low fat buttermilk,14.19,5.92,34.34,11.98,13.69,dairy
+low fat broccoli,2.72,9.2,15.14,14.14,4.49,other
+nachos,0.35,9.45,76.64,11.67,7.76,other
+street style barley,8.4,8.18,27.9,7.95,7.48,other
+street style pasta,4.1,9.03,20.1,3.96,14.57,other
+street style ragi,0.53,5.25,18.82,13.22,1.82,other
+with sauce soy chunks,18.43,7.51,86.11,3.71,9.38,other
+restaurant style egg,22.23,6.64,39.08,7.57,11.52,protein
+masala pomegranate,1.14,0.74,74.18,12.16,13.16,other
+masala broccoli,6.03,6.87,97.31,0.89,11.0,other
+grilled orange,0.36,0.43,99.17,5.32,4.43,fruit
+roasted rasam,8.68,4.49,47.05,12.94,12.93,other
+pineapple,12.29,9.37,87.91,13.01,0.61,fruit
+street style onion,13.12,9.34,21.59,1.43,12.52,other
+homemade semolina,11.31,5.51,4.05,2.59,5.83,other
+masala chapati,11.3,4.9,30.57,13.48,5.0,other
+roasted strawberry,6.77,3.11,63.41,7.12,8.91,other
+low fat apple juice,11.04,6.07,53.79,7.99,10.6,fruit
+grilled sandwich,14.46,3.54,85.34,12.92,9.16,other
+boiled pineapple juice,13.63,9.5,98.2,13.11,11.71,fruit
+boiled lentils,21.26,1.1,66.76,2.54,9.09,legume
+boiled soy chunks,18.15,9.4,2.49,10.78,4.16,other
+tandoori egg,21.21,0.07,28.15,13.47,8.64,protein
+fried pomegranate,2.27,2.53,33.22,2.09,11.49,other
+roasted chapati,5.84,7.06,61.75,11.23,13.83,other
+plain grilled fish,24.12,1.2,93.87,9.13,14.43,protein
+with sauce pulao,4.5,2.48,50.44,4.97,11.92,other
+masala peas,2.97,3.45,83.5,10.55,6.15,other
+boiled onion,0.25,8.79,2.12,4.77,9.0,other
+with sauce jowar,6.17,7.35,46.04,8.22,9.78,other
+boiled mutton,27.87,0.27,27.62,9.31,12.08,protein
+high protein brown bread,17.99,4.58,43.02,13.63,14.26,other
+roasted pakora,14.89,5.38,26.93,12.78,14.96,other
+fried smoothie,4.19,7.69,64.44,8.04,8.42,other
+baked brown bread,4.36,1.29,99.99,13.87,9.66,other
+spicy khichdi,10.12,1.87,8.47,4.67,2.65,other
+street style sandwich,6.16,5.09,4.12,7.19,2.93,other
+with sauce cake,8.88,0.96,11.15,1.28,4.53,other
+steamed fish curry,16.05,9.44,93.53,14.9,0.69,protein
+plain mutton curry,29.99,9.74,27.72,12.98,2.27,protein
+steamed guava,14.51,4.2,63.51,11.86,3.33,other
+baked burger,7.84,1.71,12.37,1.16,13.73,other
+homemade chapati,9.4,7.31,95.43,0.35,0.25,other
+chickpeas,22.7,0.17,56.02,9.11,8.63,other
+homemade cucumber,14.53,8.26,69.01,9.44,7.63,other
+roasted smoothie,1.42,8.53,68.1,6.92,2.49,other
+dry sandwich,14.81,2.39,83.95,11.12,4.26,other
+low fat fish curry,12.32,4.55,44.32,11.05,12.53,protein
+street style egg,27.53,2.67,67.22,8.09,4.51,protein
+high protein spring roll,14.98,3.08,96.19,9.11,6.32,other
+plain coffee,10.72,2.38,93.61,10.58,0.77,other
+boiled spring roll,8.2,9.86,96.69,11.01,0.23,other
+tandoori sandwich,5.4,4.34,5.86,4.47,5.47,other
+dry poha,4.51,5.89,59.92,2.08,8.01,other
+spicy ragi,8.35,7.98,71.56,11.42,10.2,other
+spicy paneer,19.21,0.48,2.72,3.81,0.44,dairy
+street style coffee,12.65,5.38,22.23,11.85,1.91,other
+homemade rasam,12.45,8.05,98.09,3.17,0.02,other
+steamed donut,3.75,9.28,12.59,9.18,14.8,other
+boiled oats,2.87,1.58,46.16,10.93,12.68,other
+plain pineapple,10.62,6.88,26.17,12.63,8.78,fruit
+boiled samosa,11.84,4.96,8.84,11.82,4.37,other
+tandoori jowar,5.61,7.61,77.31,7.25,0.66,other
+grilled mango,3.91,1.86,32.4,6.53,2.16,fruit
+with sauce apple juice,10.3,3.57,59.29,12.35,6.52,fruit
+high protein pineapple juice,11.75,3.43,37.72,6.17,4.81,fruit
+with sauce pizza,11.95,9.05,15.63,5.74,9.38,other
+steamed pineapple,14.68,2.82,56.65,7.35,4.19,fruit
+boiled pizza,6.27,8.35,14.62,8.07,13.37,other
+low fat quinoa,13.51,0.46,65.34,11.84,2.7,other
+street style broccoli,12.62,7.31,21.86,7.93,14.75,other
+low fat millet,12.91,5.26,6.05,1.15,12.14,other
+baked brinjal,5.88,4.74,10.09,12.36,11.14,other
+street style lassi,11.05,4.82,17.27,4.82,5.36,other
+steamed pakora,10.08,6.87,44.81,12.09,11.98,other
+street style biryani,13.93,0.7,4.75,5.55,8.48,other
+boiled grapes,14.73,4.49,85.05,4.05,3.58,fruit
+dry green tea,1.08,4.04,78.11,10.92,0.02,other
+boiled apple juice,13.42,2.66,48.35,7.82,12.8,fruit
+baked paratha,2.77,7.97,61.99,10.39,6.62,other
+high protein mutton,20.5,0.1,99.7,6.08,8.35,protein
+roasted paneer,24.2,0.49,95.34,12.01,5.44,dairy
+high protein beetroot,26.11,4.12,76.74,5.77,10.47,other
+spicy chole,9.26,5.61,52.42,12.9,13.26,other
+restaurant style lassi,3.97,6.34,13.18,14.96,5.97,other
+high protein chickpeas,11.25,1.8,1.1,14.79,1.14,other
+low fat grilled chicken,18.18,1.74,38.81,5.15,10.58,protein
+masala quinoa,4.52,8.59,39.4,14.1,10.24,other
+dry grilled chicken,17.69,1.65,41.57,11.21,13.9,protein
+street style apple juice,3.2,2.64,8.91,3.1,12.81,fruit
+low fat cornflakes,8.85,0.38,84.74,3.57,9.68,other
+coffee,3.33,9.43,30.75,0.13,2.03,other
+spicy tea,10.95,9.36,56.57,9.39,8.42,other
+with sauce soft drink,2.56,6.76,85.07,13.71,1.43,other
+sambar,4.93,0.56,24.73,4.46,4.59,other
+fried peas,6.06,6.43,5.04,12.36,1.59,other
+homemade capsicum,6.61,1.76,0.93,4.52,6.01,other
+grilled lentils,11.37,3.32,40.33,13.12,5.4,legume
+plain kidney beans,26.43,2.28,43.45,13.31,9.27,legume
+grilled burger,8.31,7.95,71.01,4.4,3.98,other
+baked grilled fish,28.82,2.16,54.34,14.4,14.12,protein
+spicy pineapple juice,0.82,6.01,48.9,9.05,13.63,fruit
+high protein rajma,21.01,1.39,68.43,2.05,14.4,other
+low fat donut,4.6,9.51,4.15,8.17,2.96,other
+boiled poha,10.99,0.09,22.51,2.05,11.68,other
+dry spinach,13.92,9.8,32.39,9.91,12.03,vegetable
+boiled banana,10.56,6.4,65.69,4.59,14.95,fruit
+low fat rice,10.76,0.23,56.63,1.53,3.53,other
+high protein quinoa,29.18,2.45,50.23,3.01,5.96,other
+street style millet,6.29,5.75,63.47,1.24,14.31,other
+boiled mango juice,13.61,7.7,36.72,7.13,2.75,fruit
+roasted brown bread,5.04,9.85,64.42,2.83,1.4,other
+high protein corn,18.91,8.03,21.68,1.28,1.12,other
+plain biryani,6.24,9.76,11.14,14.87,8.22,other
+steamed green tea,10.26,8.75,6.48,12.8,8.7,other
+baked pineapple,14.83,4.79,32.49,12.28,4.74,fruit
+restaurant style biryani,6.68,4.92,93.96,6.01,4.54,other
+restaurant style apple,3.65,7.79,90.32,1.31,10.77,fruit
+masala capsicum,11.35,6.72,24.78,11.22,9.89,other
+steamed dosa,12.16,4.18,43.41,5.73,1.83,other
+tandoori lettuce,13.4,9.96,98.84,5.5,14.64,other
+tandoori mutton,12.89,8.57,76.47,0.68,5.94,protein
+homemade pomegranate,2.9,8.93,3.71,8.6,6.87,other
+spicy lettuce,11.21,8.22,81.14,3.92,3.99,other
+plain peas,6.23,2.25,8.75,8.64,14.3,other
+high protein blueberry,13.87,5.3,22.21,8.82,1.06,other
+low fat mutton curry,15.02,4.18,88.31,5.82,1.31,protein
+tandoori strawberry,0.23,2.54,74.37,9.64,14.85,other
+dry apple,7.35,7.19,46.31,4.58,2.96,fruit
+mutton curry,17.21,3.11,58.25,10.46,10.63,protein
+homemade pineapple,2.75,4.11,81.54,5.98,13.46,fruit
+plain upma,9.44,3.85,51.1,6.02,3.48,other
+baked kiwi,14.56,7.44,85.86,7.75,6.65,other
+with sauce grilled chicken,29.15,6.81,51.44,2.06,12.04,protein
+masala kiwi,2.49,0.44,94.57,3.4,1.48,other
+omelette,7.05,7.8,59.32,5.29,5.8,other
+street style spinach,4.13,8.37,36.03,10.67,3.49,vegetable
+homemade maize,4.95,7.15,70.56,11.63,11.8,other
+high protein strawberry,23.3,5.78,91.51,0.44,2.32,other
+dry maize,9.42,1.99,53.65,7.01,1.98,other
+dry cake,13.14,6.27,13.75,9.39,7.2,other
+grilled grape juice,8.67,4.7,26.99,8.29,13.72,other
+masala apple,13.08,3.64,85.79,12.86,4.32,fruit
+baked lassi,0.04,1.84,14.21,13.55,5.53,other
+low fat chole,0.76,3.63,64.38,13.94,1.0,other
+chicken,11.15,6.42,61.31,13.71,14.51,protein
+roasted biryani,8.27,6.72,49.87,5.09,8.89,other
+buttermilk,12.9,8.55,15.69,14.39,11.96,dairy
+steamed protein shake,26.32,0.26,90.24,3.95,5.67,other
+plain lettuce,10.16,6.75,20.96,8.89,14.39,other
+tandoori pineapple juice,0.06,4.26,88.14,4.83,1.26,fruit
+grilled egg,28.38,8.0,22.11,0.31,7.1,protein
+spicy paneer curry,13.6,8.18,91.04,5.85,6.14,dairy
+restaurant style cucumber,4.8,2.26,22.18,2.07,11.15,other
+high protein upma,28.77,6.79,70.86,4.1,3.3,other
+homemade aloo gobi,1.23,1.05,54.86,7.29,3.77,other
+steamed pulao,5.61,6.89,64.17,3.35,11.24,other
+fried pakora,4.99,5.61,37.77,7.96,10.76,other
+masala biryani,3.85,6.81,50.16,6.85,7.47,other
+boiled corn,14.54,8.97,68.63,12.21,7.14,other
+tandoori soft drink,11.97,9.64,18.66,9.78,4.43,other
+restaurant style pakora,3.44,6.03,82.54,4.3,2.92,other
+spinach,4.03,8.08,44.99,14.28,7.94,vegetable
+roasted orange,5.66,7.21,79.26,1.23,13.92,fruit
+homemade pear,1.94,0.9,27.9,10.12,13.39,other
+high protein lentils,19.31,1.46,28.73,10.1,12.31,legume
+steamed corn,6.42,1.89,20.46,6.53,7.45,other
+steamed black coffee,13.14,8.53,41.94,6.55,2.21,other
+high protein milkshake,21.96,6.11,32.16,5.09,9.21,dairy
+tandoori orange juice,5.76,2.62,60.46,2.0,11.21,fruit
+tandoori pakora,11.54,6.84,70.79,2.52,6.33,other
+dry rajma,10.83,8.85,38.67,9.78,5.12,other
+dry onion,1.2,3.36,66.05,0.25,13.33,other
+masala tofu,29.68,9.24,45.1,11.75,8.4,other
+low fat poha,6.39,7.07,31.38,5.71,1.61,other
+maize,11.9,5.08,55.52,7.19,4.12,other
+boiled coconut water,9.38,5.05,9.22,5.35,12.9,other
+soft drink,13.72,8.98,95.81,13.91,6.0,other
+tofu,16.95,2.22,83.46,9.46,4.06,other
+street style brown bread,10.47,4.47,48.24,7.86,5.55,other
+steamed brinjal,10.7,5.8,79.01,0.88,1.5,other
+roasted soy chunks,18.05,4.52,57.7,2.75,2.72,other
+masala onion,12.0,4.69,48.43,2.7,13.46,other
+tandoori papaya,9.68,6.02,40.77,8.89,7.53,fruit
+guava,6.61,4.32,98.68,5.88,3.05,other
+homemade samosa,1.88,7.46,7.3,14.44,12.88,other
+pakora,13.45,7.98,26.51,3.72,8.59,other
+high protein smoothie,13.53,5.2,34.64,8.27,11.84,other
+homemade peas,14.61,8.35,52.77,11.93,8.84,other
+roasted fries,12.37,1.93,64.39,12.73,14.42,other
+tandoori upma,2.49,2.43,54.13,3.76,5.39,other
+tandoori buttermilk,13.83,9.04,81.77,8.5,7.98,dairy
+rice,13.1,7.35,80.46,13.24,7.45,other
+boiled papaya,9.4,0.05,62.81,1.97,10.65,fruit
+restaurant style ice cream,6.51,2.34,96.1,1.13,12.56,other
+fried rajma,8.5,6.35,0.68,12.01,0.12,other
+restaurant style carrot,3.09,1.86,87.86,4.86,0.91,vegetable
+pomegranate,14.45,4.86,28.04,6.43,5.97,other
+potato,13.09,2.35,76.68,5.04,1.73,other
+restaurant style blueberry,5.85,7.84,97.77,11.45,7.73,other
+street style upma,8.5,9.41,84.26,1.76,1.33,other
+boiled pasta,3.35,1.82,12.86,9.58,12.05,other
+beetroot,4.23,6.35,53.29,9.4,10.58,other
+restaurant style barley,6.99,8.45,67.48,12.52,1.44,other
+roasted apple juice,14.69,1.91,78.8,13.65,14.44,fruit
+baked poha,12.94,4.29,38.95,4.86,6.04,other
+low fat lassi,4.71,3.4,36.59,12.68,3.94,other
+green tea,11.41,7.08,63.24,9.49,8.77,other
+homemade barley,7.24,6.75,58.92,14.22,14.58,other
+plain samosa,6.14,5.41,59.18,8.77,11.7,other
+grilled papaya,10.78,4.82,81.65,10.76,8.5,fruit
+roasted tea,6.47,0.72,38.9,5.87,10.25,other
+tandoori chana masala,12.24,6.9,89.58,3.56,2.01,legume
+homemade lassi,6.56,2.87,43.3,4.81,2.45,other
+peas,14.6,1.91,17.77,12.94,0.88,other
+low fat guava,9.29,9.67,94.21,11.41,14.84,other
+bread,7.21,8.63,72.95,3.66,5.01,other
+dry papaya,9.58,0.05,7.93,5.85,14.99,fruit
+low fat biryani,0.93,0.51,67.59,13.73,13.05,other
+homemade lemon juice,13.29,1.61,46.06,0.29,2.46,other
+tandoori cucumber,2.51,1.16,35.2,7.66,2.05,other
+spicy jowar,6.47,8.98,42.83,6.1,4.1,other
+baked cornflakes,13.69,0.98,64.92,8.97,1.52,other
+with sauce kidney beans,26.05,7.31,65.48,9.61,3.41,legume
+tandoori grapes,9.94,1.72,71.16,0.53,13.23,fruit
+roasted corn,11.03,5.84,17.23,11.76,9.45,other
+tandoori donut,12.21,2.32,22.36,10.07,2.71,other
+tandoori capsicum,7.13,4.9,89.21,7.68,7.24,other
+low fat sandwich,8.4,9.24,53.08,13.97,5.05,other
+boiled rice,5.61,5.95,77.66,6.61,6.22,other
+roasted pomegranate,9.49,5.47,81.14,3.74,6.42,other
+steamed mango,10.83,1.34,5.62,9.44,8.9,fruit
+spicy sweet potato,4.22,0.62,2.29,10.19,7.6,other
+masala burger,10.83,8.95,19.34,0.32,8.47,other
+plain paratha,11.95,2.46,61.38,10.92,12.38,other
+noodles,8.06,2.63,80.81,8.64,5.55,other
+boiled quinoa,3.39,7.38,65.54,14.0,9.16,other
+tandoori mango juice,10.92,8.57,15.89,1.75,2.81,fruit
+plain idli,4.27,5.06,59.02,3.93,12.61,other
+steamed egg,23.57,2.59,17.31,7.3,3.46,protein
+dry coffee,3.55,2.61,54.91,0.98,1.16,other
+masala orange juice,5.2,3.73,96.31,3.01,5.95,fruit
+high protein chapati,21.13,9.58,59.73,7.85,4.35,other
+low fat ragi,11.71,7.03,7.66,11.9,5.89,other
+boiled cucumber,6.72,8.5,63.84,1.05,3.51,other
+low fat coffee,7.74,4.7,77.3,13.7,6.91,other
+spicy aloo gobi,14.88,2.89,80.67,6.39,2.9,other
+homemade orange juice,7.62,4.21,14.79,5.26,0.95,fruit
+homemade coconut water,11.89,1.29,86.98,2.28,7.46,other
+tomato,8.65,8.14,25.13,4.79,10.32,vegetable
+homemade cornflakes,12.4,1.8,92.02,12.69,13.07,other
+cauliflower,1.47,9.09,82.85,14.99,13.99,other
+homemade fried chicken,11.85,5.08,60.77,9.51,10.68,protein
+homemade brown bread,9.56,9.71,51.86,7.87,13.93,other
+high protein pasta,21.39,2.79,54.28,5.56,6.81,other
+grilled strawberry,14.11,9.28,69.41,12.11,5.99,other
+street style omelette,11.91,0.15,33.87,1.77,14.52,other
+oats,3.43,5.31,72.63,4.77,8.47,other
+steamed biryani,6.65,8.93,48.11,5.46,9.48,other
+high protein broccoli,15.39,4.28,51.73,11.58,12.54,other
+steamed papaya,1.73,2.84,82.38,4.87,9.18,fruit
+high protein poha,26.46,6.94,27.26,7.74,4.59,other
+street style khichdi,6.91,7.77,13.49,11.66,13.33,other
+dry lentils,17.74,0.14,19.9,3.13,14.97,legume
+with sauce pear,14.33,4.72,78.59,8.31,3.15,other
+restaurant style palak paneer,21.16,6.02,47.44,5.01,2.33,vegetable
+roasted palak paneer,27.09,0.68,91.26,6.44,1.26,vegetable
+grilled green tea,4.73,6.38,22.93,13.85,6.41,other
+homemade egg,11.95,9.75,49.34,4.8,14.84,protein
+boiled kiwi,11.02,8.86,55.86,13.63,8.43,other
+plain chole,11.89,2.63,46.28,0.15,10.66,other
+homemade cabbage,0.93,5.35,40.9,2.74,9.78,other
+spicy grape juice,5.52,5.87,57.62,14.38,2.21,other
+homemade green tea,2.09,2.65,83.88,8.1,2.2,other
+roasted blueberry,13.35,1.87,45.75,9.28,10.09,other
+tandoori kiwi,7.68,4.69,51.71,10.26,13.74,other
+high protein cauliflower,29.09,8.79,57.13,10.06,11.23,other
+dry pulao,5.18,2.75,60.69,9.34,0.38,other
+grilled grapes,13.04,2.11,49.41,5.85,0.93,fruit
+with sauce mutton curry,15.12,2.77,51.55,0.27,0.16,protein
+restaurant style sambar,13.55,5.72,17.52,8.43,14.65,other
+beans,20.56,4.65,82.72,14.66,10.04,legume
+homemade chana masala,1.08,9.44,62.45,9.31,0.9,legume
+spicy apple juice,11.68,7.48,96.72,10.14,0.66,fruit
+street style lemon juice,7.16,2.98,5.14,2.4,6.7,other
+homemade paneer curry,11.26,2.07,28.22,1.16,6.8,dairy
+high protein soft drink,15.58,8.98,99.6,12.41,2.67,other
+boiled egg,22.67,2.77,24.42,4.26,1.75,protein
+baked palak paneer,25.53,1.64,49.57,0.92,2.2,vegetable
+baked ragi,11.86,1.86,82.93,13.85,1.05,other
+masala coffee,12.08,6.47,54.44,4.85,12.02,other
+baked soft drink,8.68,2.98,51.26,8.15,4.06,other
+boiled upma,4.95,2.8,9.76,7.84,7.27,other
+grilled biryani,8.96,0.85,27.62,11.74,10.89,other
+restaurant style sweet potato,3.74,1.91,48.64,3.45,3.86,other
+fried rice,13.19,1.13,81.1,5.93,1.17,other
+homemade mutton,24.03,9.52,1.59,9.18,10.45,protein
+spicy quinoa,2.63,4.18,77.84,10.39,7.69,other
+dry boiled egg,25.54,1.24,32.03,10.68,11.29,protein
+boiled aloo gobi,9.54,0.45,1.36,5.17,9.04,other
+jowar,2.9,0.37,55.32,8.81,12.03,other
+homemade blueberry,9.06,6.75,16.86,1.7,7.22,other
+steamed upma,0.55,9.28,28.07,4.83,9.42,other
+roasted burger,11.36,0.46,72.48,3.1,10.6,other
+spicy tomato,2.9,0.18,90.02,2.62,4.68,vegetable
+high protein biryani,20.32,8.18,12.55,1.26,12.11,other
+baked mango,11.08,6.05,85.13,0.85,5.36,fruit
+semolina,12.05,6.48,67.37,14.99,6.15,other
+dry banana,14.53,9.44,77.02,4.0,0.96,fruit
+dry tofu,19.98,8.36,86.22,8.72,10.23,other
+street style paratha,14.24,3.54,36.64,5.3,5.42,other
+street style guava,14.56,0.31,70.47,4.49,2.03,other
+steamed pineapple juice,10.75,8.63,22.6,13.61,9.73,fruit
+roasted cabbage,7.76,8.63,67.72,0.37,5.41,other
+high protein grape juice,15.28,3.67,41.42,14.59,1.66,other
+spicy mango juice,1.36,0.39,19.01,14.17,8.78,fruit
+plain pineapple juice,3.62,1.01,49.02,4.33,13.56,fruit
+roasted donut,8.44,1.78,31.19,1.88,14.56,other
+low fat samosa,2.4,0.35,23.3,13.66,3.62,other
+plain grapes,11.92,9.48,39.87,7.04,5.81,fruit
+restaurant style butter chicken,16.96,1.96,87.57,2.09,13.93,protein
+restaurant style cake,11.82,5.73,90.26,0.24,11.85,other
+masala pineapple juice,10.71,7.52,9.58,2.23,3.54,fruit
+steamed beetroot,5.76,3.45,46.38,13.45,9.69,other
+fried butter chicken,14.84,2.57,27.02,1.03,8.45,protein
+ice cream,8.21,6.41,98.41,12.41,6.11,other
+pasta,1.0,0.78,11.41,1.43,10.86,other
+with sauce butter chicken,22.3,4.86,69.71,13.74,1.44,protein
+tandoori paneer,25.14,3.26,69.62,12.99,7.23,dairy
+dry khichdi,7.72,6.5,46.52,8.0,8.73,other
+baked blueberry,8.14,7.24,35.35,8.06,14.18,other
+street style milkshake,14.15,8.52,49.24,12.83,6.88,dairy
+plain onion,6.84,0.25,84.9,3.75,11.09,other
+baked pakora,2.35,1.37,51.52,0.45,2.7,other
+khichdi,10.98,4.03,5.7,8.84,13.18,other
+street style ice cream,3.48,4.68,99.17,10.97,4.46,other
+baked fish,22.36,6.73,50.69,2.4,6.35,protein
+homemade rajma,8.23,1.78,27.76,11.28,4.18,other
+baked potato,11.72,2.26,71.56,2.26,6.88,other
+roasted idli,11.15,6.26,3.94,9.41,0.33,other
+street style lettuce,14.81,6.39,55.44,12.09,5.29,other
+masala paneer curry,19.7,8.02,97.33,13.18,7.52,dairy
+spicy rasam,4.72,4.76,37.15,13.23,3.71,other
+pineapple juice,6.89,5.08,34.49,10.04,12.14,fruit
+fried beans,29.2,2.19,82.91,8.33,9.21,legume
+grilled fish curry,16.95,5.18,78.03,6.65,8.29,protein
+spicy dal,0.21,1.07,30.14,11.45,14.12,legume
+with sauce pasta,3.17,8.01,86.3,5.01,2.27,other
+low fat tofu,16.33,1.61,84.98,3.24,4.66,other
+spicy lassi,9.14,1.88,77.49,14.44,6.52,other
+high protein fried chicken,21.92,1.0,81.97,2.23,1.46,protein
+fries,4.82,8.13,36.64,0.73,1.71,other
+plain potato,4.65,8.82,52.44,11.02,7.5,other
+masala barley,5.46,0.38,89.93,0.98,9.2,other
+roasted upma,14.88,0.4,97.77,10.97,1.51,other
+tandoori chapati,7.33,7.03,97.54,9.31,10.81,other
+dry semolina,1.18,2.74,89.78,10.34,10.96,other
+fried upma,5.89,9.54,81.64,1.79,12.54,other
+baked donut,1.88,5.91,83.62,5.0,9.4,other
+plain milkshake,7.4,0.19,97.28,1.45,12.73,dairy
+roasted guava,0.66,8.27,13.29,5.97,10.31,other
+with sauce poha,13.74,7.55,47.54,10.25,13.37,other
+tandoori tofu,19.01,5.1,27.61,1.8,2.48,other
+cornflakes,0.17,2.61,57.7,4.67,11.44,other
+steamed beans,10.26,0.82,26.61,4.29,14.41,legume
+baked peas,12.54,6.74,94.37,8.63,10.1,other
+dry tea,4.8,7.23,36.81,4.17,9.69,other
+masala smoothie,4.53,1.23,52.71,1.43,7.6,other
+steamed mango juice,14.4,3.46,67.43,0.24,3.82,fruit
+low fat kidney beans,10.82,0.13,19.71,9.26,1.42,legume
+high protein pear,22.18,9.72,72.77,13.57,3.91,other
+restaurant style kidney beans,21.64,5.8,22.81,12.98,13.21,legume
+dry fish,11.42,5.6,77.29,6.08,7.34,protein
+dry sweet potato,8.0,7.17,60.12,1.7,0.65,other
+fried barley,3.85,6.14,38.94,3.94,11.18,other
+steamed chickpeas,25.55,7.95,52.6,7.07,1.56,other
+low fat lemon juice,5.61,3.73,90.89,4.46,5.99,other
+grilled lettuce,9.2,8.99,57.34,12.51,3.44,other
+tandoori kidney beans,15.96,1.83,31.56,9.47,2.72,legume
+spicy fries,5.14,0.28,85.94,13.8,9.88,other
+homemade pizza,6.52,2.4,56.13,13.12,3.09,other
+spicy carrot,10.06,5.13,75.69,14.22,7.63,vegetable
+homemade brownie,12.48,5.5,87.28,4.48,13.58,other
+plain fish,25.49,5.62,15.11,9.94,12.3,protein
+steamed chapati,2.02,6.82,14.39,7.67,3.28,other
+with sauce mango,4.65,4.2,72.26,9.95,12.81,fruit
+grilled khichdi,7.58,2.82,26.43,5.16,3.17,other
+tandoori boiled egg,18.77,2.52,2.88,0.8,14.91,protein
+high protein cucumber,23.32,7.3,63.34,11.59,4.23,other
+boiled black coffee,2.4,2.06,53.45,6.84,7.48,other
+dry egg,10.8,0.99,17.44,2.01,11.58,protein
+street style chickpeas,15.79,7.1,95.06,12.44,4.54,other
+spicy upma,7.69,4.28,74.02,5.71,10.83,other
+homemade millet,0.34,4.99,4.81,13.25,4.87,other
+grilled maize,6.42,5.15,55.62,12.86,14.25,other
+dry samosa,5.43,4.77,94.55,7.6,8.39,other
+boiled semolina,9.09,8.86,59.89,7.69,12.76,other
+roasted ragi,1.03,8.5,27.33,12.25,2.65,other
+street style kidney beans,25.49,8.66,43.13,12.26,12.17,legume
+spicy pear,14.21,8.09,59.37,3.94,2.61,other
+with sauce sweet potato,4.5,6.45,76.69,9.44,0.98,other
+idli,3.02,4.92,79.69,11.15,11.41,other
+steamed smoothie,13.04,8.5,81.15,2.41,10.23,other
+tandoori grape juice,14.21,2.12,20.05,5.32,12.02,other
+low fat spinach,6.39,5.52,99.97,9.74,10.37,vegetable
+with sauce ragi,12.28,6.8,24.16,3.7,9.19,other
+tandoori nachos,7.96,7.48,67.36,10.77,10.25,other
+fried cucumber,8.81,7.35,33.88,0.27,12.11,other
+low fat dal,11.91,9.92,28.18,14.59,6.49,legume
+baked spinach,2.12,4.47,78.47,6.27,8.61,vegetable
+masala rajma,4.23,7.99,38.53,0.61,5.06,other
+boiled brinjal,12.76,3.68,50.72,9.12,5.2,other
+grilled grilled fish,15.36,9.03,34.72,9.03,5.92,protein
+street style grilled chicken,13.01,4.99,93.06,1.35,14.25,protein
+with sauce rasam,13.35,2.92,80.85,14.65,14.33,other
+egg,21.18,1.16,51.2,9.89,11.02,protein
+steamed grape juice,2.33,8.13,3.21,5.32,14.18,other
+with sauce cornflakes,0.77,8.37,53.95,1.29,13.65,other
+pulao,10.16,9.26,45.28,1.73,5.99,other
+steamed coffee,5.23,2.72,91.92,0.48,2.61,other
+high protein noodles,18.26,5.54,47.53,4.81,0.68,other
+dry pineapple juice,0.23,1.46,13.66,7.53,13.3,fruit
+low fat potato,6.98,3.77,33.94,11.62,7.83,other
+capsicum,8.17,8.63,2.47,9.43,4.27,other
+boiled buttermilk,5.62,7.59,67.19,4.71,4.1,dairy
+with sauce beetroot,2.27,3.52,59.7,5.76,10.43,other
+dry burger,2.88,4.96,0.77,6.17,7.35,other
+masala egg,12.92,3.66,52.12,2.7,13.92,protein
+grilled guava,5.21,6.55,88.24,9.33,5.59,other
+low fat cauliflower,14.15,5.89,55.04,1.86,8.38,other
+fried lemon juice,12.41,7.2,72.11,10.14,11.18,other
+low fat protein shake,26.33,3.36,96.85,4.73,0.87,other
+masala millet,13.7,7.45,35.68,2.68,3.53,other
+masala mutton curry,18.93,6.75,57.18,6.89,2.3,protein
+low fat green tea,5.53,2.04,66.47,13.13,12.26,other
+street style tomato,14.02,5.47,81.81,0.33,1.47,vegetable
+masala beans,23.31,7.46,69.23,10.44,6.86,legume
+dry watermelon,0.61,1.06,1.54,9.82,4.81,other
+baked lentils,20.09,2.31,57.81,7.64,12.98,legume
+baked omelette,14.18,6.16,9.81,8.31,0.34,other
+restaurant style pear,7.27,5.72,13.14,4.93,4.22,other
+boiled grilled fish,24.74,5.31,53.18,8.9,14.59,protein
+plain protein shake,27.14,8.49,57.71,2.56,4.53,other
+dry dal,5.56,2.57,17.47,6.21,0.14,legume
+dry pizza,8.02,9.48,14.7,4.82,2.49,other
+with sauce mutton,27.63,9.92,80.74,9.35,14.03,protein
+baked apple juice,5.42,7.95,78.06,4.02,14.28,fruit
+steamed grilled fish,19.72,1.1,74.8,14.47,6.51,protein
+dry mutton,29.3,5.34,69.78,11.86,14.51,protein
+fried brinjal,13.68,4.41,51.19,12.06,8.35,other
+mango juice,7.07,6.91,7.64,6.65,9.63,fruit
+fried bread,7.79,5.68,11.09,4.08,0.89,other
+baked sweet potato,6.43,2.28,86.52,7.26,1.86,other
+boiled maize,1.09,4.76,46.36,8.09,13.27,other
+grilled cabbage,2.04,5.09,81.4,1.38,3.34,other
+palak paneer,10.66,4.44,70.26,10.25,12.94,vegetable
+street style cucumber,13.11,3.35,74.78,12.83,6.21,other
+street style mutton,14.09,1.77,88.62,5.79,2.4,protein
+boiled chana masala,13.96,7.78,96.36,11.89,3.62,legume
+baked oats,7.04,4.9,27.79,3.65,4.46,other
+plain dal,3.27,3.85,55.32,2.53,4.72,legume
+spicy brinjal,8.46,1.01,72.19,5.41,7.18,other
+homemade kidney beans,23.3,1.5,11.62,8.19,10.47,legume
+baked samosa,7.99,6.92,52.1,5.8,9.3,other
+high protein fish,18.03,1.33,5.83,4.65,10.17,protein
+street style potato,8.01,4.99,33.41,14.7,5.37,other
+high protein bread,17.85,4.05,14.7,11.77,3.63,other
+masala grilled fish,12.33,1.72,55.61,14.57,1.47,protein
+dry peas,8.67,4.95,54.76,5.0,2.54,other
+boiled fish curry,12.98,8.54,53.14,9.39,2.68,protein
+restaurant style aloo gobi,2.08,0.95,99.11,7.17,7.04,other
+masala chole,13.62,1.26,4.9,13.1,10.77,other
+grilled samosa,1.88,0.51,47.47,12.5,3.16,other
+tandoori coconut water,11.27,5.12,97.21,3.07,11.18,other
+with sauce milkshake,0.7,0.87,13.45,5.87,5.17,dairy
+baked pulao,13.73,6.45,57.09,4.94,13.81,other
+spicy omelette,0.19,9.87,12.7,3.74,5.81,other
+boiled cauliflower,9.88,8.66,25.69,2.14,14.02,other
+masala tomato,5.84,6.45,85.09,4.17,5.58,vegetable
+with sauce onion,0.36,9.8,72.48,11.9,8.9,other
+fried soy chunks,20.52,2.11,53.73,1.23,7.16,other
+plain capsicum,4.18,3.29,86.14,9.32,0.2,other
+with sauce quinoa,4.56,3.17,40.19,2.33,6.16,other
+brownie,0.18,5.32,66.7,12.55,11.05,other
+masala mango,12.39,9.51,34.26,4.79,5.57,fruit
+restaurant style spring roll,12.98,2.64,23.96,4.45,8.86,other
+boiled noodles,13.0,1.76,4.51,4.79,7.42,other
+masala grilled chicken,22.11,6.98,56.71,10.89,1.92,protein
+plain rajma,9.16,7.11,70.47,8.01,4.88,other
+high protein spinach,25.76,3.9,15.39,8.37,13.94,vegetable
+fried pineapple juice,10.07,0.53,77.48,12.07,2.95,fruit
+fried palak paneer,20.3,7.99,52.43,2.23,4.29,vegetable
+baked grape juice,9.74,1.83,53.57,4.5,1.21,other
+with sauce green tea,4.79,5.61,62.45,0.62,9.0,other
+grilled apple,0.18,5.57,77.36,8.4,6.04,fruit
+tandoori grilled fish,11.61,8.24,6.89,1.44,4.89,protein
+boiled protein shake,27.52,2.23,3.25,2.72,0.07,other
+grilled blueberry,13.16,5.85,42.89,13.7,4.52,other
+high protein pizza,26.53,4.68,29.16,5.58,13.27,other
+fried cauliflower,5.22,0.85,64.23,11.93,0.22,other
+high protein chana masala,11.71,9.72,63.85,3.76,3.87,legume
+baked fries,10.98,4.02,81.19,11.54,13.1,other
+with sauce fried chicken,18.64,5.0,65.72,7.41,14.81,protein
+spicy fish,11.93,0.46,54.15,8.94,10.62,protein
+plain ice cream,14.43,8.57,90.04,1.78,11.33,other
+baked orange juice,3.42,2.53,49.67,11.25,2.49,fruit
+tandoori ragi,5.81,7.42,66.35,12.08,9.21,other
+boiled brown bread,14.26,0.74,31.46,10.24,8.9,other
+plain pulao,3.88,1.04,32.49,9.4,13.0,other
+high protein fish curry,22.62,6.11,33.37,5.28,2.5,protein
+boiled khichdi,13.65,4.98,31.77,5.08,13.8,other
+low fat bread,5.77,5.58,0.38,13.91,9.11,other
+boiled coffee,7.45,1.82,49.8,4.63,7.35,other
