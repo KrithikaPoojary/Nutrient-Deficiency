@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { predict } from "../api";
 
-function Form({ setResult, user }) {
+function Form({ setResult, setRecommendations, user }) {
 
   const [data, setData] = useState({
     age: "",
@@ -19,17 +19,29 @@ function Form({ setResult, user }) {
     night: [""]
   });
 
-  // 🔥 BMI CALCULATION (ONLY CM)
+  // 🔥 AUTO-FILL USER DATA
+  useEffect(() => {
+    if (user) {
+      setData({
+        age: user.age || "",
+        gender: user.gender || 1,
+        height_cm: user.height_cm || "",
+        weight: user.weight || "",
+        bmi: "",
+        conditions: user.conditions || ""
+      });
+    }
+  }, [user]);
+
+  // 🔥 BMI CALCULATION
   useEffect(() => {
     if (data.height_cm && data.weight) {
       const height = Number(data.height_cm);
       const weight = Number(data.weight);
 
       if (height > 0 && weight > 0) {
-        const heightInMeters = height / 100;
-
         const bmi = (
-          weight / (heightInMeters * heightInMeters)
+          weight / ((height / 100) * (height / 100))
         ).toFixed(2);
 
         setData((prev) => ({ ...prev, bmi }));
@@ -56,7 +68,7 @@ function Form({ setResult, user }) {
     setMeals({ ...meals, [mealType]: updated });
   };
 
-  // 🔥 Convert food format
+  // 🔥 Parse food
   const parseFood = (input) =>
     input
       ? input.split(",").map(item => {
@@ -68,6 +80,7 @@ function Form({ setResult, user }) {
         })
       : [];
 
+  // 🔥 Submit
   const handleSubmit = async () => {
 
     if (!user) {
@@ -76,22 +89,11 @@ function Form({ setResult, user }) {
     }
 
     if (!data.age || !data.weight || !data.height_cm) {
-      alert("Enter Age, Weight and Height ❌");
+      alert("Missing profile data ❌");
       return;
     }
 
-    // 🔥 VALIDATION
-    if (data.height_cm < 100 || data.height_cm > 250) {
-      alert("Enter valid height (100–250 cm) ❌");
-      return;
-    }
-
-    if (data.weight < 20 || data.weight > 200) {
-      alert("Enter valid weight ❌");
-      return;
-    }
-
-    // 🔥 Convert meals → foods
+    // 🔥 Format meals
     const formattedMeals = {
       morning: meals.morning.flatMap(parseFood),
       afternoon: meals.afternoon.flatMap(parseFood),
@@ -111,21 +113,26 @@ function Form({ setResult, user }) {
       return;
     }
 
+    // 🔥 Clean conditions
+    const conditionsArray = data.conditions
+      ? data.conditions.split(",").map(c => c.trim().toLowerCase())
+      : [];
+
+    // 🔥 FINAL PAYLOAD (FIXED)
     const formattedData = {
-      username: user,
+      user_id: user.id,   // ✅ FIXED
       age: Number(data.age),
       gender: data.gender,
       bmi: Number(data.bmi),
-      conditions: data.conditions
-        ? data.conditions.split(",").map(c => c.trim())
-        : [],
+      conditions: conditionsArray,
       foods: allFoods
     };
 
     try {
       const res = await predict(formattedData);
 
-      setResult(res);
+      setResult(res.prediction);
+      setRecommendations(res.recommendations);
 
       window.scrollTo({
         top: document.body.scrollHeight,
@@ -142,38 +149,33 @@ function Form({ setResult, user }) {
     <div className="card">
       <h2>Enter Details</h2>
 
-      {/* AGE + WEIGHT */}
-      <div className="row">
-        <input
-          placeholder="Age"
-          type="number"
-          onChange={(e) => setData({ ...data, age: e.target.value })}
-        />
+<div className="form-grid">
 
-        <input
-          placeholder="Weight (kg)"
-          type="number"
-          onChange={(e) => setData({ ...data, weight: e.target.value })}
-        />
-      </div>
+  <input
+    placeholder="Weight (kg)"
+    value={data.weight}
+    onChange={(e) => setData({ ...data, weight: e.target.value })}
+  />
 
-      {/* HEIGHT */}
-      <h3>Height</h3>
-      <input
-        placeholder="Height (cm)"
-        type="number"
-        onChange={(e) => setData({ ...data, height_cm: e.target.value })}
-      />
+  <input
+    placeholder="Height (cm)"
+    value={data.height_cm}
+    onChange={(e) => setData({ ...data, height_cm: e.target.value })}
+  />
 
-      {/* BMI */}
-      <p><strong>BMI:</strong> {data.bmi || "Calculating..."}</p>
+  <input
+    placeholder="Health Conditions (optional)"
+    value={data.conditions}
+    onChange={(e) => setData({ ...data, conditions: e.target.value })}
+  />
 
-      <input
-        placeholder="Conditions (optional)"
-        onChange={(e) => setData({ ...data, conditions: e.target.value })}
-      />
+  {/* 🔥 BMI INLINE */}
+  <div className="bmi-box">
+    <strong>BMI:</strong> {data.bmi || "Calculating..."}
+  </div>
 
-      {/* FOOD */}
+</div>
+
       <h3>Food Intake</h3>
 
       {["morning", "afternoon", "evening", "night"].map((mealType) => (
@@ -183,7 +185,7 @@ function Form({ setResult, user }) {
           {meals[mealType].map((item, index) => (
             <div key={index} className="row">
               <input
-                placeholder={`${mealType} food (rice-2)`}
+                placeholder={`${mealType} food (rice-2,egg-1)`}
                 value={item}
                 onChange={(e) =>
                   handleMealChange(mealType, index, e.target.value)
