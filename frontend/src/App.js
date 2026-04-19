@@ -1,49 +1,75 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
+import Login from "./components/Login";
+import Register from "./components/Register";
 import Form from "./components/Form";
 import Result from "./components/Result";
-import Login from "./components/Login";
 import History from "./components/History";
 import "./App.css";
 
 function App() {
-  const [result, setResult] = useState(null);
   const [user, setUser] = useState(null);
+  const [result, setResult] = useState(null);
+  const [recommendations, setRecommendations] = useState(null);
 
   return (
-    <div className="App">
-      <h1>🍎 Nutrition Deficiency Predictor</h1>
+    <Router>
+      <Routes>
 
-      {/* 🔐 LOGIN */}
-      {!user ? (
-        <Login setUser={setUser} />
-      ) : (
-        <div>
+        {/* 🔐 Login */}
+        <Route path="/" element={<Login setUser={setUser} />} />
 
-          {/* 🔥 TOP BAR (UPDATED) */}
-          <div className="top-bar">
-            <h3>Welcome, {user} 👋</h3>
+        {/* 📝 Register */}
+        <Route path="/register" element={<Register />} />
 
-            <button
-              className="logout-btn"
-              onClick={() => {
-                setUser(null);
-                setResult(null); // 🔥 reset
-              }}
-            >
-              Logout 🔐
-            </button>
-          </div>
+        {/* 🏠 Home */}
+        <Route
+          path="/home"
+          element={
+            user ? (
+              <div className="App">
 
-          {/* 🔥 MAIN CONTENT */}
-          <Form setResult={setResult} user={user} />
-          <Result result={result} />
+                {/* 🔥 FIXED HEADER */}
+                <div className="header">
+                  <h1>🍎 Nutrition Deficiency Predictor</h1>
+                  <h3>Welcome, {user.username} 👋</h3>
 
-          {/* 🔥 SHOW HISTORY ONLY AFTER RESULT */}
-          {result && <History user={user} />}
+                  <button
+                    className="logout-btn"
+                    onClick={() => setUser(null)}
+                  >
+                    Logout 🔐
+                  </button>
+                </div>
 
-        </div>
-      )}
-    </div>
+                {/* 🔥 MAIN CONTENT */}
+                <div className="main-content">
+
+                  <Form
+                    setResult={setResult}
+                    setRecommendations={setRecommendations}
+                    user={user}
+                  />
+
+                  <Result
+                    result={result}
+                    recommendations={recommendations}
+                  />
+
+                  {result && <History user={user} />}
+
+                </div>
+
+              </div>
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+      </Routes>
+    </Router>
   );
 }
 

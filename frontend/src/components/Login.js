@@ -1,57 +1,69 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login({ setUser }) {
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     username: "",
     password: ""
   });
 
+  const [error, setError] = useState("");
+
   const handleLogin = async () => {
     try {
       const res = await axios.post("http://localhost:5000/login", data);
-      setUser(res.data.username);
-      alert("Login successful 🔥");
+
+      setUser(res.data);
+      navigate("/home");
+
     } catch (err) {
-      alert("Invalid credentials ❌");
+      setError("Invalid username or password ❌");
     }
   };
 
-  const handleRegister = async () => {
-    try {
-      await axios.post("http://localhost:5000/register", data);
-      alert("Registered successfully ✅");
-    } catch (err) {
-      alert("User already exists ❌");
-    }
-  };
+  return (
+    <div className="login-container">
+      <div className="login-card">
 
-return (
-  <div className="login-card">
-    <h2>Member Login</h2>
+        <h2>Member Login</h2>
 
-    <input
-      placeholder="Username"
-      onChange={(e) => setData({ ...data, username: e.target.value })}
-    />
+        {error && <p className="error">{error}</p>}
 
-    <input
-      type="password"
-      placeholder="Password"
-      onChange={(e) => setData({ ...data, password: e.target.value })}
-    />
+        <div className="input-group">
+          <input
+            placeholder="Username"
+            value={data.username}
+            onChange={(e) =>
+              setData({ ...data, username: e.target.value })
+            }
+          />
 
-    <button onClick={handleLogin}>Login</button>
+          <input
+            type="password"
+            placeholder="Password"
+            value={data.password}
+            onChange={(e) =>
+              setData({ ...data, password: e.target.value })
+            }
+          />
+        </div>
 
-    <p className="register-text">
-      Don't have an account?
-    </p>
+        <button onClick={handleLogin}>Login</button>
 
-    <button className="register-btn" onClick={handleRegister}>
-      Register
-    </button>
-  </div>
-);
+        <p className="register-text">
+          Don't have an account?
+        </p>
+
+        <button onClick={() => navigate("/register")}>
+          Register
+        </button>
+
+      </div>
+    </div>
+  );
 }
 
 export default Login;
