@@ -1,10 +1,10 @@
 # ===============================
 # FRONTEND (React)
 # ===============================
-/node_modules
-/build
-/.pnp
-.pnp.js
+frontend/node_modules/
+frontend/build/
+frontend/.pnp
+frontend/.pnp.js
 
 # logs
 npm-debug.log*
@@ -12,17 +12,17 @@ yarn-debug.log*
 yarn-error.log*
 
 # testing
-/coverage
+coverage/
 
 # ===============================
 # BACKEND (Python / Flask)
 # ===============================
-__pycache__/
+backend/__pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# virtual environment
+# virtual environments
 venv/
 env/
 
@@ -31,13 +31,16 @@ instance/
 *.sqlite3
 
 # ===============================
-# ENV FILES (IMPORTANT)
+# MODEL FILES (IMPORTANT)
+# ===============================
+backend/model/*.pkl
+
+# ===============================
+# ENV FILES (VERY IMPORTANT)
 # ===============================
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 
 # ===============================
 # OS FILES
@@ -50,11 +53,3 @@ Thumbs.db
 # ===============================
 .vscode/
 .idea/
-
-# ===============================
-# MODEL FILES (OPTIONAL)
-# ===============================
-# Uncomment if your model is large
-# model/*.pkl
-
-backend/model/*.pkl
