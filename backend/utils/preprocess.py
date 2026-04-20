@@ -11,6 +11,8 @@ def calculate_nutrients(user_foods, df):
     total_vitamin_d = 0
     total_fiber = 0
 
+    found_any = False   # 🔥 NEW FLAG
+
     for item in user_foods:
         food_name = item["name"].lower().strip()
         qty = item["qty"]
@@ -18,14 +20,18 @@ def calculate_nutrients(user_foods, df):
         row = df[df["food_name"] == food_name]
 
         if not row.empty:
+            found_any = True   # ✅ FOOD FOUND
+
             total_protein += row["protein"].values[0] * qty
             total_iron += row["iron"].values[0] * qty
             total_vitamin_c += row["vitamin_c"].values[0] * qty
             total_vitamin_d += row["vitamin_d"].values[0] * qty
             total_fiber += row["fiber"].values[0] * qty
+        else:
+            print("❌ Food not found:", food_name)
 
-    # ❗ If no food matched
-    if total_protein == 0 and total_iron == 0:
+    # ❗ ONLY fail if NO food matched
+    if not found_any:
         return None
 
     return {
@@ -35,7 +41,6 @@ def calculate_nutrients(user_foods, df):
         "vitamin_d": total_vitamin_d,
         "fiber": total_fiber
     }
-
 # ==============================
 # PREPARE INPUT FOR MODEL
 # ==============================
