@@ -57,18 +57,28 @@ def register():
 
     username = data["username"].strip().lower()
     password = str(data["password"]).strip()
+    age = int(data.get("age", 0))
+    gender = int(data.get("gender", 1))
+    conditions = data.get("conditions", "")
 
-    if not username or not password:
-        return jsonify({"message": "Username and password required"}), 400
+    print("REGISTER USER:", username)
 
-    cursor.execute("SELECT * FROM users WHERE username=%s", (username,))
-    if cursor.fetchone():
+    # check user exists
+    cursor.execute(
+        "SELECT COUNT(*) FROM users WHERE username=%s",
+        (username,)
+    )
+    count = cursor.fetchone()[0]
+
+    if count > 0:
         return jsonify({"message": "User already exists"}), 400
 
-    cursor.execute(
-        "INSERT INTO users (username, password) VALUES (%s, %s)",
-        (username, password)
-    )
+    # insert
+    cursor.execute("""
+        INSERT INTO users (username, password, age, gender, conditions)
+        VALUES (%s, %s, %s, %s, %s)
+    """, (username, password, age, gender, conditions))
+
     conn.commit()
 
     return jsonify({"message": "Registered successfully"})
@@ -89,13 +99,21 @@ def login():
         (username, password)
     )
 
-    if not cursor.fetchone():
+    user = cursor.fetchone()
+
+    if not user:
         return jsonify({"message": "Invalid credentials"}), 401
 
-    return jsonify({"message": "Login successful", "username": username})
+    return jsonify({
+        "id": user[0],
+        "username": user[1],
+        "age": user[3],
+        "gender": user[4],
+        "conditions": user[5]
+    })
 
 # ==============================
-# PREDICT
+# PREDICT (FIXED 🔥)
 # ==============================
 
 @app.route("/predict", methods=["POST"])
@@ -103,15 +121,26 @@ def predict():
 
     data = request.json
 
-    if "username" not in data:
-        return jsonify({"error": "Username missing"}), 400
+    # ✅ FIXED
+    if "user_id" not in data:
+        return jsonify({"error": "User ID missing"}), 400
 
-    username = data["username"]
+    user_id = data["user_id"]
+
+    # get username
+    cursor.execute("SELECT username FROM users WHERE id=%s", (user_id,))
+    user_row = cursor.fetchone()
+
+    if not user_row:
+        return jsonify({"error": "User not found"}), 404
+
+    username = user_row[0]
+
     age = int(data["age"])
     gender = int(data["gender"])
     bmi = float(data["bmi"]) if data.get("bmi") else 22
 
-    conditions = data["conditions"]
+    conditions = data.get("conditions", [])
     all_foods = data["foods"]
 
     # ==============================
@@ -171,31 +200,23 @@ def predict():
             recommendations[nutrient] = foods["food_name"].tolist()
 
     # ==============================
-    # SAVE TO MYSQL (NEW STRUCTURE)
+    # SAVE HISTORY
     # ==============================
 
-    # 1️⃣ Save main record
     cursor.execute("""
-    INSERT INTO user_history (username, date_time, age, bmi)
-    VALUES (%s, %s, %s, %s)
-    """, (
-        username,
-        datetime.now(),
-        age,
-        bmi
-    ))
+        INSERT INTO user_history (username, date_time, age, bmi)
+        VALUES (%s, %s, %s, %s)
+    """, (username, datetime.now(), age, bmi))
 
     conn.commit()
-
     history_id = cursor.lastrowid
 
-    # 2️⃣ Save each nutrient
     for nutrient, status in results.items():
         recs = recommendations.get(nutrient, [])
 
         cursor.execute("""
-        INSERT INTO nutrient_results (history_id, nutrient, status, recommendations)
-        VALUES (%s, %s, %s, %s)
+            INSERT INTO nutrient_results (history_id, nutrient, status, recommendations)
+            VALUES (%s, %s, %s, %s)
         """, (
             history_id,
             nutrient,
@@ -211,18 +232,18 @@ def predict():
     })
 
 # ==============================
-# HISTORY API
+# HISTORY
 # ==============================
 
 @app.route("/history/<username>", methods=["GET"])
 def get_user_history(username):
 
     cursor.execute("""
-    SELECT h.id, h.date_time, h.bmi, n.nutrient, n.status, n.recommendations
-    FROM user_history h
-    JOIN nutrient_results n ON h.id = n.history_id
-    WHERE h.username = %s
-    ORDER BY h.date_time DESC
+        SELECT h.id, h.date_time, h.bmi, n.nutrient, n.status, n.recommendations
+        FROM user_history h
+        JOIN nutrient_results n ON h.id = n.history_id
+        WHERE h.username = %s
+        ORDER BY h.date_time DESC
     """, (username,))
 
     rows = cursor.fetchall()
