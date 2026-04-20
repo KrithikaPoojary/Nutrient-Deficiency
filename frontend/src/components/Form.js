@@ -4,8 +4,6 @@ import { predict } from "../api";
 function Form({ setResult, setRecommendations, user }) {
 
   const [data, setData] = useState({
-    age: "",
-    gender: 1,
     height_cm: "",
     weight: "",
     bmi: "",
@@ -19,21 +17,17 @@ function Form({ setResult, setRecommendations, user }) {
     night: [""]
   });
 
-  // 🔥 AUTO-FILL USER DATA
+  // 🔥 Auto-fill user conditions
   useEffect(() => {
     if (user) {
-      setData({
-        age: user.age || "",
-        gender: user.gender || 1,
-        height_cm: user.height_cm || "",
-        weight: user.weight || "",
-        bmi: "",
+      setData((prev) => ({
+        ...prev,
         conditions: user.conditions || ""
-      });
+      }));
     }
   }, [user]);
 
-  // 🔥 BMI CALCULATION
+  // 🔥 BMI calculation
   useEffect(() => {
     if (data.height_cm && data.weight) {
       const height = Number(data.height_cm);
@@ -80,7 +74,7 @@ function Form({ setResult, setRecommendations, user }) {
         })
       : [];
 
-  // 🔥 Submit
+  // 🔥 SUBMIT
   const handleSubmit = async () => {
 
     if (!user) {
@@ -88,8 +82,13 @@ function Form({ setResult, setRecommendations, user }) {
       return;
     }
 
-    if (!data.age || !data.weight || !data.height_cm) {
-      alert("Missing profile data ❌");
+    if (!user.age) {
+      alert("User profile missing age ❌");
+      return;
+    }
+
+    if (!data.weight || !data.height_cm) {
+      alert("Enter weight and height ❌");
       return;
     }
 
@@ -113,25 +112,37 @@ function Form({ setResult, setRecommendations, user }) {
       return;
     }
 
-    // 🔥 Clean conditions
+    // 🔥 Conditions
     const conditionsArray = data.conditions
       ? data.conditions.split(",").map(c => c.trim().toLowerCase())
       : [];
 
-    // 🔥 FINAL PAYLOAD (FIXED)
+    // ✅ FINAL PAYLOAD (FIXED)
     const formattedData = {
-      user_id: user.id,   // ✅ FIXED
-      age: Number(data.age),
-      gender: data.gender,
+      user_id: user.id,   // 🔥 IMPORTANT FIX
+
+      age: user.age,
+      gender: user.gender || 1,
       bmi: Number(data.bmi),
-      conditions: conditionsArray,
+
+      conditions: [
+        ...(user.conditions
+          ? user.conditions.split(",").map(c => c.trim().toLowerCase())
+          : []),
+        ...conditionsArray
+      ],
+
       foods: allFoods
     };
+
+    console.log("Sending:", formattedData);
 
     try {
       const res = await predict(formattedData);
 
-      setResult(res.prediction);
+      console.log("Response:", res);
+
+      setResult(res.results);
       setRecommendations(res.recommendations);
 
       window.scrollTo({
@@ -149,32 +160,38 @@ function Form({ setResult, setRecommendations, user }) {
     <div className="card">
       <h2>Enter Details</h2>
 
-<div className="form-grid">
+      {/* 🔥 ONE ROW */}
+      <div className="form-grid">
 
-  <input
-    placeholder="Weight (kg)"
-    value={data.weight}
-    onChange={(e) => setData({ ...data, weight: e.target.value })}
-  />
+        <input
+          placeholder="Weight (kg)"
+          value={data.weight}
+          onChange={(e) =>
+            setData({ ...data, weight: e.target.value })
+          }
+        />
 
-  <input
-    placeholder="Height (cm)"
-    value={data.height_cm}
-    onChange={(e) => setData({ ...data, height_cm: e.target.value })}
-  />
+        <input
+          placeholder="Height (cm)"
+          value={data.height_cm}
+          onChange={(e) =>
+            setData({ ...data, height_cm: e.target.value })
+          }
+        />
 
-  <input
-    placeholder="Health Conditions (optional)"
-    value={data.conditions}
-    onChange={(e) => setData({ ...data, conditions: e.target.value })}
-  />
+        <input
+          placeholder="Health Conditions (optional)"
+          value={data.conditions}
+          onChange={(e) =>
+            setData({ ...data, conditions: e.target.value })
+          }
+        />
 
-  {/* 🔥 BMI INLINE */}
-  <div className="bmi-box">
-    <strong>BMI:</strong> {data.bmi || "Calculating..."}
-  </div>
+        <div className="bmi-box">
+          BMI: {data.bmi || "Calculating..."}
+        </div>
 
-</div>
+      </div>
 
       <h3>Food Intake</h3>
 
