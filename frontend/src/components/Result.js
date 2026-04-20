@@ -1,7 +1,11 @@
 import React from "react";
 
-function Result({ result }) {
-  if (!result) return null;
+function Result({ result, recommendations }) {
+
+  // 🔥 Prevent crash
+  if (!result) {
+    return <p style={{ textAlign: "center" }}>No results yet</p>;
+  }
 
   const getStatusStyle = (status) => {
     switch (status) {
@@ -26,13 +30,12 @@ function Result({ result }) {
 
       <div className="result-grid">
 
-        {Object.entries(result.results).map(([key, val]) => (
+        {/* 🔥 FIXED HERE */}
+        {Object.entries(result).map(([key, val]) => (
           <div className="result-card" key={key}>
 
-            {/* 🔥 Nutrient Name */}
             <h3>{key}</h3>
 
-            {/* 🔥 Status Badge */}
             <div
               className="status-badge"
               style={getStatusStyle(val)}
@@ -40,12 +43,12 @@ function Result({ result }) {
               {getIcon(val)} {val}
             </div>
 
-            {/* 🔥 Recommendations */}
-            {val !== "Normal" && result.recommendations?.[key] && (
+            {/* 🔥 FIXED HERE */}
+            {val !== "Normal" && recommendations?.[key] && (
               <div className="recommend-box">
                 <p><strong>🍎 Suggested Foods:</strong></p>
                 <ul>
-                  {result.recommendations[key].map((food, i) => (
+                  {recommendations[key].map((food, i) => (
                     <li key={i}>→ {food}</li>
                   ))}
                 </ul>

@@ -13,6 +13,13 @@ function App() {
   const [result, setResult] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
 
+  // 🔥 Logout handler (clean reset)
+  const handleLogout = () => {
+    setUser(null);
+    setResult(null);
+    setRecommendations(null);
+  };
+
   return (
     <Router>
       <Routes>
@@ -30,14 +37,14 @@ function App() {
             user ? (
               <div className="App">
 
-                {/* 🔥 FIXED HEADER */}
+                {/* 🔥 HEADER */}
                 <div className="header">
                   <h1>🍎 Nutrition Deficiency Predictor</h1>
                   <h3>Welcome, {user.username} 👋</h3>
 
                   <button
                     className="logout-btn"
-                    onClick={() => setUser(null)}
+                    onClick={handleLogout}
                   >
                     Logout 🔐
                   </button>
@@ -46,18 +53,23 @@ function App() {
                 {/* 🔥 MAIN CONTENT */}
                 <div className="main-content">
 
+                  {/* FORM */}
                   <Form
                     setResult={setResult}
                     setRecommendations={setRecommendations}
                     user={user}
                   />
 
-                  <Result
-                    result={result}
-                    recommendations={recommendations}
-                  />
+                  {/* RESULTS */}
+                  {result && (
+                    <Result
+                      result={result}
+                      recommendations={recommendations}
+                    />
+                  )}
 
-                  {result && <History user={user} />}
+                  {/* HISTORY */}
+                  {user && <History user={user} />}
 
                 </div>
 
