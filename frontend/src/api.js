@@ -25,8 +25,14 @@ export const registerUser = async (data) => {
   return res.data;
 };
 
-// 🔥 History
+// 🔥 History (old results)
 export const getHistory = async (username) => {
   const res = await API.get(`/history/${username}`);
+  return res.data;
+};
+
+// 🔥 NEW: Trend API (VERY IMPORTANT 🔥)
+export const getTrend = async (username) => {
+  const res = await API.get(`/trend/${username}`);
   return res.data;
 };
