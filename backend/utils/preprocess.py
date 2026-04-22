@@ -1,7 +1,7 @@
 import pandas as pd
 
 # ==============================
-# FOOD → NUTRIENTS (UPDATED 🔥)
+# FOOD → NUTRIENTS (FINAL 🔥)
 # ==============================
 def calculate_nutrients(user_foods, df):
 
@@ -11,36 +11,71 @@ def calculate_nutrients(user_foods, df):
     total_vitamin_d = 0
     total_fiber = 0
 
-    found_any = False   # 🔥 NEW FLAG
+    found_any = False
+    valid_food_count = 0   # 🔥 for averaging
 
     for item in user_foods:
-        food_name = item["name"].lower().strip()
-        qty = item["qty"]
+        try:
+            food_name = item["name"].lower().strip()
+            qty = float(item["qty"])
+        except:
+            continue  # skip bad input safely
 
+        # ==============================
+        # 🔥 SAFE MATCHING
+        # ==============================
+
+        # 1️⃣ Exact match
         row = df[df["food_name"] == food_name]
 
-        if not row.empty:
-            found_any = True   # ✅ FOOD FOUND
+        # 2️⃣ Partial match
+        if row.empty:
+            row = df[df["food_name"].str.contains(food_name, case=False, na=False)]
 
-            total_protein += row["protein"].values[0] * qty
-            total_iron += row["iron"].values[0] * qty
-            total_vitamin_c += row["vitamin_c"].values[0] * qty
-            total_vitamin_d += row["vitamin_d"].values[0] * qty
-            total_fiber += row["fiber"].values[0] * qty
-        else:
+        # 3️⃣ If still not found → skip safely
+        if row.empty:
             print("❌ Food not found:", food_name)
+            continue
 
-    # ❗ ONLY fail if NO food matched
+        found_any = True
+        valid_food_count += 1
+
+        row = row.iloc[0]
+
+        total_protein += row["protein"] * qty
+        total_iron += row["iron"] * qty
+        total_vitamin_c += row["vitamin_c"] * qty
+        total_vitamin_d += row["vitamin_d"] * qty
+        total_fiber += row["fiber"] * qty
+
+    # ==============================
+    # ❗ NO FOOD MATCHED
+    # ==============================
     if not found_any:
-        return None
+        print("⚠️ No foods matched → using default values")
+
+        return {
+            "protein": 1,
+            "iron": 1,
+            "vitamin_c": 1,
+            "vitamin_d": 1,
+            "fiber": 1
+        }
+
+    # ==============================
+    # 🔥 AVERAGE (VERY IMPORTANT)
+    # ==============================
+    divisor = valid_food_count if valid_food_count > 0 else 1
 
     return {
-        "protein": total_protein,
-        "iron": total_iron,
-        "vitamin_c": total_vitamin_c,
-        "vitamin_d": total_vitamin_d,
-        "fiber": total_fiber
+        "protein": total_protein / divisor,
+        "iron": total_iron / divisor,
+        "vitamin_c": total_vitamin_c / divisor,
+        "vitamin_d": total_vitamin_d / divisor,
+        "fiber": total_fiber / divisor
     }
+
+
 # ==============================
 # PREPARE INPUT FOR MODEL
 # ==============================
@@ -48,7 +83,7 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
 
     bmi_safe = bmi if bmi != 0 else 0.1
 
-    # Age group
+    # 🔥 Age group
     if age < 18:
         age_group = 0
     elif age < 35:
@@ -58,7 +93,7 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
     else:
         age_group = 3
 
-    # BMI category
+    # 🔥 BMI category
     if bmi < 18.5:
         bmi_category = 0
     elif bmi < 25:
@@ -72,12 +107,14 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
         "RIDAGEYR": age,
         "RIAGENDR": gender,
         "BMXBMI": bmi,
+
         "DR1TPROT": protein,
         "DR1TIRON": iron,
         "DR1TVC": vitc,
         "DR1TVD": vitd,
         "DR1TFIBE": fiber,
 
+        # 🔥 Ratios (important for ML)
         "Protein_BMI_ratio": protein / bmi_safe,
         "Iron_BMI_ratio": iron / bmi_safe,
         "VitC_BMI_ratio": vitc / bmi_safe,
