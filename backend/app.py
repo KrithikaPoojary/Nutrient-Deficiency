@@ -6,6 +6,7 @@ import pandas as pd
 import joblib
 from datetime import datetime
 import mysql.connector
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -14,13 +15,15 @@ CORS(app)
 # MYSQL CONNECTION
 # ==============================
 
-conn = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="mite",
-    database="nutrition_tracker"
-)
+def get_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="mite",
+        database="nutrition_tracker"
+    )
 
+conn = get_connection()
 cursor = conn.cursor()
 
 print("✅ Connected to MySQL")
@@ -33,11 +36,25 @@ model_path = "model/nutrient_deficiency_models.pkl"
 data_path = "data/updated_food_dataset.csv"
 
 df = pd.read_csv(data_path)
-df["food_name"] = df["food_name"].str.lower()
+df.columns = df.columns.str.strip().str.lower()
+
+df["food_name"] = df["food_name"].astype(str).str.lower().str.strip()
 
 models = joblib.load(model_path)
 
 print("✅ Model and dataset loaded successfully!")
+
+# ==============================
+# 🔥 DAILY REQUIREMENTS (IMPORTANT)
+# ==============================
+
+RDA = {
+    "Protein": 50,
+    "Iron": 18,
+    "Vitamin C": 75,
+    "Vitamin D": 15,
+    "Fiber": 25
+}
 
 # ==============================
 # HOME
@@ -61,26 +78,16 @@ def register():
     gender = int(data.get("gender", 1))
     conditions = data.get("conditions", "")
 
-    print("REGISTER USER:", username)
-
-    # check user exists
-    cursor.execute(
-        "SELECT COUNT(*) FROM users WHERE username=%s",
-        (username,)
-    )
-    count = cursor.fetchone()[0]
-
-    if count > 0:
+    cursor.execute("SELECT COUNT(*) FROM users WHERE username=%s", (username,))
+    if cursor.fetchone()[0] > 0:
         return jsonify({"message": "User already exists"}), 400
 
-    # insert
     cursor.execute("""
         INSERT INTO users (username, password, age, gender, conditions)
         VALUES (%s, %s, %s, %s, %s)
     """, (username, password, age, gender, conditions))
 
     conn.commit()
-
     return jsonify({"message": "Registered successfully"})
 
 # ==============================
@@ -113,162 +120,181 @@ def login():
     })
 
 # ==============================
-# PREDICT (FIXED 🔥)
+# 🔥 PREDICT (FINAL CORRECT)
 # ==============================
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    global conn, cursor
 
-    data = request.json
+    try:
+        if not conn.is_connected():
+            conn = get_connection()
+            cursor = conn.cursor()
 
-    # ✅ FIXED
-    if "user_id" not in data:
-        return jsonify({"error": "User ID missing"}), 400
+        data = request.json
 
-    user_id = data["user_id"]
+        user_id = data.get("user_id")
+        age = int(data.get("age", 0))
+        gender = int(data.get("gender", 1))
+        bmi = float(data.get("bmi", 22))
+        conditions = data.get("conditions", [])
+        today_foods = data.get("foods", [])
 
-    # get username
-    cursor.execute("SELECT username FROM users WHERE id=%s", (user_id,))
-    user_row = cursor.fetchone()
+        if not user_id:
+            return jsonify({"error": "User ID missing"}), 400
 
-    if not user_row:
-        return jsonify({"error": "User not found"}), 404
+        # ==============================
+        # SAVE TODAY FOOD
+        # ==============================
+        if today_foods:
+            cursor.execute("""
+                INSERT INTO food_log (user_id, foods, date_time)
+                VALUES (%s, %s, %s)
+            """, (user_id, json.dumps(today_foods), datetime.now()))
+            conn.commit()
 
-    username = user_row[0]
+        # ==============================
+        # FETCH ALL FOOD HISTORY
+        # ==============================
+        cursor.execute("SELECT foods FROM food_log WHERE user_id=%s", (user_id,))
+        rows = cursor.fetchall()
 
-    age = int(data["age"])
-    gender = int(data["gender"])
-    bmi = float(data["bmi"]) if data.get("bmi") else 22
+        all_foods = []
+        for row in rows:
+            try:
+                parsed = json.loads(row[0])
+                if isinstance(parsed, list):
+                    all_foods.extend(parsed)
+            except:
+                continue
 
-    conditions = data.get("conditions", [])
-    all_foods = data["foods"]
+        if not all_foods:
+            all_foods = today_foods
 
-    # ==============================
-    # NUTRIENTS CALCULATION
-    # ==============================
+        # ==============================
+        # NUTRIENTS
+        # ==============================
+        totals = calculate_nutrients(all_foods, df)
 
-    totals = calculate_nutrients(all_foods, df)
+        if totals is None:
+            return jsonify({"error": "No matching foods found"}), 400
 
-    if totals is None:
-        return jsonify({"error": "No matching foods found"}), 400
+        # ==============================
+        # 🔥 REAL DEFICIENCY LOGIC
+        # ==============================
 
-    input_df = prepare_input(
-        age, gender, bmi,
-        totals["protein"],
-        totals["iron"],
-        totals["vitamin_c"],
-        totals["vitamin_d"],
-        totals["fiber"]
-    )
+        results = {}
 
-    remove_map = {
-        "Iron_Label": "DR1TIRON",
-        "Protein_Label": "DR1TPROT",
-        "VitC_Label": "DR1TVC",
-        "VitD_Label": "DR1TVD",
-        "Fiber_Label": "DR1TFIBE"
-    }
+        value_map = {
+            "Protein": totals["protein"],
+            "Iron": totals["iron"],
+            "Vitamin C": totals["vitamin_c"],
+            "Vitamin D": totals["vitamin_d"],
+            "Fiber": totals["fiber"]
+        }
 
-    name_map = {
-        "VitC_Label": "Vitamin C",
-        "VitD_Label": "Vitamin D",
-        "Iron_Label": "Iron",
-        "Protein_Label": "Protein",
-        "Fiber_Label": "Fiber"
-    }
+        for nutrient, value in value_map.items():
+            required = RDA[nutrient]
+            ratio = value / required if required > 0 else 0
 
-    results = {}
+            if ratio < 0.4:
+                status = "Severe"
+            elif ratio < 0.7:
+                status = "Moderate"
+            elif ratio < 1.0:
+                status = "Mild"
+            else:
+                status = "Normal"
 
-    for model_name in models:
-        temp_df = input_df.copy()
+            results[nutrient] = status
 
-        if remove_map[model_name] in temp_df.columns:
-            temp_df = temp_df.drop(columns=[remove_map[model_name]])
+        # ==============================
+        # RECOMMENDATIONS
+        # ==============================
 
-        pred = models[model_name].predict(temp_df)[0]
-        results[name_map[model_name]] = pred
+        recommendations = {}
 
-    # ==============================
-    # RECOMMENDATIONS
-    # ==============================
+        for nutrient, status in results.items():
+            if status != "Normal":
+                rec_data = recommend_food(nutrient, df, age, conditions, status)
 
-    recommendations = {}
+                recommendations[nutrient] = {
+                    "foods": rec_data.get("top_foods", []),
+                    "plan": rec_data.get("plan", {})
+                }
 
-    for nutrient, status in results.items():
-        if status != "Normal":
-            foods = recommend_food(nutrient, df, age, conditions)
-            recommendations[nutrient] = foods["food_name"].tolist()
+        # ==============================
+        # SAVE HISTORY
+        # ==============================
 
-    # ==============================
-    # SAVE HISTORY
-    # ==============================
-
-    cursor.execute("""
-        INSERT INTO user_history (username, date_time, age, bmi)
-        VALUES (%s, %s, %s, %s)
-    """, (username, datetime.now(), age, bmi))
-
-    conn.commit()
-    history_id = cursor.lastrowid
-
-    for nutrient, status in results.items():
-        recs = recommendations.get(nutrient, [])
+        cursor.execute("SELECT username FROM users WHERE id=%s", (user_id,))
+        username = cursor.fetchone()[0]
 
         cursor.execute("""
-            INSERT INTO nutrient_results (history_id, nutrient, status, recommendations)
+            INSERT INTO user_history (username, date_time, age, bmi)
             VALUES (%s, %s, %s, %s)
-        """, (
-            history_id,
-            nutrient,
-            status,
-            ", ".join(recs)
-        ))
+        """, (username, datetime.now(), age, bmi))
 
-    conn.commit()
+        conn.commit()
+        history_id = cursor.lastrowid
 
-    return jsonify({
-        "results": results,
-        "recommendations": recommendations
-    })
+        for nutrient, status in results.items():
+            recs = recommendations.get(nutrient, {}).get("foods", [])
+
+            cursor.execute("""
+                INSERT INTO nutrient_results (history_id, nutrient, status, recommendations)
+                VALUES (%s, %s, %s, %s)
+            """, (
+                history_id,
+                nutrient,
+                status,
+                ", ".join(recs)
+            ))
+
+        conn.commit()
+
+        return jsonify({
+            "results": results,
+            "recommendations": recommendations
+        })
+
+    except Exception as e:
+        print("❌ ERROR:", str(e))
+        return jsonify({"error": "Prediction failed"}), 500
+
 
 # ==============================
-# HISTORY
+# TREND API
 # ==============================
 
-@app.route("/history/<username>", methods=["GET"])
-def get_user_history(username):
+@app.route("/trend/<username>", methods=["GET"])
+def trend(username):
 
     cursor.execute("""
-        SELECT h.id, h.date_time, h.bmi, n.nutrient, n.status, n.recommendations
+        SELECT h.date_time, n.nutrient, n.status
         FROM user_history h
         JOIN nutrient_results n ON h.id = n.history_id
         WHERE h.username = %s
-        ORDER BY h.date_time DESC
+        ORDER BY h.date_time
     """, (username,))
 
     rows = cursor.fetchall()
 
-    history = {}
+    trend = {}
 
     for row in rows:
-        h_id = row[0]
+        date = str(row[0])
+        nutrient = row[1]
+        status = row[2]
 
-        if h_id not in history:
-            history[h_id] = {
-                "date": str(row[1]),
-                "bmi": row[2],
-                "results": []
-            }
+        if date not in trend:
+            trend[date] = {}
 
-        history[h_id]["results"].append({
-            "nutrient": row[3],
-            "status": row[4],
-            "recommendations": row[5]
-        })
+        trend[date][nutrient] = status
 
-    return jsonify(list(history.values()))
+    return jsonify(trend)
 
-# ==============================
 
 if __name__ == "__main__":
     app.run(debug=True)
