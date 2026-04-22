@@ -17,7 +17,7 @@ function Form({ setResult, setRecommendations, user }) {
     night: [""]
   });
 
-  // 🔥 Auto-fill user conditions
+  // ✅ Auto-fill conditions
   useEffect(() => {
     if (user) {
       setData((prev) => ({
@@ -27,7 +27,7 @@ function Form({ setResult, setRecommendations, user }) {
     }
   }, [user]);
 
-  // 🔥 BMI calculation
+  // ✅ BMI calculation
   useEffect(() => {
     if (data.height_cm && data.weight) {
       const height = Number(data.height_cm);
@@ -43,7 +43,10 @@ function Form({ setResult, setRecommendations, user }) {
     }
   }, [data.height_cm, data.weight]);
 
-  // 🔥 Meal handlers
+  // ==============================
+  // MEAL HANDLERS
+  // ==============================
+
   const handleMealChange = (mealType, index, value) => {
     const updated = { ...meals };
     updated[mealType][index] = value;
@@ -62,28 +65,37 @@ function Form({ setResult, setRecommendations, user }) {
     setMeals({ ...meals, [mealType]: updated });
   };
 
-  // 🔥 Parse food
-  const parseFood = (input) =>
-    input
-      ? input.split(",").map(item => {
-          const [name, qty] = item.split("-");
-          return {
-            name: name.trim().toLowerCase(),
-            qty: Number(qty) || 1
-          };
-        })
-      : [];
+  // ==============================
+  // 🔥 STRONG PARSE FOOD FIX
+  // ==============================
 
-  // 🔥 SUBMIT
+  const parseFood = (input) => {
+    if (!input) return [];
+
+    return input
+      .toLowerCase()
+      .replace(/\(.*?\)/g, "") // remove brackets
+      .replace(/[^a-z0-9,\- ]/g, "") // clean text
+      .split(",")
+      .map(item => {
+        const parts = item.trim().split("-");
+
+        return {
+          name: parts[0]?.trim(),
+          qty: Number(parts[1]) || 1
+        };
+      })
+      .filter(f => f.name);
+  };
+
+  // ==============================
+  // SUBMIT
+  // ==============================
+
   const handleSubmit = async () => {
 
     if (!user) {
       alert("Please login first ❌");
-      return;
-    }
-
-    if (!user.age) {
-      alert("User profile missing age ❌");
       return;
     }
 
@@ -92,75 +104,51 @@ function Form({ setResult, setRecommendations, user }) {
       return;
     }
 
-    // 🔥 Format meals
-    const formattedMeals = {
-      morning: meals.morning.flatMap(parseFood),
-      afternoon: meals.afternoon.flatMap(parseFood),
-      evening: meals.evening.flatMap(parseFood),
-      night: meals.night.flatMap(parseFood)
-    };
-
     const allFoods = [
-      ...formattedMeals.morning,
-      ...formattedMeals.afternoon,
-      ...formattedMeals.evening,
-      ...formattedMeals.night
+      ...meals.morning.flatMap(parseFood),
+      ...meals.afternoon.flatMap(parseFood),
+      ...meals.evening.flatMap(parseFood),
+      ...meals.night.flatMap(parseFood)
     ];
 
     if (allFoods.length === 0) {
-      alert("Enter at least one food ❌");
+      alert("Enter valid food ❌");
       return;
     }
 
-    // 🔥 Conditions
-    const conditionsArray = data.conditions
-      ? data.conditions.split(",").map(c => c.trim().toLowerCase())
-      : [];
-
-    // ✅ FINAL PAYLOAD (FIXED)
     const formattedData = {
-      user_id: user.id,   // 🔥 IMPORTANT FIX
-
+      user_id: user.id,
       age: user.age,
       gender: user.gender || 1,
-      bmi: Number(data.bmi),
-
-      conditions: [
-        ...(user.conditions
-          ? user.conditions.split(",").map(c => c.trim().toLowerCase())
-          : []),
-        ...conditionsArray
-      ],
-
+      bmi: Number(data.bmi) || 22,
+      conditions: data.conditions
+        ? data.conditions.split(",").map(c => c.trim().toLowerCase())
+        : [],
       foods: allFoods
     };
 
-    console.log("Sending:", formattedData);
+    console.log("✅ Sending:", formattedData);
 
     try {
       const res = await predict(formattedData);
 
-      console.log("Response:", res);
-
       setResult(res.results);
       setRecommendations(res.recommendations);
 
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
-      });
-
     } catch (err) {
-      console.error(err);
+      console.error("❌ ERROR:", err);
       alert("Prediction failed ❌");
     }
   };
+
+  // ==============================
+  // UI
+  // ==============================
 
   return (
     <div className="card">
       <h2>Enter Details</h2>
 
-      {/* 🔥 ONE ROW */}
       <div className="form-grid">
 
         <input
@@ -180,7 +168,7 @@ function Form({ setResult, setRecommendations, user }) {
         />
 
         <input
-          placeholder="Health Conditions (optional)"
+          placeholder="Health Conditions"
           value={data.conditions}
           onChange={(e) =>
             setData({ ...data, conditions: e.target.value })
@@ -197,30 +185,22 @@ function Form({ setResult, setRecommendations, user }) {
 
       {["morning", "afternoon", "evening", "night"].map((mealType) => (
         <div key={mealType}>
-          <h4 style={{ textTransform: "capitalize" }}>{mealType}</h4>
+          <h4>{mealType}</h4>
 
           {meals[mealType].map((item, index) => (
             <div key={index} className="row">
               <input
-                placeholder={`${mealType} food (rice-2,egg-1)`}
+                placeholder="rice-2,egg-1"
                 value={item}
                 onChange={(e) =>
                   handleMealChange(mealType, index, e.target.value)
                 }
               />
-
-              <button onClick={() => removeMealField(mealType, index)}>
-                ❌
-              </button>
+              <button onClick={() => removeMealField(mealType, index)}>❌</button>
             </div>
           ))}
 
-          <button
-            className="add-btn"
-            onClick={() => addMealField(mealType)}
-          >
-            ➕ Add More
-          </button>
+          <button onClick={() => addMealField(mealType)}>➕ Add</button>
         </div>
       ))}
 
