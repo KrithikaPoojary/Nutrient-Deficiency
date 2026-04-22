@@ -13,7 +13,7 @@ function App() {
   const [result, setResult] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
 
-  // 🔥 Logout handler (clean reset)
+  // ✅ Logout handler (reset everything)
   const handleLogout = () => {
     setUser(null);
     setResult(null);
@@ -53,22 +53,22 @@ function App() {
                 {/* 🔥 MAIN CONTENT */}
                 <div className="main-content">
 
-                  {/* FORM */}
+                  {/* 🧾 FORM */}
                   <Form
                     setResult={setResult}
                     setRecommendations={setRecommendations}
                     user={user}
                   />
 
-                  {/* RESULTS */}
-                  {result && (
+                  {/* 📊 RESULTS */}
+                  {result && Object.keys(result).length > 0 && (
                     <Result
                       result={result}
                       recommendations={recommendations}
                     />
                   )}
 
-                  {/* HISTORY */}
+                  {/* 📜 HISTORY */}
                   {user && <History user={user} />}
 
                 </div>
