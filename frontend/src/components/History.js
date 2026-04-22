@@ -1,76 +1,86 @@
 import React, { useEffect, useState } from "react";
-import { getHistory } from "../api";
+import { getTrend } from "../api";
 
 function History({ user }) {
-  const [history, setHistory] = useState([]);
+
+  const [trend, setTrend] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) fetchHistory();
+    if (user) {
+      fetchTrend();
+
+      // 🔥 AUTO REFRESH every 2 sec (VERY IMPORTANT)
+      const interval = setInterval(fetchTrend, 2000);
+
+      return () => clearInterval(interval);
+    }
   }, [user]);
 
-  const fetchHistory = async () => {
+  const fetchTrend = async () => {
     try {
-      const res = await getHistory(user);
-      setHistory(res);
+      const data = await getTrend(user.username);
+      setTrend(data);
+      setLoading(false);
     } catch (err) {
-      console.error(err);
+      console.error("Trend fetch error:", err);
+      setLoading(false);
     }
   };
 
-  if (!history || history.length <= 1) return null;
-
-  const previousHistory = history.slice(1);
-
-  // 🔥 FORMAT DATE
-  const formatDate = (date) => {
-    return new Date(date).toLocaleString("en-IN", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    });
-  };
-
-  // 🔥 COLOR CLASS
-  const getClass = (status) => {
-    if (status === "Normal") return "normal";
-    if (status === "Moderate") return "moderate";
-    return "severe";
+  // 🔥 convert status to number (for bar)
+  const statusScore = (status) => {
+    switch (status) {
+      case "Severe": return 100;
+      case "Moderate": return 70;
+      case "Mild": return 40;
+      default: return 10;
+    }
   };
 
   return (
     <div className="card">
-      <h2>📊 Previous Records</h2>
+      <h2>📈 Nutrient Trend</h2>
 
-      {previousHistory.map((item, index) => (
-        <div key={index} className="history-card">
+      {loading ? (
+        <p>Loading...</p>
+      ) : Object.keys(trend).length === 0 ? (
+        <p>No history yet</p>
+      ) : (
+        Object.entries(trend)
+          .reverse()   // 🔥 show latest first
+          .map(([date, nutrients], index) => (
+            <div key={index} className="trend-block">
 
-          <p className="history-date">
-            📅 {formatDate(item.date)}
-          </p>
+              <h4>{new Date(date).toLocaleString()}</h4>
 
-          <p><strong>BMI:</strong> {item.bmi}</p>
+              {Object.entries(nutrients).map(([nutrient, status]) => (
+                <div key={nutrient} className="trend-row">
 
-          <h4>🧪 Deficiency</h4>
+                  <span>{nutrient}</span>
 
-          {item.results.map((res, i) => (
-            <div key={i} className="history-item">
+                  <div className="bar">
+                    <div
+                      className="fill"
+                      style={{
+                        width: `${statusScore(status)}%`,
+                        background:
+                          status === "Severe" ? "#e74c3c" :
+                          status === "Moderate" ? "#f39c12" :
+                          status === "Mild" ? "#f1c40f" :
+                          "#2ecc71"
+                      }}
+                    ></div>
+                  </div>
 
-              <p className={getClass(res.status)}>
-                ● {res.nutrient}: {res.status}
-              </p>
+                  <span>{status}</span>
 
-              {res.status !== "Normal" && res.recommendations && (
-                <ul className="rec-list">
-                  {res.recommendations.split(",").map((food, j) => (
-                    <li key={j}>→ {food.trim()}</li>
-                  ))}
-                </ul>
-              )}
+                </div>
+              ))}
 
             </div>
-          ))}
-
-        </div>
-      ))}
+          ))
+      )}
     </div>
   );
 }
