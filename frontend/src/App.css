@@ -81,9 +81,9 @@ input:focus {
 /* 🔥 ROW */
 .row {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 8px;
+  position: relative; /* 🔥 important for dropdown */
 }
 
 /* 🔥 BUTTON */
@@ -132,7 +132,7 @@ button:hover {
   border-radius: 14px;
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  text-align: left; /* 🔥 IMPORTANT */
+  text-align: left;
 }
 
 /* 🔥 STATUS BADGE */
@@ -174,6 +174,31 @@ button:hover {
   margin: 6px 0 2px;
 }
 
+/* 🔥 🔥 AUTOCOMPLETE DROPDOWN */
+.dropdown {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background: #f4f6f8;
+}
+
 /* 🔥 LOGIN */
 .login-container {
   display: flex;
@@ -188,19 +213,6 @@ button:hover {
   width: 320px;
   border-radius: 14px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.login-card input {
-  margin: 10px 0;
-}
-
-.login-card button {
-  width: 100%;
 }
 
 /* 🔥 HISTORY */

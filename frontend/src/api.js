@@ -25,14 +25,16 @@ export const registerUser = async (data) => {
   return res.data;
 };
 
-// 🔥 History (old results)
-export const getHistory = async (username) => {
-  const res = await API.get(`/history/${username}`);
+// 🔥 Trend (ONLY use this, not history)
+export const getTrend = async (username) => {
+  const res = await API.get(`/trend/${username}`);
   return res.data;
 };
 
-// 🔥 NEW: Trend API (VERY IMPORTANT 🔥)
-export const getTrend = async (username) => {
-  const res = await API.get(`/trend/${username}`);
+// 🔥 Food Suggestion (Auto-complete)
+export const getSuggestions = async (query) => {
+  if (!query) return [];
+  
+  const res = await API.get(`/suggest/${query}`);
   return res.data;
 };
