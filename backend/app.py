@@ -33,7 +33,7 @@ print("✅ Connected to MySQL")
 # ==============================
 
 model_path = "model/nutrient_deficiency_models.pkl"
-data_path = "data/updated_food_dataset.csv"
+data_path = "data/cleaned_food_dataset.csv"
 
 df = pd.read_csv(data_path)
 df.columns = df.columns.str.strip().str.lower()

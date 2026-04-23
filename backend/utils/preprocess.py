@@ -12,17 +12,25 @@ def calculate_nutrients(user_foods, df):
     total_fiber = 0
 
     found_any = False
-    valid_food_count = 0   # 🔥 for averaging
+    total_qty = 0   # 🔥 better than count
 
     for item in user_foods:
         try:
-            food_name = item["name"].lower().strip()
-            qty = float(item["qty"])
+            food_name = str(item.get("name", "")).lower().strip()
+            qty = float(item.get("qty", 1))
         except:
-            continue  # skip bad input safely
+            continue  # skip bad input
+
+        if not food_name:
+            continue
 
         # ==============================
-        # 🔥 SAFE MATCHING
+        # 🔥 CLEAN INPUT
+        # ==============================
+        food_name = food_name.replace("_", " ").strip()
+
+        # ==============================
+        # 🔥 MATCHING LOGIC
         # ==============================
 
         # 1️⃣ Exact match
@@ -32,47 +40,50 @@ def calculate_nutrients(user_foods, df):
         if row.empty:
             row = df[df["food_name"].str.contains(food_name, case=False, na=False)]
 
-        # 3️⃣ If still not found → skip safely
+        # 3️⃣ Skip if not found
         if row.empty:
             print("❌ Food not found:", food_name)
             continue
 
         found_any = True
-        valid_food_count += 1
+        total_qty += qty
 
         row = row.iloc[0]
 
-        total_protein += row["protein"] * qty
-        total_iron += row["iron"] * qty
-        total_vitamin_c += row["vitamin_c"] * qty
-        total_vitamin_d += row["vitamin_d"] * qty
-        total_fiber += row["fiber"] * qty
+        # ==============================
+        # 🔥 ADD TOTALS
+        # ==============================
+
+        total_protein += float(row.get("protein", 0)) * qty
+        total_iron += float(row.get("iron", 0)) * qty
+        total_vitamin_c += float(row.get("vitamin_c", 0)) * qty
+        total_vitamin_d += float(row.get("vitamin_d", 0)) * qty
+        total_fiber += float(row.get("fiber", 0)) * qty
 
     # ==============================
     # ❗ NO FOOD MATCHED
     # ==============================
-    if not found_any:
-        print("⚠️ No foods matched → using default values")
+    if not found_any or total_qty == 0:
+        print("⚠️ No valid foods → using fallback values")
 
         return {
-            "protein": 1,
-            "iron": 1,
-            "vitamin_c": 1,
+            "protein": 2,
+            "iron": 2,
+            "vitamin_c": 5,
             "vitamin_d": 1,
-            "fiber": 1
+            "fiber": 2
         }
 
     # ==============================
-    # 🔥 AVERAGE (VERY IMPORTANT)
+    # 🔥 NORMALIZATION (IMPORTANT)
     # ==============================
-    divisor = valid_food_count if valid_food_count > 0 else 1
 
     return {
-        "protein": total_protein / divisor,
-        "iron": total_iron / divisor,
-        "vitamin_c": total_vitamin_c / divisor,
-        "vitamin_d": total_vitamin_d / divisor,
-        "fiber": total_fiber / divisor
+        "protein": total_protein / total_qty,
+        "iron": total_iron / total_qty,
+        "vitamin_c": total_vitamin_c / total_qty,
+        "vitamin_d": total_vitamin_d / total_qty,
+        "fiber": total_fiber / total_qty
     }
 
 
@@ -81,9 +92,11 @@ def calculate_nutrients(user_foods, df):
 # ==============================
 def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
 
-    bmi_safe = bmi if bmi != 0 else 0.1
+    bmi_safe = bmi if bmi > 0 else 0.1
 
-    # 🔥 Age group
+    # ==============================
+    # AGE GROUP
+    # ==============================
     if age < 18:
         age_group = 0
     elif age < 35:
@@ -93,7 +106,9 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
     else:
         age_group = 3
 
-    # 🔥 BMI category
+    # ==============================
+    # BMI CATEGORY
+    # ==============================
     if bmi < 18.5:
         bmi_category = 0
     elif bmi < 25:
@@ -102,6 +117,10 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
         bmi_category = 2
     else:
         bmi_category = 3
+
+    # ==============================
+    # 🔥 FEATURE ENGINEERING
+    # ==============================
 
     data = {
         "RIDAGEYR": age,
@@ -114,7 +133,7 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
         "DR1TVD": vitd,
         "DR1TFIBE": fiber,
 
-        # 🔥 Ratios (important for ML)
+        # Ratios
         "Protein_BMI_ratio": protein / bmi_safe,
         "Iron_BMI_ratio": iron / bmi_safe,
         "VitC_BMI_ratio": vitc / bmi_safe,
