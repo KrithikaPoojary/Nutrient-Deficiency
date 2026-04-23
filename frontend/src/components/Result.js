@@ -2,7 +2,6 @@ import React from "react";
 
 function Result({ result, recommendations }) {
 
-  // ✅ Handle empty state
   if (!result || Object.keys(result).length === 0) {
     return <p style={{ textAlign: "center" }}>No results yet</p>;
   }
@@ -32,17 +31,14 @@ function Result({ result, recommendations }) {
       <h2>📊 Results</h2>
 
       <div className="result-grid">
-
         {Object.entries(result).map(([key, val]) => {
           const rec = recommendations?.[key];
 
           return (
             <div className="result-card" key={key}>
 
-              {/* Nutrient Name */}
               <h3>{key}</h3>
 
-              {/* Status */}
               <div
                 className="status-badge"
                 style={getStatusStyle(val)}
@@ -54,33 +50,35 @@ function Result({ result, recommendations }) {
               {val !== "Normal" && rec && (
                 <div className="recommend-box">
 
-                  {/* Foods */}
-                  {rec.foods && rec.foods.length > 0 && (
+                  {/* 🍎 Suggested Foods */}
+                  {rec.foods?.length > 0 && (
                     <>
-                      <p><strong>🍎 Suggested Foods:</strong></p>
-                      <ul>
+                      <p className="section-title">🍎 Suggested Foods</p>
+
+                      <ul className="clean-list">
                         {rec.foods.map((food, i) => (
-                          <li key={i}>→ {food}</li>
+                          <li key={i}>{food}</li>
                         ))}
                       </ul>
                     </>
                   )}
 
-                  {/* 🔥 Day-wise Plan */}
+                  {/* 📅 3-Day Plan */}
                   {rec.plan && Object.keys(rec.plan).length > 0 && (
                     <>
-                      <p style={{ marginTop: "10px" }}>
-                        <strong>📅 3-Day Plan:</strong>
-                      </p>
+                      <p className="section-title">📅 3-Day Plan</p>
 
                       {Object.entries(rec.plan).map(([day, foods]) => (
-                        <div key={day} style={{ marginBottom: "8px" }}>
-                          <strong>{day}:</strong>
-                          <ul>
+                        <div key={day} className="day-block">
+
+                          <p className="day-title">{day}</p>
+
+                          <ul className="clean-list">
                             {foods.map((f, idx) => (
-                              <li key={idx}>→ {f}</li>
+                              <li key={idx}>{f}</li>
                             ))}
                           </ul>
+
                         </div>
                       ))}
                     </>
@@ -92,7 +90,6 @@ function Result({ result, recommendations }) {
             </div>
           );
         })}
-
       </div>
     </div>
   );
