@@ -47,10 +47,10 @@ h1 {
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
-/* 🔥 🔥 IMPORTANT FIX: 4 COLUMN GRID */
+/* 🔥 FORM GRID */
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* ✅ FIXED */
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
   align-items: center;
 }
@@ -76,7 +76,6 @@ input:focus {
   font-weight: bold;
   text-align: center;
   color: #2c3e50;
-  width: 100%;
 }
 
 /* 🔥 ROW */
@@ -133,12 +132,47 @@ button:hover {
   border-radius: 14px;
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  text-align: left; /* 🔥 IMPORTANT */
 }
 
-/* 🔥 COLORS */
-.normal { color: green; font-weight: bold; }
-.moderate { color: orange; font-weight: bold; }
-.severe { color: red; font-weight: bold; }
+/* 🔥 STATUS BADGE */
+.status-badge {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: 8px 0;
+  display: inline-block;
+}
+
+/* 🔥 SECTION TITLE */
+.section-title {
+  font-weight: 600;
+  margin: 12px 0 6px;
+}
+
+/* 🔥 CLEAN BULLET LIST */
+.clean-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 6px 0 12px;
+}
+
+.clean-list li {
+  margin-bottom: 6px;
+  text-transform: capitalize;
+  line-height: 1.4;
+}
+
+/* 🔥 DAY BLOCK */
+.day-block {
+  margin-bottom: 10px;
+}
+
+/* 🔥 DAY TITLE */
+.day-title {
+  font-weight: 600;
+  margin: 6px 0 2px;
+}
 
 /* 🔥 LOGIN */
 .login-container {
@@ -180,19 +214,8 @@ button:hover {
   box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
 
-/* 🔥 MOBILE FIX */
-@media (max-width: 768px) {
-  .card,
-  .history-card {
-    width: 90%;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr; /* ✅ stack */
-  }
-
-
-  .trend-row {
+/* 🔥 TREND */
+.trend-row {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -216,4 +239,15 @@ button:hover {
   padding: 10px;
   border-bottom: 1px solid #eee;
 }
+
+/* 🔥 MOBILE FIX */
+@media (max-width: 768px) {
+  .card,
+  .history-card {
+    width: 90%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }
