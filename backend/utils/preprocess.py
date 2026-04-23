@@ -1,7 +1,25 @@
 import pandas as pd
 
 # ==============================
-# FOOD → NUTRIENTS (FINAL 🔥)
+# 🔥 FOOD NORMALIZATION (NEW)
+# ==============================
+def normalize_food_name(food_name):
+    mapping = {
+        "juice": "orange juice",
+        "chocolate": "milk chocolate",
+        "burger": "veg burger",
+        "pizza": "cheese pizza",
+        "maggi": "instant noodles",
+        "tea": "milk tea",
+        "egg": "boiled egg",
+        "rice": "white rice"
+    }
+
+    return mapping.get(food_name, food_name)
+
+
+# ==============================
+# FOOD → NUTRIENTS
 # ==============================
 def calculate_nutrients(user_foods, df):
 
@@ -12,22 +30,23 @@ def calculate_nutrients(user_foods, df):
     total_fiber = 0
 
     found_any = False
-    total_qty = 0   # 🔥 better than count
+    total_qty = 0
 
     for item in user_foods:
         try:
             food_name = str(item.get("name", "")).lower().strip()
             qty = float(item.get("qty", 1))
         except:
-            continue  # skip bad input
+            continue
 
         if not food_name:
             continue
 
         # ==============================
-        # 🔥 CLEAN INPUT
+        # 🔥 CLEAN + NORMALIZE INPUT
         # ==============================
         food_name = food_name.replace("_", " ").strip()
+        food_name = normalize_food_name(food_name)
 
         # ==============================
         # 🔥 MATCHING LOGIC
@@ -40,7 +59,15 @@ def calculate_nutrients(user_foods, df):
         if row.empty:
             row = df[df["food_name"].str.contains(food_name, case=False, na=False)]
 
-        # 3️⃣ Skip if not found
+        # 3️⃣ Word-level match (VERY IMPORTANT)
+        if row.empty:
+            words = food_name.split()
+            for w in words:
+                row = df[df["food_name"].str.contains(w, case=False, na=False)]
+                if not row.empty:
+                    break
+
+        # 4️⃣ Still not found → skip safely
         if row.empty:
             print("❌ Food not found:", food_name)
             continue
@@ -53,7 +80,6 @@ def calculate_nutrients(user_foods, df):
         # ==============================
         # 🔥 ADD TOTALS
         # ==============================
-
         total_protein += float(row.get("protein", 0)) * qty
         total_iron += float(row.get("iron", 0)) * qty
         total_vitamin_c += float(row.get("vitamin_c", 0)) * qty
@@ -67,17 +93,16 @@ def calculate_nutrients(user_foods, df):
         print("⚠️ No valid foods → using fallback values")
 
         return {
-            "protein": 2,
+            "protein": 5,
             "iron": 2,
-            "vitamin_c": 5,
+            "vitamin_c": 10,
             "vitamin_d": 1,
-            "fiber": 2
+            "fiber": 3
         }
 
     # ==============================
-    # 🔥 NORMALIZATION (IMPORTANT)
+    # 🔥 NORMALIZATION
     # ==============================
-
     return {
         "protein": total_protein / total_qty,
         "iron": total_iron / total_qty,
@@ -121,7 +146,6 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
     # ==============================
     # 🔥 FEATURE ENGINEERING
     # ==============================
-
     data = {
         "RIDAGEYR": age,
         "RIAGENDR": gender,

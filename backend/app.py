@@ -1,6 +1,6 @@
 from flask_cors import CORS
 from flask import Flask, request, jsonify
-from utils.preprocess import calculate_nutrients, prepare_input
+from utils.preprocess import calculate_nutrients
 from utils.recommend import recommend_food
 import pandas as pd
 import joblib
@@ -37,7 +37,6 @@ data_path = "data/cleaned_food_dataset.csv"
 
 df = pd.read_csv(data_path)
 df.columns = df.columns.str.strip().str.lower()
-
 df["food_name"] = df["food_name"].astype(str).str.lower().str.strip()
 
 models = joblib.load(model_path)
@@ -45,7 +44,7 @@ models = joblib.load(model_path)
 print("✅ Model and dataset loaded successfully!")
 
 # ==============================
-# 🔥 DAILY REQUIREMENTS (IMPORTANT)
+# DAILY REQUIREMENTS
 # ==============================
 
 RDA = {
@@ -62,7 +61,7 @@ RDA = {
 
 @app.route("/")
 def home():
-    return "Backend ready with ML + MySQL 🔥"
+    return "Backend ready 🔥"
 
 # ==============================
 # REGISTER
@@ -120,7 +119,21 @@ def login():
     })
 
 # ==============================
-# 🔥 PREDICT (FINAL CORRECT)
+# 🔥 FOOD SUGGESTION API (FIXED POSITION)
+# ==============================
+
+@app.route("/suggest/<query>", methods=["GET"])
+def suggest_food(query):
+    query = query.lower()
+
+    suggestions = df[
+        df["food_name"].str.contains(query, case=False, na=False)
+    ]["food_name"].unique().tolist()
+
+    return jsonify(suggestions[:5])
+
+# ==============================
+# PREDICT
 # ==============================
 
 @app.route("/predict", methods=["POST"])
@@ -144,9 +157,7 @@ def predict():
         if not user_id:
             return jsonify({"error": "User ID missing"}), 400
 
-        # ==============================
-        # SAVE TODAY FOOD
-        # ==============================
+        # SAVE FOOD
         if today_foods:
             cursor.execute("""
                 INSERT INTO food_log (user_id, foods, date_time)
@@ -154,9 +165,7 @@ def predict():
             """, (user_id, json.dumps(today_foods), datetime.now()))
             conn.commit()
 
-        # ==============================
-        # FETCH ALL FOOD HISTORY
-        # ==============================
+        # FETCH HISTORY
         cursor.execute("SELECT foods FROM food_log WHERE user_id=%s", (user_id,))
         rows = cursor.fetchall()
 
@@ -172,16 +181,11 @@ def predict():
         if not all_foods:
             all_foods = today_foods
 
-        # ==============================
         # NUTRIENTS
-        # ==============================
         totals = calculate_nutrients(all_foods, df)
 
-        if totals is None:
-            return jsonify({"error": "No matching foods found"}), 400
-
         # ==============================
-        # 🔥 REAL DEFICIENCY LOGIC
+        # DEFICIENCY LOGIC
         # ==============================
 
         results = {}
@@ -224,10 +228,7 @@ def predict():
                     "plan": rec_data.get("plan", {})
                 }
 
-        # ==============================
         # SAVE HISTORY
-        # ==============================
-
         cursor.execute("SELECT username FROM users WHERE id=%s", (user_id,))
         username = cursor.fetchone()[0]
 
@@ -263,7 +264,6 @@ def predict():
         print("❌ ERROR:", str(e))
         return jsonify({"error": "Prediction failed"}), 500
 
-
 # ==============================
 # TREND API
 # ==============================
@@ -295,6 +295,7 @@ def trend(username):
 
     return jsonify(trend)
 
+# ==============================
 
 if __name__ == "__main__":
     app.run(debug=True)
