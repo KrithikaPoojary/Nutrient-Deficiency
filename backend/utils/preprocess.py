@@ -1,7 +1,7 @@
 import pandas as pd
 
 # ==============================
-# 🔥 FOOD NORMALIZATION (NEW)
+# 🔥 FOOD NORMALIZATION
 # ==============================
 def normalize_food_name(food_name):
     mapping = {
@@ -14,12 +14,11 @@ def normalize_food_name(food_name):
         "egg": "boiled egg",
         "rice": "white rice"
     }
-
     return mapping.get(food_name, food_name)
 
 
 # ==============================
-# FOOD → NUTRIENTS
+# FOOD → NUTRIENTS (FINAL FIXED 🔥)
 # ==============================
 def calculate_nutrients(user_foods, df):
 
@@ -30,7 +29,6 @@ def calculate_nutrients(user_foods, df):
     total_fiber = 0
 
     found_any = False
-    total_qty = 0
 
     for item in user_foods:
         try:
@@ -43,42 +41,39 @@ def calculate_nutrients(user_foods, df):
             continue
 
         # ==============================
-        # 🔥 CLEAN + NORMALIZE INPUT
+        # 🔥 CLEAN + NORMALIZE
         # ==============================
         food_name = food_name.replace("_", " ").strip()
         food_name = normalize_food_name(food_name)
 
         # ==============================
-        # 🔥 MATCHING LOGIC
+        # 🔥 MATCHING
         # ==============================
 
-        # 1️⃣ Exact match
+        # 1️⃣ Exact
         row = df[df["food_name"] == food_name]
 
-        # 2️⃣ Partial match
+        # 2️⃣ Partial
         if row.empty:
             row = df[df["food_name"].str.contains(food_name, case=False, na=False)]
 
-        # 3️⃣ Word-level match (VERY IMPORTANT)
+        # 3️⃣ Word match
         if row.empty:
-            words = food_name.split()
-            for w in words:
-                row = df[df["food_name"].str.contains(w, case=False, na=False)]
+            for word in food_name.split():
+                row = df[df["food_name"].str.contains(word, case=False, na=False)]
                 if not row.empty:
                     break
 
-        # 4️⃣ Still not found → skip safely
+        # 4️⃣ Skip
         if row.empty:
             print("❌ Food not found:", food_name)
             continue
 
         found_any = True
-        total_qty += qty
-
         row = row.iloc[0]
 
         # ==============================
-        # 🔥 ADD TOTALS
+        # 🔥 TOTAL SUM (IMPORTANT FIX)
         # ==============================
         total_protein += float(row.get("protein", 0)) * qty
         total_iron += float(row.get("iron", 0)) * qty
@@ -87,41 +82,38 @@ def calculate_nutrients(user_foods, df):
         total_fiber += float(row.get("fiber", 0)) * qty
 
     # ==============================
-    # ❗ NO FOOD MATCHED
+    # ❗ FALLBACK
     # ==============================
-    if not found_any or total_qty == 0:
-        print("⚠️ No valid foods → using fallback values")
+    if not found_any:
+        print("⚠️ No valid foods → fallback")
 
         return {
-            "protein": 5,
-            "iron": 2,
-            "vitamin_c": 10,
-            "vitamin_d": 1,
-            "fiber": 3
+            "protein": 10,
+            "iron": 5,
+            "vitamin_c": 20,
+            "vitamin_d": 2,
+            "fiber": 5
         }
 
     # ==============================
-    # 🔥 NORMALIZATION
+    # ✅ RETURN TOTALS (NO DIVISION)
     # ==============================
     return {
-        "protein": total_protein / total_qty,
-        "iron": total_iron / total_qty,
-        "vitamin_c": total_vitamin_c / total_qty,
-        "vitamin_d": total_vitamin_d / total_qty,
-        "fiber": total_fiber / total_qty
+        "protein": total_protein,
+        "iron": total_iron,
+        "vitamin_c": total_vitamin_c,
+        "vitamin_d": total_vitamin_d,
+        "fiber": total_fiber
     }
 
 
 # ==============================
-# PREPARE INPUT FOR MODEL
+# PREPARE INPUT (NO CHANGE)
 # ==============================
 def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
 
     bmi_safe = bmi if bmi > 0 else 0.1
 
-    # ==============================
-    # AGE GROUP
-    # ==============================
     if age < 18:
         age_group = 0
     elif age < 35:
@@ -131,9 +123,6 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
     else:
         age_group = 3
 
-    # ==============================
-    # BMI CATEGORY
-    # ==============================
     if bmi < 18.5:
         bmi_category = 0
     elif bmi < 25:
@@ -143,9 +132,6 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
     else:
         bmi_category = 3
 
-    # ==============================
-    # 🔥 FEATURE ENGINEERING
-    # ==============================
     data = {
         "RIDAGEYR": age,
         "RIAGENDR": gender,
@@ -157,7 +143,6 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
         "DR1TVD": vitd,
         "DR1TFIBE": fiber,
 
-        # Ratios
         "Protein_BMI_ratio": protein / bmi_safe,
         "Iron_BMI_ratio": iron / bmi_safe,
         "VitC_BMI_ratio": vitc / bmi_safe,
