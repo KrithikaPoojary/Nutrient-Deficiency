@@ -36,8 +36,13 @@ model_path = "model/nutrient_deficiency_models.pkl"
 data_path = "data/cleaned_food_dataset.csv"
 
 df = pd.read_csv(data_path)
+
+# 🔥 CLEAN DATASET
 df.columns = df.columns.str.strip().str.lower()
 df["food_name"] = df["food_name"].astype(str).str.lower().str.strip()
+
+# 🔥 REMOVE DUPLICATES
+df = df.drop_duplicates(subset=["food_name"]).reset_index(drop=True)
 
 models = joblib.load(model_path)
 
@@ -119,7 +124,7 @@ def login():
     })
 
 # ==============================
-# 🔥 FOOD SUGGESTION API (FIXED POSITION)
+# FOOD SUGGESTIONS
 # ==============================
 
 @app.route("/suggest/<query>", methods=["GET"])
@@ -133,7 +138,7 @@ def suggest_food(query):
     return jsonify(suggestions[:5])
 
 # ==============================
-# PREDICT
+# 🔥 PREDICT (FINAL FIXED)
 # ==============================
 
 @app.route("/predict", methods=["POST"])
@@ -157,7 +162,9 @@ def predict():
         if not user_id:
             return jsonify({"error": "User ID missing"}), 400
 
+        # ==============================
         # SAVE FOOD
+        # ==============================
         if today_foods:
             cursor.execute("""
                 INSERT INTO food_log (user_id, foods, date_time)
@@ -165,11 +172,14 @@ def predict():
             """, (user_id, json.dumps(today_foods), datetime.now()))
             conn.commit()
 
+        # ==============================
         # FETCH HISTORY
+        # ==============================
         cursor.execute("SELECT foods FROM food_log WHERE user_id=%s", (user_id,))
         rows = cursor.fetchall()
 
         all_foods = []
+
         for row in rows:
             try:
                 parsed = json.loads(row[0])
@@ -181,11 +191,15 @@ def predict():
         if not all_foods:
             all_foods = today_foods
 
-        # NUTRIENTS
+        # ==============================
+        # 🔥 NUTRIENTS (TOTAL VALUES)
+        # ==============================
         totals = calculate_nutrients(all_foods, df)
 
+        print("🔥 TOTAL NUTRIENTS:", totals)
+
         # ==============================
-        # DEFICIENCY LOGIC
+        # DEFICIENCY LOGIC (FIXED)
         # ==============================
 
         results = {}
@@ -202,11 +216,12 @@ def predict():
             required = RDA[nutrient]
             ratio = value / required if required > 0 else 0
 
-            if ratio < 0.4:
+            # 🔥 IMPROVED THRESHOLD
+            if ratio < 0.2:
                 status = "Severe"
-            elif ratio < 0.7:
+            elif ratio < 0.5:
                 status = "Moderate"
-            elif ratio < 1.0:
+            elif ratio < 0.8:
                 status = "Mild"
             else:
                 status = "Normal"
@@ -228,7 +243,10 @@ def predict():
                     "plan": rec_data.get("plan", {})
                 }
 
+        # ==============================
         # SAVE HISTORY
+        # ==============================
+
         cursor.execute("SELECT username FROM users WHERE id=%s", (user_id,))
         username = cursor.fetchone()[0]
 
@@ -264,6 +282,7 @@ def predict():
         print("❌ ERROR:", str(e))
         return jsonify({"error": "Prediction failed"}), 500
 
+
 # ==============================
 # TREND API
 # ==============================
@@ -294,6 +313,7 @@ def trend(username):
         trend[date][nutrient] = status
 
     return jsonify(trend)
+
 
 # ==============================
 
