@@ -19,13 +19,23 @@ disease_profiles = {
     }
 }
 
-
 def get_disease_rules(condition):
     return disease_profiles.get(condition, {
         "avoid": ["fried", "junk", "sugar"],
         "prefer": ["vegetable", "fruit"]
     })
 
+# ==============================
+# NUTRIENT → CATEGORY RULES 🔥
+# ==============================
+
+nutrient_food_rules = {
+    "Protein": ["protein", "legume", "dairy"],
+    "Iron": ["legume", "vegetable", "protein"],
+    "Vitamin C": ["fruit", "vegetable"],
+    "Vitamin D": ["dairy", "protein"],  # 🔥 important fix
+    "Fiber": ["fruit", "vegetable", "grain"]
+}
 
 # ==============================
 # APPLY DISEASE FILTER
@@ -57,9 +67,8 @@ def apply_disease_filter(df, conditions):
 
     return df_filtered
 
-
 # ==============================
-# MAIN RECOMMENDATION FUNCTION
+# MAIN RECOMMEND FUNCTION
 # ==============================
 
 def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
@@ -74,13 +83,9 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
 
     column = mapping.get(deficiency)
 
-    # ❌ Safety check
     if column is None or column not in df.columns:
         print("⚠️ Invalid column:", column)
-        return {
-            "top_foods": [],
-            "plan": {}
-        }
+        return {"top_foods": [], "plan": {}}
 
     # ==============================
     # APPLY FILTERS
@@ -88,12 +93,29 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
 
     df_filtered = apply_disease_filter(df, conditions)
 
-    # 🔥 If filter removes everything → fallback
     if df_filtered.empty:
-        print("⚠️ Filter removed all foods → fallback")
+        print("⚠️ Disease filter removed all → fallback")
         df_filtered = df.copy()
 
-    # Age-based filtering
+    # ==============================
+    # 🔥 NUTRIENT FILTER (IMPORTANT)
+    # ==============================
+
+    allowed_categories = nutrient_food_rules.get(deficiency, [])
+
+    if allowed_categories:
+        df_filtered = df_filtered[
+            df_filtered["category"].isin(allowed_categories)
+        ]
+
+    if df_filtered.empty:
+        print("⚠️ Nutrient filter removed all → fallback")
+        df_filtered = df.copy()
+
+    # ==============================
+    # AGE FILTER
+    # ==============================
+
     if age <= 12:
         df_filtered = df_filtered[
             df_filtered["category"].isin(["fruit", "vegetable"])
@@ -103,9 +125,17 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
             df_filtered["category"].isin(["vegetable", "fruit", "legume"])
         ]
 
-    # 🔥 Again fallback if empty
     if df_filtered.empty:
         print("⚠️ Age filter removed all → fallback")
+        df_filtered = df.copy()
+
+    # ==============================
+    # 🔥 REMOVE WEAK FOODS
+    # ==============================
+
+    df_filtered = df_filtered[df_filtered[column] > 0.5]
+
+    if df_filtered.empty:
         df_filtered = df.copy()
 
     # ==============================
@@ -113,6 +143,12 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
     # ==============================
 
     df_filtered = df_filtered.sort_values(by=column, ascending=False)
+
+    # ==============================
+    # REMOVE DUPLICATES
+    # ==============================
+
+    df_filtered = df_filtered.drop_duplicates(subset=["food_name"])
 
     # ==============================
     # SEVERITY LOGIC
@@ -127,23 +163,23 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
     else:
         top_n = 3
 
-    df_filtered = df_filtered.head(top_n)
-
     # ==============================
-    # SAFE FOOD LIST
+    # 🔥 SMART VARIETY (CONTROLLED)
     # ==============================
 
-    if "food_name" not in df_filtered.columns:
-        print("❌ food_name column missing")
-        return {
-            "top_foods": [],
-            "plan": {}
-        }
+    top_df = df_filtered.head(20)
 
-    foods_list = df_filtered["food_name"].dropna().tolist()
+    if len(top_df) > top_n:
+        top_df = top_df.sample(n=top_n, random_state=42)
 
     # ==============================
-    # LONG-TERM PLAN (DAY-WISE)
+    # FINAL LIST
+    # ==============================
+
+    foods_list = top_df["food_name"].dropna().tolist()
+
+    # ==============================
+    # DAY-WISE PLAN
     # ==============================
 
     plan = {}
