@@ -21,7 +21,7 @@ function Form({ setResult, setRecommendations, user }) {
   const [activeField, setActiveField] = useState(null);
 
   // ==============================
-  // AUTO BMI
+  // 🔥 BMI AUTO CALC
   // ==============================
 
   useEffect(() => {
@@ -37,6 +37,15 @@ function Form({ setResult, setRecommendations, user }) {
   }, [data.height_cm, data.weight]);
 
   // ==============================
+  // 🔥 GET LAST WORD (IMPORTANT FIX)
+  // ==============================
+
+  const getLastWord = (value) => {
+    const parts = value.split(",");
+    return parts[parts.length - 1].trim();
+  };
+
+  // ==============================
   // HANDLE INPUT + SUGGESTIONS
   // ==============================
 
@@ -48,21 +57,37 @@ function Form({ setResult, setRecommendations, user }) {
     const key = `${mealType}-${index}`;
     setActiveField(key);
 
-    // 🔥 call suggestion API
-    if (value.length > 1) {
-      const res = await getSuggestions(value);
-      setSuggestions(prev => ({ ...prev, [key]: res }));
+    const lastWord = getLastWord(value);
+
+    if (lastWord.length > 1) {
+      try {
+        const res = await getSuggestions(lastWord); // ✅ FIXED
+        setSuggestions(prev => ({ ...prev, [key]: res }));
+      } catch (err) {
+        console.error(err);
+      }
     } else {
       setSuggestions(prev => ({ ...prev, [key]: [] }));
     }
   };
 
-  const selectSuggestion = (mealType, index, value) => {
+  // ==============================
+  // 🔥 SELECT SUGGESTION (SMART REPLACE)
+  // ==============================
+
+  const selectSuggestion = (mealType, index, selected) => {
+    const key = `${mealType}-${index}`;
+    const current = meals[mealType][index];
+
+    const parts = current.split(",");
+    parts[parts.length - 1] = " " + selected;
+
+    const updatedValue = parts.join(",");
+
     const updated = { ...meals };
-    updated[mealType][index] = value;
+    updated[mealType][index] = updatedValue;
     setMeals(updated);
 
-    const key = `${mealType}-${index}`;
     setSuggestions(prev => ({ ...prev, [key]: [] }));
   };
 
@@ -201,7 +226,9 @@ function Form({ setResult, setRecommendations, user }) {
                       <div
                         key={i}
                         className="dropdown-item"
-                        onClick={() => selectSuggestion(mealType, index, s)}
+                        onClick={() =>
+                          selectSuggestion(mealType, index, s)
+                        }
                       >
                         {s}
                       </div>
