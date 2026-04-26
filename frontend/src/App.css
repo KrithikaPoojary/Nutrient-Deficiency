@@ -83,7 +83,7 @@ input:focus {
   display: flex;
   align-items: center;
   gap: 8px;
-  position: relative; /* 🔥 important for dropdown */
+  position: relative;
 }
 
 /* 🔥 BUTTON */
@@ -165,16 +165,57 @@ button:hover {
 
 /* 🔥 DAY BLOCK */
 .day-block {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  padding: 8px;
+  background: #f9fbfd;
+  border-radius: 8px;
 }
 
 /* 🔥 DAY TITLE */
 .day-title {
   font-weight: 600;
-  margin: 6px 0 2px;
+  margin: 6px 0;
+  color: #2c3e50;
 }
 
-/* 🔥 🔥 AUTOCOMPLETE DROPDOWN */
+/* 🔥 MEAL BLOCK (NEW) */
+.meal-block {
+  margin-bottom: 8px;
+  padding-left: 10px;
+}
+
+/* 🔥 NUTRIENT INFO (NEW) */
+.nutrient-info {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+/* 🔥 PROGRESS BAR (NEW) */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #eee;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #27ae60;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+/* 🔥 CHART CONTAINER (NEW) */
+.chart-container {
+  margin-top: 20px;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* 🔥 AUTOCOMPLETE DROPDOWN */
 .dropdown {
   position: absolute;
   top: 42px;
