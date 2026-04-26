@@ -1,4 +1,5 @@
 import pandas as pd
+import random
 
 # ==============================
 # DISEASE RULES
@@ -26,14 +27,14 @@ def get_disease_rules(condition):
     })
 
 # ==============================
-# NUTRIENT → CATEGORY RULES 🔥
+# NUTRIENT → CATEGORY RULES
 # ==============================
 
 nutrient_food_rules = {
     "Protein": ["protein", "legume", "dairy"],
     "Iron": ["legume", "vegetable", "protein"],
     "Vitamin C": ["fruit", "vegetable"],
-    "Vitamin D": ["dairy", "protein"],  # 🔥 important fix
+    "Vitamin D": ["dairy", "protein", "egg"],
     "Fiber": ["fruit", "vegetable", "grain"]
 }
 
@@ -68,6 +69,19 @@ def apply_disease_filter(df, conditions):
     return df_filtered
 
 # ==============================
+# 🔥 REMOVE UNHEALTHY FOODS
+# ==============================
+
+def remove_unhealthy_foods(df):
+    bad_words = ["fried", "fry", "butter", "oil", "cream"]
+
+    return df[
+        ~df["food_name"].str.contains(
+            "|".join(bad_words), case=False, na=False
+        )
+    ]
+
+# ==============================
 # MAIN RECOMMEND FUNCTION
 # ==============================
 
@@ -94,11 +108,10 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
     df_filtered = apply_disease_filter(df, conditions)
 
     if df_filtered.empty:
-        print("⚠️ Disease filter removed all → fallback")
         df_filtered = df.copy()
 
     # ==============================
-    # 🔥 NUTRIENT FILTER (IMPORTANT)
+    # NUTRIENT FILTER
     # ==============================
 
     allowed_categories = nutrient_food_rules.get(deficiency, [])
@@ -109,7 +122,6 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
         ]
 
     if df_filtered.empty:
-        print("⚠️ Nutrient filter removed all → fallback")
         df_filtered = df.copy()
 
     # ==============================
@@ -126,11 +138,10 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
         ]
 
     if df_filtered.empty:
-        print("⚠️ Age filter removed all → fallback")
         df_filtered = df.copy()
 
     # ==============================
-    # 🔥 REMOVE WEAK FOODS
+    # REMOVE LOW VALUE FOODS
     # ==============================
 
     df_filtered = df_filtered[df_filtered[column] > 0.5]
@@ -139,15 +150,20 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
         df_filtered = df.copy()
 
     # ==============================
-    # SORT
+    # 🔥 FINAL HEALTH FILTER (IMPORTANT)
+    # ==============================
+
+    df_filtered = remove_unhealthy_foods(df_filtered)
+
+    # If empty after removing unhealthy → fallback WITHOUT junk
+    if df_filtered.empty:
+        df_filtered = remove_unhealthy_foods(df)
+
+    # ==============================
+    # SORT + CLEAN
     # ==============================
 
     df_filtered = df_filtered.sort_values(by=column, ascending=False)
-
-    # ==============================
-    # REMOVE DUPLICATES
-    # ==============================
-
     df_filtered = df_filtered.drop_duplicates(subset=["food_name"])
 
     # ==============================
@@ -164,28 +180,37 @@ def recommend_food(deficiency, df, age, conditions, severity="Moderate"):
         top_n = 3
 
     # ==============================
-    # 🔥 SMART VARIETY (CONTROLLED)
+    # VARIETY SELECTION
     # ==============================
 
-    top_df = df_filtered.head(20)
+    top_df = df_filtered.head(30)
 
     if len(top_df) > top_n:
         top_df = top_df.sample(n=top_n, random_state=42)
 
-    # ==============================
-    # FINAL LIST
-    # ==============================
-
     foods_list = top_df["food_name"].dropna().tolist()
 
+    foods_list = list(set(foods_list))
+
     # ==============================
-    # DAY-WISE PLAN
+    # 🍽️ MEAL PLAN
     # ==============================
 
     plan = {}
+    meals = ["Breakfast", "Lunch", "Dinner"]
 
-    for i in range(min(3, len(foods_list))):
-        plan[f"Day {i+1}"] = foods_list[: i+1]
+    for day in range(1, 4):
+        daily_plan = {}
+
+        random.shuffle(foods_list)
+
+        for meal in meals:
+            if foods_list:
+                daily_plan[meal] = random.sample(
+                    foods_list, min(2, len(foods_list))
+                )
+
+        plan[f"Day {day}"] = daily_plan
 
     return {
         "top_foods": foods_list,
