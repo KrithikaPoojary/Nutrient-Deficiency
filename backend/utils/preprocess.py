@@ -4,6 +4,7 @@ import pandas as pd
 # 🔥 FOOD NORMALIZATION
 # ==============================
 def normalize_food_name(food_name):
+
     mapping = {
         "juice": "orange juice",
         "chocolate": "milk chocolate",
@@ -14,37 +15,55 @@ def normalize_food_name(food_name):
         "egg": "boiled egg",
         "rice": "white rice"
     }
+
     return mapping.get(food_name, food_name)
 
-
 # ==============================
-# 🔍 SMART MATCH FUNCTION
+# 🔍 SMART MATCH
 # ==============================
 def find_best_match(food_name, df):
 
-    # 1️⃣ Exact match
+    # 1️⃣ Exact Match
     exact = df[df["food_name"] == food_name]
+
     if not exact.empty:
         return exact.iloc[0]
 
-    # 2️⃣ Startswith match (better than contains)
-    starts = df[df["food_name"].str.startswith(food_name)]
+    # 2️⃣ Startswith Match
+    starts = df[
+        df["food_name"].str.startswith(food_name)
+    ]
+
     if not starts.empty:
         return starts.iloc[0]
 
-    # 3️⃣ Contains match
-    contains = df[df["food_name"].str.contains(food_name, case=False, na=False)]
+    # 3️⃣ Contains Match
+    contains = df[
+        df["food_name"].str.contains(
+            food_name,
+            case=False,
+            na=False
+        )
+    ]
+
     if not contains.empty:
         return contains.iloc[0]
 
-    # 4️⃣ Word match
+    # 4️⃣ Word Match
     for word in food_name.split():
-        match = df[df["food_name"].str.contains(word, case=False, na=False)]
+
+        match = df[
+            df["food_name"].str.contains(
+                word,
+                case=False,
+                na=False
+            )
+        ]
+
         if not match.empty:
             return match.iloc[0]
 
     return None
-
 
 # ==============================
 # 🍽️ FOOD → NUTRIENTS
@@ -52,30 +71,44 @@ def find_best_match(food_name, df):
 def calculate_nutrients(user_foods, df):
 
     totals = {
+
         "protein": 0,
         "iron": 0,
         "vitamin_c": 0,
         "vitamin_d": 0,
-        "fiber": 0
+        "fiber": 0,
+
+        # 🔥 NEW NUTRIENTS
+        "vitamin_a": 0,
+        "vitamin_b12": 0
     }
 
     found_any = False
 
     for item in user_foods:
+
         try:
-            food_name = str(item.get("name", "")).lower().strip()
-            qty = float(item.get("qty", 1))
+            food_name = str(
+                item.get("name", "")
+            ).lower().strip()
+
+            qty = float(
+                item.get("qty", 1)
+            )
+
         except:
             continue
 
         if not food_name:
             continue
 
-        # 🔥 CLEAN + NORMALIZE
+        # 🔥 CLEAN FOOD
         food_name = food_name.replace("_", " ").strip()
+
+        # 🔥 NORMALIZE
         food_name = normalize_food_name(food_name)
 
-        # 🔍 FIND BEST MATCH
+        # 🔍 FIND MATCH
         row = find_best_match(food_name, df)
 
         if row is None:
@@ -84,60 +117,117 @@ def calculate_nutrients(user_foods, df):
 
         found_any = True
 
-        # ==============================
-        # 🔥 TOTAL SUM (NO AVERAGING)
-        # ==============================
-        totals["protein"] += float(row.get("protein", 0)) * qty
-        totals["iron"] += float(row.get("iron", 0)) * qty
-        totals["vitamin_c"] += float(row.get("vitamin_c", 0)) * qty
-        totals["vitamin_d"] += float(row.get("vitamin_d", 0)) * qty
-        totals["fiber"] += float(row.get("fiber", 0)) * qty
+        # =====================================
+        # 🔥 TOTALS
+        # =====================================
 
-    # ==============================
+        totals["protein"] += (
+            float(row.get("protein", 0)) * qty
+        )
+
+        totals["iron"] += (
+            float(row.get("iron", 0)) * qty
+        )
+
+        totals["vitamin_c"] += (
+            float(row.get("vitamin_c", 0)) * qty
+        )
+
+        totals["vitamin_d"] += (
+            float(row.get("vitamin_d", 0)) * qty
+        )
+
+        totals["fiber"] += (
+            float(row.get("fiber", 0)) * qty
+        )
+
+        # 🔥 NEW
+        totals["vitamin_a"] += (
+            float(row.get("vitamin_a", 0)) * qty
+        )
+
+        totals["vitamin_b12"] += (
+            float(row.get("vitamin_b12", 0)) * qty
+        )
+
+    # =====================================
     # ⚠️ SAFE FALLBACK
-    # ==============================
+    # =====================================
+
     if not found_any:
-        print("⚠️ No valid foods → using safe low values")
+
+        print("⚠️ No valid foods found")
 
         return {
+
             "protein": 5,
             "iron": 2,
             "vitamin_c": 10,
             "vitamin_d": 1,
-            "fiber": 3
+            "fiber": 3,
+
+            "vitamin_a": 50,
+            "vitamin_b12": 0.5
         }
 
     return totals
 
-
 # ==============================
 # 🧠 PREPARE INPUT
 # ==============================
-def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
+def prepare_input(
+    age,
+    gender,
+    bmi,
+    protein,
+    iron,
+    vitc,
+    vitd,
+    fiber,
+    vita,
+    b12
+):
 
     bmi_safe = bmi if bmi > 0 else 0.1
 
+    # ==============================
     # AGE GROUP
+    # ==============================
+
     if age < 18:
         age_group = 0
+
     elif age < 35:
         age_group = 1
+
     elif age < 60:
         age_group = 2
+
     else:
         age_group = 3
 
+    # ==============================
     # BMI CATEGORY
+    # ==============================
+
     if bmi < 18.5:
         bmi_category = 0
+
     elif bmi < 25:
         bmi_category = 1
+
     elif bmi < 30:
         bmi_category = 2
+
     else:
         bmi_category = 3
 
+    # ==============================
+    # DATAFRAME
+    # ==============================
+
     data = {
+
         "RIDAGEYR": age,
         "RIAGENDR": gender,
         "BMXBMI": bmi,
@@ -148,17 +238,60 @@ def prepare_input(age, gender, bmi, protein, iron, vitc, vitd, fiber):
         "DR1TVD": vitd,
         "DR1TFIBE": fiber,
 
-        "Protein_BMI_ratio": protein / bmi_safe,
-        "Iron_BMI_ratio": iron / bmi_safe,
-        "VitC_BMI_ratio": vitc / bmi_safe,
-        "Fiber_BMI_ratio": fiber / bmi_safe,
+        # 🔥 NEW
+        "DR1TVARA": vita,
+        "DR1TVB12": b12,
 
-        "VitD_BMI_ratio": vitd / bmi_safe,
-        "VitD_age_ratio": vitd / (age + 1),
-        "VitD_protein_interaction": vitd * protein,
+        # =====================================
+        # RATIOS
+        # =====================================
+
+        "Protein_BMI_ratio":
+            protein / bmi_safe,
+
+        "Iron_BMI_ratio":
+            iron / bmi_safe,
+
+        "VitC_BMI_ratio":
+            vitc / bmi_safe,
+
+        "Fiber_BMI_ratio":
+            fiber / bmi_safe,
+
+        "VitD_BMI_ratio":
+            vitd / bmi_safe,
+
+        # 🔥 NEW
+        "VitA_BMI_ratio":
+            vita / bmi_safe,
+
+        "B12_BMI_ratio":
+            b12 / bmi_safe,
+
+        # =====================================
+        # INTERACTIONS
+        # =====================================
+
+        "VitD_age_ratio":
+            vitd / (age + 1),
+
+        "VitD_protein_interaction":
+            vitd * protein,
+
+        # 🔥 NEW
+        "VitA_Protein_interaction":
+            vita * protein,
+
+        "B12_Protein_interaction":
+            b12 * protein,
+
+        # =====================================
+        # CATEGORIES
+        # =====================================
 
         "Age_group": age_group,
         "BMI_category": bmi_category
     }
 
     return pd.DataFrame([data])
+
