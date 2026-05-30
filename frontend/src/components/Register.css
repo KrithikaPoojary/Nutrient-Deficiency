@@ -1,0 +1,310 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  font-family:Arial, Helvetica, sans-serif;
+
+  background:
+  linear-gradient(
+    135deg,
+    #06141d,
+    #0b2432,
+    #12384a
+  );
+
+  min-height:100vh;
+
+  overflow-y:auto;
+}
+
+/* ====================================== */
+/* CONTAINER */
+/* ====================================== */
+
+.register-container{
+
+  width:100%;
+
+  min-height:100vh;
+
+  display:flex;
+
+  justify-content:center;
+  align-items:center;
+
+  padding:30px 20px;
+}
+
+/* ====================================== */
+/* CARD */
+/* ====================================== */
+
+.register-card{
+
+  width:100%;
+  max-width:760px;
+
+  background:
+  rgba(255,255,255,0.06);
+
+  backdrop-filter:blur(18px);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  border-radius:34px;
+
+  padding:45px 70px;
+
+  box-shadow:
+  0 10px 40px rgba(0,0,0,0.35);
+}
+
+/* ====================================== */
+/* TITLE */
+/* ====================================== */
+
+.register-logo{
+
+  text-align:center;
+
+  font-size:62px;
+
+  font-weight:800;
+
+  color:white;
+
+  margin-bottom:35px;
+}
+
+/* ====================================== */
+/* FORM */
+/* ====================================== */
+
+.register-group{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:22px;
+}
+
+/* ====================================== */
+/* INPUTS */
+/* ====================================== */
+
+.register-group input,
+.register-group select{
+
+  width:100%;
+
+  padding:22px 24px;
+
+  border-radius:20px;
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  background:
+  rgba(255,255,255,0.08);
+
+  color:white;
+
+  font-size:20px;
+
+  outline:none;
+}
+
+/* ====================================== */
+/* PLACEHOLDER */
+/* ====================================== */
+
+.register-group input::placeholder{
+
+  color:#d1d5db;
+}
+
+/* ====================================== */
+/* SELECT OPTION */
+/* ====================================== */
+
+.register-group select option{
+
+  color:black;
+}
+
+/* ====================================== */
+/* FOCUS */
+/* ====================================== */
+
+.register-group input:focus,
+.register-group select:focus{
+
+  border:
+  1px solid #14b8a6;
+
+  box-shadow:
+  0 0 10px rgba(20,184,166,0.2);
+}
+
+/* ====================================== */
+/* REGISTER BUTTON */
+/* ====================================== */
+
+.register-btn{
+
+  width:100%;
+
+  margin-top:35px;
+
+  padding:22px;
+
+  border:none;
+
+  border-radius:20px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #1ec8bb,
+    #14968c
+  );
+
+  color:white;
+
+  font-size:22px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.register-btn:hover{
+
+  transform:translateY(-2px);
+
+  opacity:0.95;
+}
+
+/* ====================================== */
+/* LOGIN TEXT */
+/* ====================================== */
+
+.register-text{
+
+  text-align:center;
+
+  margin-top:28px;
+
+  color:#d1d5db;
+
+  font-size:20px;
+
+  line-height:1.6;
+}
+
+/* ====================================== */
+/* LOGIN LINK */
+/* ====================================== */
+
+.login-link{
+
+  color:#14b8a6;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  margin-left:8px;
+}
+
+.login-link:hover{
+
+  text-decoration:underline;
+}
+
+/* ====================================== */
+/* SUCCESS */
+/* ====================================== */
+
+.success{
+
+  background:
+  rgba(34,197,94,0.15);
+
+  color:#bbf7d0;
+
+  padding:16px;
+
+  border-radius:16px;
+
+  text-align:center;
+
+  margin-bottom:25px;
+
+  font-size:18px;
+}
+
+/* ====================================== */
+/* ERROR */
+/* ====================================== */
+
+.error{
+
+  background:
+  rgba(239,68,68,0.15);
+
+  color:#fecaca;
+
+  padding:16px;
+
+  border-radius:16px;
+
+  text-align:center;
+
+  margin-bottom:25px;
+
+  font-size:18px;
+}
+
+/* ====================================== */
+/* RESPONSIVE */
+/* ====================================== */
+
+@media(max-width:768px){
+
+  .register-card{
+
+    padding:35px 28px;
+  }
+
+  .register-logo{
+
+    font-size:42px;
+  }
+
+  .register-group input,
+  .register-group select{
+
+    padding:18px;
+    font-size:17px;
+  }
+
+  .register-btn{
+
+    font-size:19px;
+    padding:18px;
+  }
+
+  .register-text{
+
+    font-size:17px;
+  }
+}
