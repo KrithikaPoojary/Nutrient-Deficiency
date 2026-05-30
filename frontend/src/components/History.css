@@ -1,0 +1,241 @@
+/* ========================================= */
+/* PAGE */
+/* ========================================= */
+
+.history-page{
+
+  min-height:100vh;
+
+  padding:40px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #071821,
+    #0d2530,
+    #123848
+  );
+
+  color:white;
+}
+
+/* ========================================= */
+/* CONTAINER */
+/* ========================================= */
+
+.history-container{
+
+  max-width:1400px;
+
+  margin:auto;
+}
+
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.history-header{
+
+  text-align:center;
+
+  margin-bottom:40px;
+}
+
+.history-header h1{
+
+  font-size:42px;
+
+  margin-bottom:12px;
+
+  color:white;
+}
+
+.history-header p{
+
+  color:#cbd5e1;
+
+  font-size:20px;
+}
+
+/* ========================================= */
+/* GRID */
+/* ========================================= */
+
+.history-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(400px,1fr));
+
+  gap:30px;
+}
+
+/* ========================================= */
+/* CARD */
+/* ========================================= */
+
+.history-card{
+
+  background:
+  rgba(255,255,255,0.06);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  border-radius:28px;
+
+  padding:28px;
+
+  backdrop-filter:blur(12px);
+
+  transition:0.3s;
+}
+
+.history-card:hover{
+
+  transform:translateY(-5px);
+
+  box-shadow:
+  0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* ========================================= */
+/* DATE */
+/* ========================================= */
+
+.history-date{
+
+  font-size:20px;
+
+  font-weight:600;
+
+  margin-bottom:25px;
+
+  color:#5eead4;
+}
+
+/* ========================================= */
+/* TREND ITEM */
+/* ========================================= */
+
+.trend-item{
+
+  margin-bottom:22px;
+}
+
+/* ========================================= */
+/* TOP */
+/* ========================================= */
+
+.trend-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:10px;
+}
+
+.nutrient-name{
+
+  font-size:18px;
+
+  font-weight:600;
+
+  color:#f8fafc;
+}
+
+.status-text{
+
+  font-size:15px;
+
+  font-weight:600;
+}
+
+/* ========================================= */
+/* BAR */
+/* ========================================= */
+
+.trend-bar{
+
+  width:100%;
+
+  height:14px;
+
+  background:
+  rgba(255,255,255,0.08);
+
+  border-radius:30px;
+
+  overflow:hidden;
+}
+
+.trend-fill{
+
+  height:100%;
+
+  border-radius:30px;
+
+  transition:0.4s ease;
+}
+
+/* ========================================= */
+/* EMPTY */
+/* ========================================= */
+
+.empty-history{
+
+  text-align:center;
+
+  padding:60px;
+
+  font-size:24px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border-radius:25px;
+}
+
+/* ========================================= */
+/* LOADING */
+/* ========================================= */
+
+.loading-box{
+
+  text-align:center;
+
+  padding:60px;
+
+  font-size:24px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border-radius:25px;
+}
+
+/* ========================================= */
+/* MOBILE */
+/* ========================================= */
+
+@media(max-width:768px){
+
+  .history-page{
+
+    padding:20px;
+  }
+
+  .history-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .history-header h1{
+
+    font-size:32px;
+  }
+}
