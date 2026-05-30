@@ -18,10 +18,9 @@ function Form({ setResult, setRecommendations, user }) {
   });
 
   const [suggestions, setSuggestions] = useState({});
-  const [activeField, setActiveField] = useState(null);
 
   // ==============================
-  // 🔥 BMI AUTO CALC
+  // BMI AUTO CALC
   // ==============================
 
   useEffect(() => {
@@ -37,7 +36,7 @@ function Form({ setResult, setRecommendations, user }) {
   }, [data.height_cm, data.weight]);
 
   // ==============================
-  // 🔥 GET LAST WORD (IMPORTANT FIX)
+  // GET LAST WORD
   // ==============================
 
   const getLastWord = (value) => {
@@ -55,14 +54,16 @@ function Form({ setResult, setRecommendations, user }) {
     setMeals(updated);
 
     const key = `${mealType}-${index}`;
-    setActiveField(key);
-
     const lastWord = getLastWord(value);
 
     if (lastWord.length > 1) {
       try {
-        const res = await getSuggestions(lastWord); // ✅ FIXED
-        setSuggestions(prev => ({ ...prev, [key]: res }));
+        const res = await getSuggestions(lastWord);
+
+        setSuggestions(prev => ({
+          ...prev,
+          [key]: Array.isArray(res) ? res : []
+        }));
       } catch (err) {
         console.error(err);
       }
@@ -72,7 +73,7 @@ function Form({ setResult, setRecommendations, user }) {
   };
 
   // ==============================
-  // 🔥 SELECT SUGGESTION (SMART REPLACE)
+  // SELECT SUGGESTION
   // ==============================
 
   const selectSuggestion = (mealType, index, selected) => {
@@ -90,6 +91,10 @@ function Form({ setResult, setRecommendations, user }) {
 
     setSuggestions(prev => ({ ...prev, [key]: [] }));
   };
+
+  // ==============================
+  // ADD / REMOVE FIELD
+  // ==============================
 
   const addMealField = (mealType) => {
     setMeals({
@@ -219,8 +224,8 @@ function Form({ setResult, setRecommendations, user }) {
 
                 <button onClick={() => removeMealField(mealType, index)}>❌</button>
 
-                {/* 🔥 DROPDOWN */}
-                {suggestions[key]?.length > 0 && activeField === key && (
+                {/* 🔥 DROPDOWN (FIXED) */}
+                {suggestions[key]?.length > 0 && (
                   <div className="dropdown">
                     {suggestions[key].map((s, i) => (
                       <div
