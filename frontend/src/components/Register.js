@@ -1,89 +1,274 @@
 import React, { useState } from "react";
+
 import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 
+import "./Register.css";
+
 function Register() {
+
   const navigate = useNavigate();
 
+  // =====================================
+  // STATE
+  // =====================================
+
   const [data, setData] = useState({
+
     username: "",
     password: "",
     age: "",
-    conditions: ""
+    gender: 1
+
   });
 
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [error, setError] =
+    useState("");
+
+  const [message, setMessage] =
+    useState("");
+
+  // =====================================
+  // REGISTER
+  // =====================================
 
   const handleRegister = async () => {
-    try {
-      await axios.post("http://localhost:5000/register", data);
 
-      setMessage("Registered successfully ✅");
+    try {
+
+      await axios.post(
+
+        "http://localhost:5000/register",
+
+        data
+
+      );
+
+      setMessage(
+        "Registered Successfully"
+      );
+
       setError("");
 
       setTimeout(() => {
-        navigate("/");
+
+        navigate("/login");
+
       }, 1500);
 
-    } catch (err) {
-      setError("User already exists ❌");
+    }
+
+    catch (err) {
+
+      setError(
+        "User already exists"
+      );
     }
   };
 
+  // =====================================
+
   return (
-    <div className="login-container">
-      <div className="login-card">
 
-        <h2>Register</h2>
+    <div className="register-container">
 
-        {message && <p style={{ color: "green" }}>{message}</p>}
-        {error && <p className="error">{error}</p>}
+      <div className="register-card">
 
-        <div className="input-group">
+        {/* TITLE */}
+
+        <h1 className="register-logo">
+
+          NutriHealth AI
+
+        </h1>
+
+        {/* SUCCESS */}
+
+        {message && (
+
+          <p className="success">
+
+            {message}
+
+          </p>
+
+        )}
+
+        {/* ERROR */}
+
+        {error && (
+
+          <p className="error">
+
+            {error}
+
+          </p>
+
+        )}
+
+        {/* FORM */}
+
+        <div className="register-group">
+
+          {/* USERNAME */}
+
           <input
+
+            type="text"
+
             placeholder="Username"
+
+            autoComplete="off"
+
+            value={data.username}
+
             onChange={(e) =>
-              setData({ ...data, username: e.target.value })
+
+              setData({
+
+                ...data,
+
+                username:
+                e.target.value
+
+              })
+
             }
+
           />
 
+          {/* PASSWORD */}
+
           <input
+
             type="password"
+
             placeholder="Password"
+
+            autoComplete="new-password"
+
+            value={data.password}
+
             onChange={(e) =>
-              setData({ ...data, password: e.target.value })
+
+              setData({
+
+                ...data,
+
+                password:
+                e.target.value
+
+              })
+
             }
+
           />
 
+          {/* AGE */}
+
           <input
+
             type="number"
+
             placeholder="Age"
+
+            autoComplete="off"
+
+            value={data.age}
+
             onChange={(e) =>
-              setData({ ...data, age: e.target.value })
+
+              setData({
+
+                ...data,
+
+                age:
+                e.target.value
+
+              })
+
             }
+
           />
 
-          <input
-            placeholder="Conditions (optional)"
+          {/* GENDER */}
+
+          <select
+
+            value={data.gender}
+
             onChange={(e) =>
-              setData({ ...data, conditions: e.target.value })
+
+              setData({
+
+                ...data,
+
+                gender:
+                Number(e.target.value)
+
+              })
+
             }
-          />
+
+          >
+
+            <option value={1}>
+
+              Male
+
+            </option>
+
+            <option value={2}>
+
+              Female
+
+            </option>
+
+          </select>
+
         </div>
 
-        <button onClick={handleRegister}>
-          Register
+        {/* REGISTER BUTTON */}
+
+        <button
+
+          className="register-btn"
+
+          onClick={handleRegister}
+
+        >
+
+          Create Account
+
         </button>
 
-        <p>Already have an account?</p>
+        {/* LOGIN TEXT */}
 
-        <button onClick={() => navigate("/")}>
-          Back to Login
-        </button>
+        <p className="register-text">
+
+          Already have an account?
+
+          <span
+
+            className="login-link"
+
+            onClick={() =>
+              navigate("/login")
+            }
+
+          >
+
+            Login
+
+          </span>
+
+        </p>
 
       </div>
+
     </div>
+
   );
 }
 
