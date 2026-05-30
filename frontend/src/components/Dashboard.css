@@ -1,0 +1,295 @@
+/* ========================================= */
+/* PAGE */
+/* ========================================= */
+
+.dashboard-page{
+
+  display:flex;
+
+  min-height:100vh;
+
+  background:
+  linear-gradient(
+    135deg,
+    #071821,
+    #0f2d3a,
+    #12384a
+  );
+
+  color:white;
+}
+
+/* ========================================= */
+/* SIDEBAR */
+/* ========================================= */
+
+.sidebar{
+
+  width:280px;
+
+  background:
+  rgba(255,255,255,0.06);
+
+  backdrop-filter:blur(14px);
+
+  border-right:
+  1px solid rgba(255,255,255,0.08);
+
+  padding:30px 20px;
+}
+
+/* ========================================= */
+/* LOGO */
+/* ========================================= */
+
+.sidebar-logo{
+
+  font-size:28px;
+
+  margin-bottom:40px;
+
+  color:#14b8a6;
+}
+
+/* ========================================= */
+/* MENU */
+/* ========================================= */
+
+.sidebar-menu{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:18px;
+}
+
+.sidebar-menu button{
+
+  background:
+  rgba(255,255,255,0.06);
+
+  border:none;
+
+  color:white;
+
+  padding:16px;
+
+  border-radius:14px;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  font-size:16px;
+
+  transition:0.3s;
+}
+
+.sidebar-menu button:hover{
+
+  background:
+  rgba(20,184,166,0.3);
+
+  transform:translateX(5px);
+}
+
+/* ========================================= */
+/* MAIN */
+/* ========================================= */
+
+.dashboard-main{
+
+  flex:1;
+
+  padding:40px;
+}
+
+/* ========================================= */
+/* TOPBAR */
+/* ========================================= */
+
+.topbar{
+
+  margin-bottom:30px;
+}
+
+.topbar h1{
+
+  font-size:38px;
+
+  margin-bottom:10px;
+}
+
+.topbar p{
+
+  color:#cbd5e1;
+
+  font-size:18px;
+}
+
+/* ========================================= */
+/* HERO CARD */
+/* ========================================= */
+
+.hero-card{
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(20,184,166,0.25),
+    rgba(15,118,110,0.15)
+  );
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  border-radius:30px;
+
+  padding:50px;
+
+  margin-bottom:35px;
+
+  backdrop-filter:blur(12px);
+}
+
+.hero-card h2{
+
+  font-size:40px;
+
+  margin-bottom:20px;
+
+  line-height:1.3;
+}
+
+.hero-card p{
+
+  max-width:850px;
+
+  line-height:1.8;
+
+  color:#dbeafe;
+
+  font-size:18px;
+}
+
+/* ========================================= */
+/* BUTTON */
+/* ========================================= */
+
+.start-btn{
+
+  margin-top:30px;
+
+  padding:16px 30px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:#14b8a6;
+
+  color:white;
+
+  font-size:17px;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.start-btn:hover{
+
+  background:#0f766e;
+
+  transform:translateY(-2px);
+}
+
+/* ========================================= */
+/* CARDS */
+/* ========================================= */
+
+.dashboard-cards{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(250px,1fr));
+
+  gap:25px;
+}
+
+/* ========================================= */
+/* SINGLE CARD */
+/* ========================================= */
+
+.dash-card{
+
+  background:
+  rgba(255,255,255,0.06);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  border-radius:24px;
+
+  padding:30px;
+
+  backdrop-filter:blur(10px);
+
+  transition:0.3s;
+}
+
+.dash-card:hover{
+
+  transform:translateY(-5px);
+
+  background:
+  rgba(20,184,166,0.15);
+}
+
+.dash-card h3{
+
+  margin-bottom:18px;
+
+  font-size:24px;
+}
+
+.dash-card p{
+
+  color:#cbd5e1;
+
+  line-height:1.7;
+}
+
+/* ========================================= */
+/* MOBILE */
+/* ========================================= */
+
+@media(max-width:900px){
+
+  .dashboard-page{
+
+    flex-direction:column;
+  }
+
+  .sidebar{
+
+    width:100%;
+  }
+
+  .dashboard-main{
+
+    padding:20px;
+  }
+
+  .hero-card{
+
+    padding:30px;
+  }
+
+  .hero-card h2{
+
+    font-size:30px;
+  }
+}
