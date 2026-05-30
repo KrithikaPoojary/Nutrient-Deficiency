@@ -70,7 +70,9 @@ function Dashboard({ user }) {
 
       <div className="dashboard-main">
 
+        {/* ===================================== */}
         {/* TOP BAR */}
+        {/* ===================================== */}
 
         <div className="topbar">
 
@@ -81,8 +83,8 @@ function Dashboard({ user }) {
             </h1>
 
             <p>
-              AI-powered nutritional
-              deficiency monitoring system
+              Multimodal AI Nutritional
+              Monitoring Platform
             </p>
 
           </div>
@@ -90,42 +92,39 @@ function Dashboard({ user }) {
         </div>
 
         {/* ===================================== */}
-        {/* HERO */}
+        {/* QUICK ACTION */}
         {/* ===================================== */}
 
-        <div className="hero-card">
+        <div className="quick-action-card">
 
-          <div>
+          <div className="quick-left">
 
             <h2>
-              Intelligent Nutritional
-              Analysis Platform
+              Start Nutritional Assessment
             </h2>
 
             <p>
-
-              Predict nutritional deficiencies
-              using AI, analyze dietary trends,
-              and receive personalized food
-              recommendations.
-
+              Analyze food intake,
+              medical images,
+              deficiency severity,
+              and personalized health insights.
             </p>
 
-            <button
-              className="start-btn"
-              onClick={() =>
-                navigate("/assessment")
-              }
-            >
-              Start Assessment →
-            </button>
-
           </div>
+
+          <button
+            className="start-btn"
+            onClick={() =>
+              navigate("/assessment")
+            }
+          >
+            Start Assessment →
+          </button>
 
         </div>
 
         {/* ===================================== */}
-        {/* CARDS */}
+        {/* FEATURE CARDS */}
         {/* ===================================== */}
 
         <div className="dashboard-cards">
@@ -133,12 +132,12 @@ function Dashboard({ user }) {
           <div className="dash-card">
 
             <h3>
-              🍎 Nutrient Prediction
+              🧠 AI Prediction
             </h3>
 
             <p>
-              XGBoost-based AI prediction
-              for 7 major nutrients.
+              XGBoost-based nutrient
+              deficiency prediction system.
             </p>
 
           </div>
@@ -146,12 +145,25 @@ function Dashboard({ user }) {
           <div className="dash-card">
 
             <h3>
-              📈 Trend Analysis
+              👁️ Image Analysis
             </h3>
 
             <p>
-              Monitor nutritional trends
-              and deficiency severity.
+              Eye, nail, and tongue
+              analysis using CNN models.
+            </p>
+
+          </div>
+
+          <div className="dash-card">
+
+            <h3>
+              📈 Trend Monitoring
+            </h3>
+
+            <p>
+              Longitudinal nutritional
+              risk tracking and severity analysis.
             </p>
 
           </div>
@@ -163,21 +175,8 @@ function Dashboard({ user }) {
             </h3>
 
             <p>
-              Generate customized
-              meal recommendations.
-            </p>
-
-          </div>
-
-          <div className="dash-card">
-
-            <h3>
-              🤖 AI Health System
-            </h3>
-
-            <p>
-              Research-oriented
-              intelligent healthcare platform.
+              AI-generated food
+              recommendations and meal plans.
             </p>
 
           </div>
