@@ -1,0 +1,421 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  font-family:Arial, Helvetica, sans-serif;
+
+  background:
+  linear-gradient(
+    135deg,
+    #081c24,
+    #0f2d3a,
+    #12384a
+  );
+
+  color:white;
+
+  overflow-x:hidden;
+}
+
+/* ====================================== */
+/* HOME PAGE */
+/* ====================================== */
+
+.home-page{
+
+  min-height:100vh;
+
+  position:relative;
+}
+
+/* ====================================== */
+/* BACKGROUND GLOW */
+/* ====================================== */
+
+.home-page::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  background:#14b8a6;
+
+  border-radius:50%;
+
+  filter:blur(180px);
+
+  opacity:0.18;
+
+  top:-100px;
+  left:-100px;
+}
+
+.home-page::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  background:#3b82f6;
+
+  border-radius:50%;
+
+  filter:blur(180px);
+
+  opacity:0.15;
+
+  bottom:-120px;
+  right:-100px;
+}
+
+/* ====================================== */
+/* NAVBAR */
+/* ====================================== */
+
+.navbar{
+
+  width:100%;
+
+  display:flex;
+
+  justify-content:space-between;
+  align-items:center;
+
+  padding:25px 70px;
+
+  position:relative;
+
+  z-index:10;
+}
+
+/* ====================================== */
+/* LOGO */
+/* ====================================== */
+
+.logo{
+
+  font-size:32px;
+
+  font-weight:bold;
+
+  color:white;
+}
+
+/* ====================================== */
+/* NAV LINKS */
+/* ====================================== */
+
+.nav-links{
+
+  display:flex;
+
+  gap:35px;
+}
+
+.nav-links a{
+
+  text-decoration:none;
+
+  color:#dbeafe;
+
+  font-size:17px;
+
+  transition:0.3s;
+}
+
+.nav-links a:hover{
+
+  color:#14b8a6;
+}
+
+/* ====================================== */
+/* HERO SECTION */
+/* ====================================== */
+
+.hero-section{
+
+  margin:40px auto;
+
+  width:90%;
+
+  min-height:550px;
+
+  border-radius:35px;
+
+  padding:70px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+  rgba(255,255,255,0.06);
+
+  backdrop-filter:blur(18px);
+
+  border:
+  1px solid rgba(255,255,255,0.1);
+
+  box-shadow:
+  0 10px 40px rgba(0,0,0,0.3);
+
+  z-index:10;
+}
+
+/* ====================================== */
+/* HERO CONTENT */
+/* ====================================== */
+
+.hero-section h1{
+
+  font-size:68px;
+
+  line-height:1.2;
+
+  max-width:850px;
+
+  margin-bottom:25px;
+
+  font-weight:800;
+}
+
+.hero-section p{
+
+  font-size:21px;
+
+  color:#d1d5db;
+
+  max-width:850px;
+
+  line-height:1.8;
+}
+
+/* ====================================== */
+/* HERO BUTTONS */
+/* ====================================== */
+
+.hero-buttons{
+
+  margin-top:40px;
+
+  display:flex;
+
+  gap:25px;
+}
+
+/* ====================================== */
+/* BUTTON COMMON */
+/* ====================================== */
+
+.start-btn,
+.profile-btn{
+
+  padding:18px 34px;
+
+  border:none;
+
+  border-radius:16px;
+
+  font-size:18px;
+
+  cursor:pointer;
+
+  font-weight:bold;
+
+  transition:0.3s;
+}
+
+/* ====================================== */
+/* START BUTTON */
+/* ====================================== */
+
+.start-btn{
+
+  background:
+  linear-gradient(
+    135deg,
+    #14b8a6,
+    #0f766e
+  );
+
+  color:white;
+}
+
+.start-btn:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:
+  0 10px 25px rgba(20,184,166,0.3);
+}
+
+/* ====================================== */
+/* PROFILE BUTTON */
+/* ====================================== */
+
+.profile-btn{
+
+  background:
+  rgba(255,255,255,0.08);
+
+  border:
+  1px solid rgba(255,255,255,0.1);
+
+  color:white;
+}
+
+.profile-btn:hover{
+
+  transform:translateY(-3px);
+
+  background:
+  rgba(255,255,255,0.12);
+}
+
+/* ====================================== */
+/* FEATURES GRID */
+/* ====================================== */
+
+.features-grid{
+
+  width:90%;
+
+  margin:60px auto;
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(300px,1fr));
+
+  gap:30px;
+
+  position:relative;
+
+  z-index:10;
+}
+
+/* ====================================== */
+/* FEATURE CARD */
+/* ====================================== */
+
+.feature-card{
+
+  background:
+  rgba(255,255,255,0.06);
+
+  backdrop-filter:blur(16px);
+
+  border:
+  1px solid rgba(255,255,255,0.1);
+
+  border-radius:28px;
+
+  padding:35px;
+
+  transition:0.3s;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.2);
+}
+
+.feature-card:hover{
+
+  transform:
+  translateY(-8px);
+
+  box-shadow:
+  0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* ====================================== */
+/* FEATURE TITLE */
+/* ====================================== */
+
+.feature-card h3{
+
+  font-size:28px;
+
+  margin-bottom:18px;
+
+  color:#14b8a6;
+}
+
+/* ====================================== */
+/* FEATURE TEXT */
+/* ====================================== */
+
+.feature-card p{
+
+  color:#d1d5db;
+
+  line-height:1.8;
+
+  font-size:17px;
+}
+
+/* ====================================== */
+/* RESPONSIVE */
+/* ====================================== */
+
+@media(max-width:900px){
+
+  .navbar{
+
+    padding:20px 30px;
+  }
+
+  .hero-section{
+
+    padding:40px;
+  }
+
+  .hero-section h1{
+
+    font-size:46px;
+  }
+
+  .hero-section p{
+
+    font-size:18px;
+  }
+
+  .hero-buttons{
+
+    flex-direction:column;
+  }
+}
+
+@media(max-width:600px){
+
+  .navbar{
+
+    flex-direction:column;
+
+    gap:20px;
+  }
+
+  .hero-section{
+
+    padding:30px;
+  }
+
+  .hero-section h1{
+
+    font-size:36px;
+  }
+
+  .features-grid{
+
+    width:95%;
+  }
+}
