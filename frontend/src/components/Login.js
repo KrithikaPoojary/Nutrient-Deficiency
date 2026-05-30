@@ -1,68 +1,197 @@
 import React, { useState } from "react";
+
 import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 
+import "./Login.css";
+
 function Login({ setUser }) {
+
   const navigate = useNavigate();
 
   const [data, setData] = useState({
+
     username: "",
     password: ""
+
   });
 
   const [error, setError] = useState("");
 
+  // =====================================
+  // LOGIN
+  // =====================================
+
   const handleLogin = async () => {
+
     try {
-      const res = await axios.post("http://localhost:5000/login", data);
+
+      setError("");
+
+      const res = await axios.post(
+
+        "http://localhost:5000/login",
+
+        data
+
+      );
+
+      // SAVE USER
 
       setUser(res.data);
-      navigate("/home");
 
-    } catch (err) {
-      setError("Invalid username or password ❌");
+      // GO TO DASHBOARD
+
+      navigate("/dashboard");
+
+    }
+
+    catch (err) {
+
+      setError(
+
+        "Invalid username or password"
+
+      );
     }
   };
 
+  // =====================================
+
   return (
+
     <div className="login-container">
+
       <div className="login-card">
 
-        <h2>Member Login</h2>
+        {/* TITLE */}
 
-        {error && <p className="error">{error}</p>}
+        <h1 className="logo">
 
-        <div className="input-group">
-          <input
-            placeholder="Username"
-            value={data.username}
-            onChange={(e) =>
-              setData({ ...data, username: e.target.value })
-            }
-          />
+          NutriHealth AI
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={data.password}
-            onChange={(e) =>
-              setData({ ...data, password: e.target.value })
-            }
-          />
-        </div>
+        </h1>
 
-        <button onClick={handleLogin}>Login</button>
+        {/* SUBTITLE */}
 
-        <p className="register-text">
-          Don't have an account?
+        <p className="subtitle">
+
+          Intelligent Nutritional
+          Health System
+
         </p>
 
-        <button onClick={() => navigate("/register")}>
-          Register
+        {/* ERROR */}
+
+        {error && (
+
+          <p className="error">
+
+            {error}
+
+          </p>
+
+        )}
+
+        {/* INPUTS */}
+
+        <div className="input-group">
+
+          {/* USERNAME */}
+
+          <input
+
+            type="text"
+
+            placeholder="Username"
+
+            autoComplete="off"
+
+            value={data.username}
+
+            onChange={(e) =>
+
+              setData({
+
+                ...data,
+
+                username: e.target.value
+
+              })
+
+            }
+
+          />
+
+          {/* PASSWORD */}
+
+          <input
+
+            type="password"
+
+            placeholder="Password"
+
+            autoComplete="new-password"
+
+            value={data.password}
+
+            onChange={(e) =>
+
+              setData({
+
+                ...data,
+
+                password: e.target.value
+
+              })
+
+            }
+
+          />
+
+        </div>
+
+        {/* LOGIN BUTTON */}
+
+        <button
+
+          className="login-btn"
+
+          onClick={handleLogin}
+
+        >
+
+          Login
+
         </button>
 
+        {/* REGISTER LINK */}
+
+        <p className="register-text">
+
+          Don't have an account?
+
+          <span
+
+            className="login-link"
+
+            onClick={() =>
+              navigate("/register")
+            }
+
+          >
+
+            Register
+
+          </span>
+
+        </p>
+
       </div>
+
     </div>
+
   );
 }
 
