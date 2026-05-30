@@ -1,157 +1,382 @@
 import React from "react";
-import NutrientChart from "./NutrientChart"; // 🔥 ADD THIS
+import NutrientChart from "./NutrientChart";
+import "./Result.css";
 
-function Result({ result, recommendations, nutrients, rda }) {
+function Result({
+
+  result,
+  recommendations,
+  nutrients,
+  rda
+
+}) {
 
   if (!result || Object.keys(result).length === 0) {
-    return <p style={{ textAlign: "center" }}>No results yet</p>;
+
+    return (
+
+      <div className="result-empty">
+        No Results Yet
+      </div>
+
+    );
   }
 
-  // 🔥 Status Style
-  const getStatusStyle = (status) => {
+  // =========================================
+  // STATUS STYLE
+  // =========================================
+
+  const getStatusClass = (status) => {
+
     switch (status) {
+
       case "Severe":
-        return { color: "#e74c3c", background: "#fdecea" };
+        return "status-severe";
+
       case "Moderate":
-        return { color: "#f39c12", background: "#fef5e7" };
+        return "status-moderate";
+
       case "Mild":
-        return { color: "#3498db", background: "#eaf2f8" };
+        return "status-mild";
+
       default:
-        return { color: "#27ae60", background: "#eafaf1" };
+        return "status-normal";
     }
   };
 
-  // 🔥 Icon
+  // =========================================
+  // STATUS ICON
+  // =========================================
+
   const getIcon = (status) => {
+
     if (status === "Severe") return "🔴";
+
     if (status === "Moderate") return "🟠";
+
     if (status === "Mild") return "🔵";
+
     return "🟢";
   };
 
-  // 🔥 Percentage Calculation
-  const getPercent = (value, required) => {
+  // =========================================
+  // PERCENT
+  // =========================================
+
+  const getPercent = (
+
+    value,
+    required
+
+  ) => {
+
     if (!value || !required) return 0;
-    return Math.min((value / required) * 100, 100);
+
+    return Math.min(
+      (value / required) * 100,
+      100
+    );
   };
 
-  const mealOrder = ["Breakfast", "Lunch", "Dinner"];
+  // =========================================
+  // ORDER
+  // =========================================
+
+  const mealOrder = [
+
+    "Breakfast",
+    "Lunch",
+    "Dinner"
+
+  ];
+
+  // =========================================
+  // UI
+  // =========================================
 
   return (
-    <div className="card">
-      <h2>📊 Results</h2>
 
-      {/* 🔥 NUTRIENT CHART */}
-      {nutrients && rda && (
-        <div style={{ marginBottom: "20px" }}>
-          <NutrientChart nutrients={nutrients} rda={rda} />
+    <div className="result-page">
+
+      <div className="result-container">
+
+        <div className="result-header">
+
+          <h1>
+            📊 AI Nutritional Analysis
+          </h1>
+
+          <p>
+            Personalized Nutrient Deficiency Report
+          </p>
+
         </div>
-      )}
 
-      <div className="result-grid">
-        {Object.entries(result).map(([key, val]) => {
+        {/* ========================================= */}
+        {/* CHART */}
+        {/* ========================================= */}
 
-          const rec = recommendations?.[key];
-          const value = nutrients?.[key];
-          const required = rda?.[key];
-          const percent = getPercent(value, required);
+        {nutrients && rda && (
 
-          return (
-            <div className="result-card" key={key}>
+          <div className="chart-wrapper">
 
-              <h3>{key}</h3>
+            <NutrientChart
+              nutrients={nutrients}
+              rda={rda}
+            />
 
-              {/* 🔥 Nutrient Values */}
-              {value !== undefined && required !== undefined && (
-                <div className="nutrient-info">
+          </div>
 
-                  <p>
-                    <strong>{value}</strong> / {required}
-                  </p>
+        )}
 
-                  <p>
-                    {percent.toFixed(1)}% of daily need
-                  </p>
+        {/* ========================================= */}
+        {/* RESULT GRID */}
+        {/* ========================================= */}
 
-                  {/* 🔥 Progress Bar */}
-                  <div className="progress-bar">
+        <div className="result-grid">
+
+          {Object.entries(result).map(
+
+            ([key, val]) => {
+
+              const rec =
+                recommendations?.[key];
+
+              const value =
+                nutrients?.[key];
+
+              const required =
+                rda?.[key];
+
+              const percent =
+                getPercent(
+                  value,
+                  required
+                );
+
+              return (
+
+                <div
+                  className="result-card"
+                  key={key}
+                >
+
+                  {/* ========================================= */}
+                  {/* TITLE */}
+                  {/* ========================================= */}
+
+                  <div className="card-top">
+
+                    <h2>{key}</h2>
+
                     <div
-                      className="progress-fill"
-                      style={{ width: `${percent}%` }}
-                    ></div>
+                      className={`status-badge ${getStatusClass(val)}`}
+                    >
+                      {getIcon(val)} {val}
+                    </div>
+
                   </div>
 
-                </div>
-              )}
+                  {/* ========================================= */}
+                  {/* NUTRIENT INFO */}
+                  {/* ========================================= */}
 
-              {/* 🔥 Status Badge */}
-              <div
-                className="status-badge"
-                style={getStatusStyle(val)}
-              >
-                {getIcon(val)} {val}
-              </div>
+                  {value !== undefined &&
+                    required !== undefined && (
 
-              {/* 🔥 Recommendations */}
-              {val !== "Normal" && rec && (
-                <div className="recommend-box">
+                    <div className="nutrient-section">
 
-                  {/* 🍎 Suggested Foods */}
-                  {Array.isArray(rec.foods) && rec.foods.length > 0 && (
-                    <>
-                      <p className="section-title">🍎 Suggested Foods</p>
+                      <div className="nutrient-values">
 
-                      <ul className="clean-list">
-                        {rec.foods.map((food, i) => (
-                          <li key={i}>{food}</li>
-                        ))}
-                      </ul>
-                    </>
+                        <span>
+                          Current:
+                          <strong>
+                            {" "}
+                            {value}
+                          </strong>
+                        </span>
+
+                        <span>
+                          Required:
+                          <strong>
+                            {" "}
+                            {required}
+                          </strong>
+                        </span>
+
+                      </div>
+
+                      <p className="percent-text">
+                        {percent.toFixed(1)}%
+                        of Daily Requirement
+                      </p>
+
+                      <div className="progress-bar">
+
+                        <div
+                          className="progress-fill"
+                          style={{
+                            width:
+                              `${percent}%`
+                          }}
+                        ></div>
+
+                      </div>
+
+                    </div>
+
                   )}
 
-                  {/* 📅 3-Day Plan */}
-                  {rec.plan && Object.keys(rec.plan).length > 0 && (
-                    <>
-                      <p className="section-title">📅 3-Day Plan</p>
+                  {/* ========================================= */}
+                  {/* RECOMMENDATIONS */}
+                  {/* ========================================= */}
 
-                      {Object.entries(rec.plan).map(([day, meals]) => (
-                        <div key={day} className="day-block">
+                  {val !== "Normal" &&
+                    rec && (
 
-                          <p className="day-title">{day}</p>
+                    <div className="recommend-box">
 
-                          {/* 🔥 Ordered Meals */}
-                          {mealOrder.map((meal) => {
-                            const foods = meals?.[meal];
+                      {/* ========================================= */}
+                      {/* FOODS */}
+                      {/* ========================================= */}
 
-                            return (
-                              foods && (
-                                <div key={meal} className="meal-block">
-                                  <strong>{meal}</strong>
+                      {Array.isArray(rec.foods) &&
+                        rec.foods.length > 0 && (
 
-                                  <ul className="clean-list">
-                                    {foods.map((f, idx) => (
-                                      <li key={idx}>{f}</li>
-                                    ))}
-                                  </ul>
-                                </div>
+                        <>
+
+                          <h3 className="section-title">
+                            🍎 Recommended Foods
+                          </h3>
+
+                          <div className="food-list">
+
+                            {rec.foods.map(
+                              (
+                                food,
+                                i
+                              ) => (
+
+                                <span
+                                  className="food-chip"
+                                  key={i}
+                                >
+                                  {food}
+                                </span>
+
                               )
-                            );
-                          })}
+                            )}
 
-                        </div>
-                      ))}
+                          </div>
 
-                    </>
+                        </>
+
+                      )}
+
+                      {/* ========================================= */}
+                      {/* PLAN */}
+                      {/* ========================================= */}
+
+                      {rec.plan &&
+                        Object.keys(rec.plan).length > 0 && (
+
+                        <>
+
+                          <h3 className="section-title">
+                            📅 3-Day Personalized Plan
+                          </h3>
+
+                          {Object.entries(
+                            rec.plan
+                          ).map(
+
+                            ([day, meals]) => (
+
+                              <div
+                                key={day}
+                                className="day-card"
+                              >
+
+                                <div className="day-title">
+                                  {day}
+                                </div>
+
+                                {mealOrder.map(
+
+                                  (meal) => {
+
+                                    const foods =
+                                      meals?.[meal];
+
+                                    return (
+
+                                      foods && (
+
+                                        <div
+                                          key={meal}
+                                          className="meal-card"
+                                        >
+
+                                          <h4>
+                                            {meal}
+                                          </h4>
+
+                                          <ul>
+
+                                            {foods.map(
+
+                                              (
+                                                food,
+                                                idx
+                                              ) => (
+
+                                                <li
+                                                  key={idx}
+                                                >
+                                                  {food}
+                                                </li>
+
+                                              )
+                                            )}
+
+                                          </ul>
+
+                                        </div>
+
+                                      )
+
+                                    );
+                                  }
+
+                                )}
+
+                              </div>
+
+                            )
+
+                          )}
+
+                        </>
+
+                      )}
+
+                    </div>
+
                   )}
 
                 </div>
-              )}
 
-            </div>
-          );
-        })}
+              );
+            }
+
+          )}
+
+        </div>
+
       </div>
+
     </div>
+
   );
 }
 
