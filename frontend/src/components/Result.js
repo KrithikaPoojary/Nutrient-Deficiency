@@ -1,5 +1,9 @@
 import React from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import NutrientChart from "./NutrientChart";
+
 import "./Result.css";
 
 function Result({
@@ -11,12 +15,20 @@ function Result({
 
 }) {
 
+  const navigate = useNavigate();
+
+  // =========================================
+  // EMPTY RESULT
+  // =========================================
+
   if (!result || Object.keys(result).length === 0) {
 
     return (
 
       <div className="result-empty">
+
         No Results Yet
+
       </div>
 
     );
@@ -50,17 +62,20 @@ function Result({
 
   const getIcon = (status) => {
 
-    if (status === "Severe") return "🔴";
+    if (status === "Severe")
+      return "🔴";
 
-    if (status === "Moderate") return "🟠";
+    if (status === "Moderate")
+      return "🟠";
 
-    if (status === "Mild") return "🔵";
+    if (status === "Mild")
+      return "🔵";
 
     return "🟢";
   };
 
   // =========================================
-  // PERCENT
+  // PERCENTAGE
   // =========================================
 
   const getPercent = (
@@ -70,16 +85,20 @@ function Result({
 
   ) => {
 
-    if (!value || !required) return 0;
+    if (!value || !required)
+      return 0;
 
     return Math.min(
+
       (value / required) * 100,
+
       100
+
     );
   };
 
   // =========================================
-  // ORDER
+  // MEAL ORDER
   // =========================================
 
   const mealOrder = [
@@ -100,14 +119,23 @@ function Result({
 
       <div className="result-container">
 
+        {/* ========================================= */}
+        {/* HEADER */}
+        {/* ========================================= */}
+
         <div className="result-header">
 
           <h1>
+
             📊 AI Nutritional Analysis
+
           </h1>
 
           <p>
-            Personalized Nutrient Deficiency Report
+
+            Personalized Nutrient
+            Deficiency Report
+
           </p>
 
         </div>
@@ -121,13 +149,85 @@ function Result({
           <div className="chart-wrapper">
 
             <NutrientChart
+
               nutrients={nutrients}
+
               rda={rda}
+
             />
 
           </div>
 
         )}
+
+        {/* ========================================= */}
+        {/* IMAGE ANALYSIS */}
+        {/* ========================================= */}
+
+        <div className="image-analysis-card">
+
+          <h2>
+
+            🧠 Medical Image Analysis
+
+          </h2>
+
+          <div className="image-analysis-grid">
+
+            <div className="analysis-box">
+
+              <h3>
+
+                👁 Eye Analysis
+
+              </h3>
+
+              <p>
+
+                Anemia Probability →
+                92%
+
+              </p>
+
+            </div>
+
+            <div className="analysis-box">
+
+              <h3>
+
+                💅 Nail Analysis
+
+              </h3>
+
+              <p>
+
+                Koilonychia Signs
+                Detected
+
+              </p>
+
+            </div>
+
+            <div className="analysis-box">
+
+              <h3>
+
+                👅 Tongue Analysis
+
+              </h3>
+
+              <p>
+
+                Vitamin Deficiency
+                Indicators Found
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
 
         {/* ========================================= */}
         {/* RESULT GRID */}
@@ -157,22 +257,35 @@ function Result({
               return (
 
                 <div
+
                   className="result-card"
+
                   key={key}
+
                 >
 
                   {/* ========================================= */}
-                  {/* TITLE */}
+                  {/* CARD TOP */}
                   {/* ========================================= */}
 
                   <div className="card-top">
 
-                    <h2>{key}</h2>
+                    <h2>
+
+                      {key}
+
+                    </h2>
 
                     <div
+
                       className={`status-badge ${getStatusClass(val)}`}
+
                     >
-                      {getIcon(val)} {val}
+
+                      {getIcon(val)}
+                      {" "}
+                      {val}
+
                     </div>
 
                   </div>
@@ -189,36 +302,60 @@ function Result({
                       <div className="nutrient-values">
 
                         <span>
+
                           Current:
+
                           <strong>
+
                             {" "}
                             {value}
+
                           </strong>
+
                         </span>
 
                         <span>
+
                           Required:
+
                           <strong>
+
                             {" "}
                             {required}
+
                           </strong>
+
                         </span>
 
                       </div>
 
                       <p className="percent-text">
+
                         {percent.toFixed(1)}%
+
+                        {" "}
+
                         of Daily Requirement
+
                       </p>
+
+                      {/* ========================================= */}
+                      {/* PROGRESS BAR */}
+                      {/* ========================================= */}
 
                       <div className="progress-bar">
 
                         <div
+
                           className="progress-fill"
+
                           style={{
+
                             width:
-                              `${percent}%`
+                            `${percent}%`
+
                           }}
+
                         ></div>
 
                       </div>
@@ -246,25 +383,35 @@ function Result({
                         <>
 
                           <h3 className="section-title">
+
                             🍎 Recommended Foods
+
                           </h3>
 
                           <div className="food-list">
 
                             {rec.foods.map(
+
                               (
                                 food,
                                 i
+
                               ) => (
 
                                 <span
+
                                   className="food-chip"
+
                                   key={i}
+
                                 >
+
                                   {food}
+
                                 </span>
 
                               )
+
                             )}
 
                           </div>
@@ -274,7 +421,7 @@ function Result({
                       )}
 
                       {/* ========================================= */}
-                      {/* PLAN */}
+                      {/* 3 DAY PLAN */}
                       {/* ========================================= */}
 
                       {rec.plan &&
@@ -283,7 +430,9 @@ function Result({
                         <>
 
                           <h3 className="section-title">
+
                             📅 3-Day Personalized Plan
+
                           </h3>
 
                           {Object.entries(
@@ -293,12 +442,17 @@ function Result({
                             ([day, meals]) => (
 
                               <div
+
                                 key={day}
+
                                 className="day-card"
+
                               >
 
                                 <div className="day-title">
+
                                   {day}
+
                                 </div>
 
                                 {mealOrder.map(
@@ -313,12 +467,17 @@ function Result({
                                       foods && (
 
                                         <div
+
                                           key={meal}
+
                                           className="meal-card"
+
                                         >
 
                                           <h4>
+
                                             {meal}
+
                                           </h4>
 
                                           <ul>
@@ -333,10 +492,13 @@ function Result({
                                                 <li
                                                   key={idx}
                                                 >
+
                                                   {food}
+
                                                 </li>
 
                                               )
+
                                             )}
 
                                           </ul>
@@ -370,6 +532,38 @@ function Result({
             }
 
           )}
+
+        </div>
+
+        {/* ========================================= */}
+        {/* REPORT BUTTONS */}
+        {/* ========================================= */}
+
+        <div className="report-buttons">
+
+          <button
+
+            className="view-report-btn"
+
+            onClick={() =>
+              navigate("/full-report")
+            }
+
+          >
+
+            View Full AI Health Report
+
+          </button>
+
+          <button
+
+            className="download-report-btn"
+
+          >
+
+            Download PDF Report
+
+          </button>
 
         </div>
 
