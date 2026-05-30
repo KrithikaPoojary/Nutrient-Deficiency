@@ -29,6 +29,9 @@ function App() {
   const [recommendations, setRecommendations] =
     useState(null);
 
+  const [fullResult, setFullResult] =
+    useState(null);
+
   // =====================================
   // LOGOUT
   // =====================================
@@ -40,6 +43,9 @@ function App() {
     setResult(null);
 
     setRecommendations(null);
+
+    setFullResult(null);
+
   };
 
   // =====================================
@@ -53,14 +59,17 @@ function App() {
       <Routes>
 
         {/* ===================================== */}
-        {/* PUBLIC HOME PAGE */}
+        {/* HOME */}
         {/* ===================================== */}
 
         <Route
+
           path="/"
+
           element={
             <Home user={user} />
           }
+
         />
 
         {/* ===================================== */}
@@ -68,10 +77,13 @@ function App() {
         {/* ===================================== */}
 
         <Route
+
           path="/login"
+
           element={
             <Login setUser={setUser} />
           }
+
         />
 
         {/* ===================================== */}
@@ -79,8 +91,11 @@ function App() {
         {/* ===================================== */}
 
         <Route
+
           path="/register"
+
           element={<Register />}
+
         />
 
         {/* ===================================== */}
@@ -112,17 +127,24 @@ function App() {
                   <div className="nav-right">
 
                     <span>
+
                       Welcome,
                       {" "}
                       {user.username}
                       👋
+
                     </span>
 
                     <button
+
                       className="logout-btn"
+
                       onClick={handleLogout}
+
                     >
+
                       Logout
+
                     </button>
 
                   </div>
@@ -130,35 +152,10 @@ function App() {
                 </div>
 
                 {/* ===================================== */}
-                {/* HERO */}
-                {/* ===================================== */}
-
-                <div className="hero-banner">
-
-                  <h1>
-                    Intelligent Nutritional
-                    Health System
-                  </h1>
-
-                  <p>
-
-                    AI-powered nutritional
-                    deficiency prediction,
-                    personalized meal planning,
-                    and longitudinal health
-                    tracking system.
-
-                  </p>
-
-                </div>
-
-                {/* ===================================== */}
-                {/* MAIN CONTENT */}
+                {/* FORM PAGE ONLY */}
                 {/* ===================================== */}
 
                 <div className="main-layout">
-
-                  {/* FORM */}
 
                   <div className="left-panel">
 
@@ -170,46 +167,87 @@ function App() {
                         setRecommendations
                       }
 
+                      setFullResult={
+                        setFullResult
+                      }
+
                       user={user}
 
                     />
 
                   </div>
 
-                  {/* RESULTS */}
-
-                  <div className="right-panel">
-
-                    {result &&
-                      Object.keys(result).length > 0 && (
-
-                      <Result
-
-                        result={result}
-
-                        recommendations={
-                          recommendations
-                        }
-
-                      />
-
-                    )}
-
-                  </div>
-
-                </div>
-
-                {/* ===================================== */}
-                {/* HISTORY */}
-                {/* ===================================== */}
-
-                <div className="history-section">
-
-                  <History user={user} />
-
                 </div>
 
               </div>
+
+            ) : (
+
+              <Navigate to="/login" />
+
+            )
+
+          }
+
+        />
+
+        {/* ===================================== */}
+        {/* RESULT PAGE */}
+        {/* ===================================== */}
+
+        <Route
+
+          path="/result"
+
+          element={
+
+            user ? (
+
+              result ? (
+
+                <Result
+
+                  result={result}
+
+                  recommendations={
+                    recommendations
+                  }
+
+                  fullResult={
+                    fullResult
+                  }
+
+                />
+
+              ) : (
+
+                <Navigate to="/dashboard" />
+
+              )
+
+            ) : (
+
+              <Navigate to="/login" />
+
+            )
+
+          }
+
+        />
+
+        {/* ===================================== */}
+        {/* HISTORY */}
+        {/* ===================================== */}
+
+        <Route
+
+          path="/history"
+
+          element={
+
+            user ? (
+
+              <History user={user} />
 
             ) : (
 
