@@ -168,56 +168,6 @@ body{
 }
 
 /* ========================================= */
-/* HERO */
-/* ========================================= */
-
-.hero-banner{
-
-  width:92%;
-
-  margin:20px auto;
-
-  padding:55px;
-
-  border-radius:32px;
-
-  background:
-  rgba(255,255,255,0.06);
-
-  backdrop-filter:blur(18px);
-
-  border:
-  1px solid rgba(255,255,255,0.1);
-
-  box-shadow:
-  0 10px 35px rgba(0,0,0,0.25);
-
-  position:relative;
-
-  z-index:10;
-}
-
-.hero-banner h1{
-
-  font-size:58px;
-
-  line-height:1.2;
-
-  margin-bottom:20px;
-}
-
-.hero-banner p{
-
-  max-width:900px;
-
-  color:#d1d5db;
-
-  line-height:1.8;
-
-  font-size:20px;
-}
-
-/* ========================================= */
 /* MAIN LAYOUT */
 /* ========================================= */
 
@@ -225,12 +175,11 @@ body{
 
   width:92%;
 
-  margin:35px auto;
+  margin:auto;
 
   display:grid;
 
-  grid-template-columns:
-  1fr 1fr;
+  grid-template-columns:1fr;
 
   gap:30px;
 
@@ -589,7 +538,7 @@ button:hover{
 
   width:92%;
 
-  margin:auto;
+  margin:40px auto 0 auto;
 
   position:relative;
 
@@ -664,11 +613,6 @@ button:hover{
 
     grid-template-columns:1fr;
   }
-
-  .hero-banner h1{
-
-    font-size:42px;
-  }
 }
 
 @media(max-width:700px){
@@ -680,21 +624,6 @@ button:hover{
     gap:20px;
 
     padding:20px;
-  }
-
-  .hero-banner{
-
-    padding:30px;
-  }
-
-  .hero-banner h1{
-
-    font-size:34px;
-  }
-
-  .hero-banner p{
-
-    font-size:17px;
   }
 
   .form-grid{
