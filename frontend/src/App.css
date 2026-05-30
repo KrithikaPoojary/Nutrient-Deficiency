@@ -1,306 +1,704 @@
-/* 🔥 GLOBAL */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #eef2f3, #f9fbfd);
+/* ========================================= */
+/* GLOBAL */
+/* ========================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-/* 🔥 APP */
-.App {
-  text-align: center;
-  padding: 10px;
+body{
+
+  font-family:Arial, Helvetica, sans-serif;
+
+  background:
+  linear-gradient(
+    135deg,
+    #081c24,
+    #0f2d3a,
+    #12384a
+  );
+
+  color:white;
+
+  overflow-x:hidden;
 }
 
-/* 🔥 TITLE */
-h1 {
-  color: #2c3e50;
-  font-size: 26px;
-  margin-bottom: 10px;
+/* ========================================= */
+/* DASHBOARD */
+/* ========================================= */
+
+.dashboard-page{
+
+  min-height:100vh;
+
+  padding-bottom:50px;
+
+  position:relative;
 }
 
-/* 🔥 LOGOUT */
-.logout-btn {
-  position: fixed;
-  top: 12px;
-  right: 20px;
-  background: #e74c3c;
-  color: white;
-  padding: 8px 14px;
-  font-size: 13px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+/* ========================================= */
+/* BACKGROUND GLOW */
+/* ========================================= */
+
+.dashboard-page::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  background:#14b8a6;
+
+  border-radius:50%;
+
+  filter:blur(180px);
+
+  opacity:0.15;
+
+  top:-100px;
+  left:-100px;
 }
 
-.logout-btn:hover {
-  background: #c0392b;
+.dashboard-page::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  background:#3b82f6;
+
+  border-radius:50%;
+
+  filter:blur(180px);
+
+  opacity:0.12;
+
+  bottom:-120px;
+  right:-100px;
 }
 
-/* 🔥 CARD */
-.card {
-  background: white;
-  padding: 20px;
-  margin: 15px auto;
-  width: 65%;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+/* ========================================= */
+/* NAVBAR */
+/* ========================================= */
+
+.top-navbar{
+
+  width:100%;
+
+  padding:22px 50px;
+
+  display:flex;
+
+  justify-content:space-between;
+  align-items:center;
+
+  position:relative;
+
+  z-index:10;
 }
 
-/* 🔥 FORM GRID */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  align-items: center;
+/* ========================================= */
+/* BRAND */
+/* ========================================= */
+
+.brand{
+
+  font-size:30px;
+
+  font-weight:bold;
+
+  color:white;
 }
 
-/* 🔥 INPUT */
-input {
-  padding: 10px;
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+/* ========================================= */
+/* NAV RIGHT */
+/* ========================================= */
+
+.nav-right{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:20px;
+
+  color:#dbeafe;
+
+  font-size:17px;
 }
 
-input:focus {
-  outline: none;
-  border-color: #3498db;
+/* ========================================= */
+/* LOGOUT */
+/* ========================================= */
+
+.logout-btn{
+
+  padding:12px 20px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #ef4444,
+    #dc2626
+  );
+
+  color:white;
+
+  cursor:pointer;
+
+  font-weight:bold;
+
+  transition:0.3s;
 }
 
-/* 🔥 BMI BOX */
-.bmi-box {
-  background: #f4f6f8;
-  padding: 10px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-align: center;
-  color: #2c3e50;
+.logout-btn:hover{
+
+  transform:translateY(-2px);
 }
 
-/* 🔥 ROW */
-.row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
+/* ========================================= */
+/* HERO */
+/* ========================================= */
+
+.hero-banner{
+
+  width:92%;
+
+  margin:20px auto;
+
+  padding:55px;
+
+  border-radius:32px;
+
+  background:
+  rgba(255,255,255,0.06);
+
+  backdrop-filter:blur(18px);
+
+  border:
+  1px solid rgba(255,255,255,0.1);
+
+  box-shadow:
+  0 10px 35px rgba(0,0,0,0.25);
+
+  position:relative;
+
+  z-index:10;
 }
 
-/* 🔥 BUTTON */
-button {
-  padding: 8px 14px;
-  margin-top: 8px;
-  border: none;
-  border-radius: 8px;
-  background: #3498db;
-  color: white;
-  cursor: pointer;
+.hero-banner h1{
+
+  font-size:58px;
+
+  line-height:1.2;
+
+  margin-bottom:20px;
 }
 
-button:hover {
-  background: #2980b9;
+.hero-banner p{
+
+  max-width:900px;
+
+  color:#d1d5db;
+
+  line-height:1.8;
+
+  font-size:20px;
 }
 
-/* 🔥 REMOVE BUTTON */
-.row button {
-  background: #e74c3c;
+/* ========================================= */
+/* MAIN LAYOUT */
+/* ========================================= */
+
+.main-layout{
+
+  width:92%;
+
+  margin:35px auto;
+
+  display:grid;
+
+  grid-template-columns:
+  1fr 1fr;
+
+  gap:30px;
+
+  position:relative;
+
+  z-index:10;
 }
 
-.row button:hover {
-  background: #c0392b;
+/* ========================================= */
+/* PANELS */
+/* ========================================= */
+
+.left-panel,
+.right-panel{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:25px;
 }
 
-/* 🔥 ADD BUTTON */
-.add-btn {
-  background: #2ecc71;
+/* ========================================= */
+/* CARD */
+/* ========================================= */
+
+.card{
+
+  background:
+  rgba(255,255,255,0.06);
+
+  backdrop-filter:blur(18px);
+
+  border:
+  1px solid rgba(255,255,255,0.1);
+
+  border-radius:28px;
+
+  padding:28px;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.2);
+
+  color:white;
 }
 
-.add-btn:hover {
-  background: #27ae60;
+/* ========================================= */
+/* HEADINGS */
+/* ========================================= */
+
+.card h2,
+.card h3{
+
+  margin-bottom:18px;
+
+  color:white;
 }
 
-/* 🔥 RESULT GRID */
-.result-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
+/* ========================================= */
+/* FORM GRID */
+/* ========================================= */
+
+.form-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(2,1fr);
+
+  gap:18px;
 }
 
-/* 🔥 RESULT CARD */
-.result-card {
-  padding: 15px;
-  border-radius: 14px;
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  text-align: left;
+/* ========================================= */
+/* INPUT */
+/* ========================================= */
+
+input,
+select{
+
+  width:100%;
+
+  padding:16px;
+
+  border-radius:14px;
+
+  border:
+  1px solid rgba(255,255,255,0.1);
+
+  background:
+  rgba(255,255,255,0.05);
+
+  color:white;
+
+  font-size:15px;
+
+  outline:none;
 }
 
-/* 🔥 STATUS BADGE */
-.status-badge {
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-weight: bold;
-  margin: 8px 0;
-  display: inline-block;
+/* ========================================= */
+/* INPUT PLACEHOLDER */
+/* ========================================= */
+
+input::placeholder{
+
+  color:#cbd5e1;
 }
 
-/* 🔥 SECTION TITLE */
-.section-title {
-  font-weight: 600;
-  margin: 12px 0 6px;
+/* ========================================= */
+/* FOCUS */
+/* ========================================= */
+
+input:focus,
+select:focus{
+
+  border:
+  1px solid #14b8a6;
 }
 
-/* 🔥 CLEAN BULLET LIST */
-.clean-list {
-  list-style-type: disc;
-  padding-left: 20px;
-  margin: 6px 0 12px;
+/* ========================================= */
+/* BUTTON */
+/* ========================================= */
+
+button{
+
+  padding:15px 22px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #14b8a6,
+    #0f766e
+  );
+
+  color:white;
+
+  font-size:16px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.3s;
 }
 
-.clean-list li {
-  margin-bottom: 6px;
-  text-transform: capitalize;
-  line-height: 1.4;
+button:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+  0 10px 20px rgba(20,184,166,0.25);
 }
 
-/* 🔥 DAY BLOCK */
-.day-block {
-  margin-bottom: 12px;
-  padding: 8px;
-  background: #f9fbfd;
-  border-radius: 8px;
+/* ========================================= */
+/* RESULT GRID */
+/* ========================================= */
+
+.result-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(280px,1fr));
+
+  gap:20px;
 }
 
-/* 🔥 DAY TITLE */
-.day-title {
-  font-weight: 600;
-  margin: 6px 0;
-  color: #2c3e50;
+/* ========================================= */
+/* RESULT CARD */
+/* ========================================= */
+
+.result-card{
+
+  padding:22px;
+
+  border-radius:22px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+  0 5px 20px rgba(0,0,0,0.15);
 }
 
-/* 🔥 MEAL BLOCK (NEW) */
-.meal-block {
-  margin-bottom: 8px;
-  padding-left: 10px;
+/* ========================================= */
+/* STATUS */
+/* ========================================= */
+
+.status-badge{
+
+  padding:10px 14px;
+
+  border-radius:12px;
+
+  font-weight:bold;
+
+  margin-top:10px;
+
+  display:inline-block;
 }
 
-/* 🔥 NUTRIENT INFO (NEW) */
-.nutrient-info {
-  margin: 10px 0;
-  font-size: 14px;
+/* ========================================= */
+/* LIST */
+/* ========================================= */
+
+.clean-list{
+
+  padding-left:20px;
+
+  margin-top:10px;
 }
 
-/* 🔥 PROGRESS BAR (NEW) */
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background: #eee;
-  border-radius: 5px;
-  margin-top: 5px;
+.clean-list li{
+
+  margin-bottom:8px;
+
+  line-height:1.6;
+
+  text-transform:capitalize;
+
+  color:#e5e7eb;
 }
 
-.progress-fill {
-  height: 100%;
-  background: #27ae60;
-  border-radius: 5px;
-  transition: width 0.3s ease;
+/* ========================================= */
+/* DAY BLOCK */
+/* ========================================= */
+
+.day-block{
+
+  margin-top:15px;
+
+  padding:15px;
+
+  border-radius:16px;
+
+  background:
+  rgba(255,255,255,0.04);
 }
 
-/* 🔥 CHART CONTAINER (NEW) */
-.chart-container {
-  margin-top: 20px;
-  padding: 15px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+/* ========================================= */
+/* DAY TITLE */
+/* ========================================= */
+
+.day-title{
+
+  font-weight:bold;
+
+  margin-bottom:12px;
+
+  color:#14b8a6;
 }
 
-/* 🔥 AUTOCOMPLETE DROPDOWN */
-.dropdown {
-  position: absolute;
-  top: 42px;
-  left: 0;
-  width: 100%;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  max-height: 150px;
-  overflow-y: auto;
-  z-index: 999;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+/* ========================================= */
+/* MEAL BLOCK */
+/* ========================================= */
+
+.meal-block{
+
+  margin-bottom:12px;
 }
 
-.dropdown-item {
-  padding: 8px 10px;
-  cursor: pointer;
-  font-size: 14px;
+/* ========================================= */
+/* NUTRIENT INFO */
+/* ========================================= */
+
+.nutrient-info{
+
+  margin-top:12px;
+
+  color:#d1d5db;
 }
 
-.dropdown-item:hover {
-  background: #f4f6f8;
+/* ========================================= */
+/* PROGRESS BAR */
+/* ========================================= */
+
+.progress-bar{
+
+  width:100%;
+
+  height:10px;
+
+  background:
+  rgba(255,255,255,0.08);
+
+  border-radius:20px;
+
+  overflow:hidden;
+
+  margin-top:8px;
 }
 
-/* 🔥 LOGIN */
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+.progress-fill{
+
+  height:100%;
+
+  background:
+  linear-gradient(
+    135deg,
+    #14b8a6,
+    #3b82f6
+  );
+
+  border-radius:20px;
 }
 
-.login-card {
-  background: white;
-  padding: 25px;
-  width: 320px;
-  border-radius: 14px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+/* ========================================= */
+/* DROPDOWN */
+/* ========================================= */
+
+.dropdown{
+
+  position:absolute;
+
+  top:55px;
+
+  width:100%;
+
+  border-radius:14px;
+
+  background:#0f172a;
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  overflow:hidden;
+
+  z-index:1000;
 }
 
-/* 🔥 HISTORY */
-.history-card {
-  background: #ffffff;
-  padding: 15px;
-  border-radius: 12px;
-  margin: 10px auto;
-  width: 65%;
-  text-align: left;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+.dropdown-item{
+
+  padding:12px;
+
+  cursor:pointer;
+
+  transition:0.3s;
 }
 
-/* 🔥 TREND */
-.trend-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 5px 0;
+.dropdown-item:hover{
+
+  background:
+  rgba(255,255,255,0.06);
 }
 
-.bar {
-  width: 150px;
-  height: 10px;
-  background: #ddd;
-  border-radius: 5px;
+/* ========================================= */
+/* HISTORY */
+/* ========================================= */
+
+.history-section{
+
+  width:92%;
+
+  margin:auto;
+
+  position:relative;
+
+  z-index:10;
 }
 
-.fill {
-  height: 100%;
-  border-radius: 5px;
+.history-card{
+
+  background:
+  rgba(255,255,255,0.06);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  border-radius:24px;
+
+  padding:25px;
+
+  margin-top:20px;
 }
 
-.trend-block {
-  margin-bottom: 15px;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+/* ========================================= */
+/* TREND */
+/* ========================================= */
+
+.trend-block{
+
+  margin-top:18px;
+
+  padding:18px;
+
+  border-radius:16px;
+
+  background:
+  rgba(255,255,255,0.04);
 }
 
-/* 🔥 MOBILE FIX */
-@media (max-width: 768px) {
-  .card,
-  .history-card {
-    width: 90%;
+.trend-row{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:15px;
+
+  margin-top:10px;
+}
+
+/* ========================================= */
+/* CHART */
+/* ========================================= */
+
+.chart-container{
+
+  margin-top:20px;
+
+  padding:20px;
+
+  border-radius:20px;
+
+  background:
+  rgba(255,255,255,0.04);
+}
+
+/* ========================================= */
+/* MOBILE */
+/* ========================================= */
+
+@media(max-width:1000px){
+
+  .main-layout{
+
+    grid-template-columns:1fr;
   }
 
-  .form-grid {
-    grid-template-columns: 1fr;
+  .hero-banner h1{
+
+    font-size:42px;
+  }
+}
+
+@media(max-width:700px){
+
+  .top-navbar{
+
+    flex-direction:column;
+
+    gap:20px;
+
+    padding:20px;
+  }
+
+  .hero-banner{
+
+    padding:30px;
+  }
+
+  .hero-banner h1{
+
+    font-size:34px;
+  }
+
+  .hero-banner p{
+
+    font-size:17px;
+  }
+
+  .form-grid{
+
+    grid-template-columns:1fr;
   }
 }
