@@ -1,0 +1,362 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  font-family:Arial, Helvetica, sans-serif;
+
+  background:
+  linear-gradient(
+    135deg,
+    #06141d,
+    #0b2432,
+    #12384a
+  );
+
+  min-height:100vh;
+
+  overflow:hidden;
+}
+
+/* ===================================== */
+/* MAIN CONTAINER */
+/* ===================================== */
+
+.login-container{
+
+  width:100%;
+  min-height:100vh;
+
+  display:flex;
+
+  justify-content:center;
+  align-items:center;
+
+  padding:30px 20px;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+/* ===================================== */
+/* BACKGROUND GLOW */
+/* ===================================== */
+
+.login-container::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  background:#14b8a6;
+
+  border-radius:50%;
+
+  filter:blur(180px);
+
+  opacity:0.25;
+
+  top:-100px;
+  left:-100px;
+}
+
+.login-container::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:450px;
+  height:450px;
+
+  background:#3b82f6;
+
+  border-radius:50%;
+
+  filter:blur(180px);
+
+  opacity:0.2;
+
+  bottom:-120px;
+  right:-100px;
+}
+
+/* ===================================== */
+/* CARD */
+/* ===================================== */
+
+.login-card{
+
+  width:100%;
+  max-width:760px;
+
+  background:
+  rgba(255,255,255,0.06);
+
+  backdrop-filter:blur(18px);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  border-radius:34px;
+
+  padding:50px 70px;
+
+  box-shadow:
+  0 10px 40px rgba(0,0,0,0.35);
+
+  display:flex;
+  flex-direction:column;
+
+  gap:24px;
+
+  z-index:10;
+}
+
+/* ===================================== */
+/* LOGO */
+/* ===================================== */
+
+.logo{
+
+  font-size:62px;
+
+  color:white;
+
+  font-weight:800;
+
+  text-align:center;
+
+  line-height:1.2;
+}
+
+/* ===================================== */
+/* SUBTITLE */
+/* ===================================== */
+
+.subtitle{
+
+  text-align:center;
+
+  color:#cbd5e1;
+
+  font-size:22px;
+
+  line-height:1.6;
+
+  margin-top:-8px;
+
+  margin-bottom:10px;
+}
+
+/* ===================================== */
+/* INPUT GROUP */
+/* ===================================== */
+
+.input-group{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:22px;
+
+  margin-top:10px;
+}
+
+/* ===================================== */
+/* INPUT */
+/* ===================================== */
+
+.input-group input{
+
+  width:100%;
+
+  padding:22px 24px;
+
+  border-radius:20px;
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  background:
+  rgba(255,255,255,0.08);
+
+  color:white;
+
+  font-size:20px;
+
+  outline:none;
+
+  transition:0.3s;
+}
+
+.input-group input::placeholder{
+
+  color:#d1d5db;
+}
+
+.input-group input:focus{
+
+  border:
+  1px solid #14b8a6;
+
+  box-shadow:
+  0 0 10px rgba(20,184,166,0.2);
+
+  background:
+  rgba(255,255,255,0.1);
+}
+
+/* ===================================== */
+/* LOGIN BUTTON */
+/* ===================================== */
+
+.login-btn{
+
+  width:100%;
+
+  margin-top:35px;
+
+  padding:22px;
+
+  border:none;
+
+  border-radius:20px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #1ec8bb,
+    #14968c
+  );
+
+  color:white;
+
+  font-size:22px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.login-btn:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+  0 10px 20px rgba(20,184,166,0.3);
+
+  opacity:0.95;
+}
+
+/* ===================================== */
+/* REGISTER TEXT */
+/* ===================================== */
+
+.register-text{
+
+  text-align:center;
+
+  margin-top:28px;
+
+  color:#d1d5db;
+
+  font-size:20px;
+
+  line-height:1.6;
+}
+
+/* ===================================== */
+/* REGISTER LINK */
+/* ===================================== */
+
+.login-link{
+
+  margin-left:8px;
+
+  color:#14b8a6;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.login-link:hover{
+
+  color:#2dd4bf;
+
+  text-decoration:underline;
+}
+
+/* ===================================== */
+/* ERROR */
+/* ===================================== */
+
+.error{
+
+  background:
+  rgba(239,68,68,0.15);
+
+  color:#fecaca;
+
+  padding:16px;
+
+  border-radius:16px;
+
+  text-align:center;
+
+  border:
+  1px solid rgba(239,68,68,0.2);
+
+  font-size:18px;
+}
+
+/* ===================================== */
+/* RESPONSIVE */
+/* ===================================== */
+
+@media(max-width:768px){
+
+  .login-card{
+
+    padding:35px 28px;
+  }
+
+  .logo{
+
+    font-size:42px;
+  }
+
+  .subtitle{
+
+    font-size:18px;
+  }
+
+  .input-group input{
+
+    padding:18px;
+    font-size:17px;
+  }
+
+  .login-btn{
+
+    font-size:19px;
+    padding:18px;
+  }
+
+  .register-text{
+
+    font-size:17px;
+  }
+}
