@@ -1,0 +1,192 @@
+.mealplan-page{
+
+  min-height:100vh;
+
+  padding:40px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #071821,
+    #0d2530,
+    #123848
+  );
+
+  color:white;
+}
+
+.mealplan-container{
+
+  max-width:1300px;
+
+  margin:auto;
+}
+
+.mealplan-header{
+
+  text-align:center;
+
+  margin-bottom:50px;
+}
+
+.mealplan-header h1{
+
+  font-size:42px;
+
+  margin-bottom:15px;
+}
+
+.mealplan-header p{
+
+  color:#cbd5e1;
+
+  font-size:18px;
+}
+
+.nutrient-plan-card{
+
+  margin-bottom:45px;
+
+  padding:30px;
+
+  border-radius:28px;
+
+  background:
+  rgba(255,255,255,0.06);
+
+  backdrop-filter:blur(14px);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+}
+
+.nutrient-plan-card h2{
+
+  margin-bottom:30px;
+
+  color:#5eead4;
+
+  font-size:30px;
+}
+
+.days-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(300px,1fr));
+
+  gap:25px;
+}
+
+.day-card{
+
+  padding:25px;
+
+  border-radius:22px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+}
+
+.day-title{
+
+  font-size:24px;
+
+  font-weight:bold;
+
+  margin-bottom:20px;
+
+  color:#facc15;
+
+  text-align:center;
+}
+
+.meal-box{
+
+  margin-bottom:20px;
+}
+
+.meal-box h3{
+
+  margin-bottom:12px;
+
+  color:#5eead4;
+}
+
+.meal-box ul{
+
+  padding-left:20px;
+}
+
+.meal-box li{
+
+  margin-bottom:10px;
+
+  line-height:1.6;
+
+  color:#dbeafe;
+}
+
+.mealplan-btn-wrap{
+
+  text-align:center;
+
+  margin-top:50px;
+}
+
+.back-btn{
+
+  padding:14px 30px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:#14b8a6;
+
+  color:white;
+
+  font-size:17px;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.back-btn:hover{
+
+  transform:translateY(-2px);
+
+  background:#0f766e;
+}
+
+/* ===================================== */
+/* MOBILE */
+/* ===================================== */
+
+@media(max-width:768px){
+
+  .mealplan-page{
+
+    padding:20px;
+  }
+
+  .mealplan-header h1{
+
+    font-size:30px;
+  }
+
+  .nutrient-plan-card{
+
+    padding:20px;
+  }
+
+  .nutrient-plan-card h2{
+
+    font-size:24px;
+  }
+}
