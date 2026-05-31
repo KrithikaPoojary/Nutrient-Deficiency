@@ -1,41 +1,75 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import "./FullReport.css";
 
 function FullReport() {
 
+  // =====================================
+  // AUTO SCROLL TOP
+  // =====================================
+
+  useEffect(() => {
+
+    window.scrollTo(0, 0);
+
+  }, []);
+
   return (
 
-    <div className="result-page">
+    <div className="full-report-page">
 
-      <div className="result-container">
+      <div className="full-report-card">
 
         <h1>
-          Full AI Health Report
+
+          📄 Full AI Health Report
+
         </h1>
 
-        <br />
+        {/* ===================================== */}
+        {/* OVERALL RISK */}
+        {/* ===================================== */}
 
-        <div className="result-card">
+        <div className="report-section">
 
           <h2>
-            Overall Nutritional Risk
+
+            ❤️ Overall Nutritional Risk
+
           </h2>
 
-          <h1>
-            🔴 Severe Risk
-          </h1>
+          <p>
+
+            Risk Level:
+            <strong>
+              {" "}
+              Severe
+            </strong>
+
+          </p>
 
           <p>
-            Health Score: 42 / 100
+
+            Health Score:
+            <strong>
+              {" "}
+              42 / 100
+            </strong>
+
           </p>
 
         </div>
 
-        <br />
+        {/* ===================================== */}
+        {/* MULTIMODAL */}
+        {/* ===================================== */}
 
-        <div className="result-card">
+        <div className="report-section">
 
           <h2>
-            Multimodal Contribution
+
+            🧠 Multimodal Contribution
+
           </h2>
 
           <ul>
@@ -64,12 +98,16 @@ function FullReport() {
 
         </div>
 
-        <br />
+        {/* ===================================== */}
+        {/* EXPLAINABLE AI */}
+        {/* ===================================== */}
 
-        <div className="result-card">
+        <div className="report-section">
 
           <h2>
-            Explainable AI
+
+            🤖 Explainable AI
+
           </h2>
 
           <ul>
@@ -83,10 +121,36 @@ function FullReport() {
             </li>
 
             <li>
-              Koilonychia nail symptoms found
+              Koilonychia symptoms found
             </li>
 
           </ul>
+
+        </div>
+
+        {/* ===================================== */}
+        {/* TREND */}
+        {/* ===================================== */}
+
+        <div className="report-section">
+
+          <h2>
+
+            📈 Trend Monitoring
+
+          </h2>
+
+          <p>
+            Previous Score → 56
+          </p>
+
+          <p>
+            Current Score → 42
+          </p>
+
+          <p>
+            Risk Increased → 14%
+          </p>
 
         </div>
 
