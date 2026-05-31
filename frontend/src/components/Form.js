@@ -395,6 +395,10 @@ function Form({
 
     }
 
+    // =====================================
+    // PARSE ALL FOODS
+    // =====================================
+
     const allFoods = [
 
       ...meals.morning.flatMap(
@@ -415,11 +419,7 @@ function Form({
 
     ];
 
-    if (
-
-      allFoods.length === 0
-
-    ) {
+    if (allFoods.length === 0) {
 
       return alert(
         "Enter valid food ❌"
@@ -427,21 +427,45 @@ function Form({
 
     }
 
-    const payload = {
+    // =====================================
+    // CREATE FORMDATA
+    // =====================================
 
-      user_id:
-        user.id,
+    const formData = new FormData();
 
-      age:
-        user.age,
+    formData.append(
+      "user_id",
+      user.id
+    );
 
-      gender:
-        user.gender || 1,
+    formData.append(
+      "age",
+      user.age
+    );
 
-      bmi:
-        Number(data.bmi) || 22,
+    formData.append(
+      "gender",
+      user.gender || 1
+    );
 
-      conditions:
+    formData.append(
+      "bmi",
+      Number(data.bmi) || 22
+    );
+
+    formData.append(
+
+      "foods",
+
+      JSON.stringify(allFoods)
+
+    );
+
+    formData.append(
+
+      "conditions",
+
+      JSON.stringify(
 
         data.conditions
 
@@ -456,19 +480,47 @@ function Form({
 
               )
 
-          : [],
+          : []
 
-      foods:
-        allFoods
+      )
 
-    };
+    );
+
+    // =====================================
+    // IMAGE FILES
+    // =====================================
+
+    if (images.eye) {
+
+      formData.append(
+        "eye",
+        images.eye
+      );
+
+    }
+
+    if (images.nail) {
+
+      formData.append(
+        "nail",
+        images.nail
+      );
+
+    }
+
+    if (images.tongue) {
+
+      formData.append(
+        "tongue",
+        images.tongue
+      );
+
+    }
 
     try {
 
-      console.log(payload);
-
       const res =
-        await predict(payload);
+        await predict(formData);
 
       // =====================================
       // SAVE RESULT
@@ -485,7 +537,7 @@ function Form({
       setFullResult(res);
 
       // =====================================
-      // GO TO RESULT PAGE
+      // NAVIGATE
       // =====================================
 
       navigate("/result");
