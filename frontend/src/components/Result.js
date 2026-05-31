@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -11,11 +11,22 @@ function Result({
   result,
   recommendations,
   nutrients,
-  rda
+  rda,
+  fullResult
 
 }) {
 
   const navigate = useNavigate();
+
+  // =========================================
+  // AUTO SCROLL TOP
+  // =========================================
+
+  useEffect(() => {
+
+    window.scrollTo(0, 0);
+
+  }, []);
 
   // =========================================
   // EMPTY RESULT
@@ -98,16 +109,11 @@ function Result({
   };
 
   // =========================================
-  // MEAL ORDER
+  // IMAGE ANALYSIS
   // =========================================
 
-  const mealOrder = [
-
-    "Breakfast",
-    "Lunch",
-    "Dinner"
-
-  ];
+  const imageAnalysis =
+    fullResult?.image_analysis || {};
 
   // =========================================
   // UI
@@ -174,6 +180,8 @@ function Result({
 
           <div className="image-analysis-grid">
 
+            {/* EYE */}
+
             <div className="analysis-box">
 
               <h3>
@@ -184,12 +192,19 @@ function Result({
 
               <p>
 
-                Anemia Probability →
-                92%
+                {
+
+                  imageAnalysis.eye_analysis ||
+
+                  "No Eye Analysis"
+
+                }
 
               </p>
 
             </div>
+
+            {/* NAIL */}
 
             <div className="analysis-box">
 
@@ -201,12 +216,19 @@ function Result({
 
               <p>
 
-                Koilonychia Signs
-                Detected
+                {
+
+                  imageAnalysis.nail_analysis ||
+
+                  "No Nail Analysis"
+
+                }
 
               </p>
 
             </div>
+
+            {/* TONGUE */}
 
             <div className="analysis-box">
 
@@ -218,8 +240,13 @@ function Result({
 
               <p>
 
-                Vitamin Deficiency
-                Indicators Found
+                {
+
+                  imageAnalysis.tongue_analysis ||
+
+                  "No Tongue Analysis"
+
+                }
 
               </p>
 
@@ -365,162 +392,49 @@ function Result({
                   )}
 
                   {/* ========================================= */}
-                  {/* RECOMMENDATIONS */}
+                  {/* RECOMMENDED FOODS */}
                   {/* ========================================= */}
 
                   {val !== "Normal" &&
-                    rec && (
+                    rec &&
+                    Array.isArray(rec.foods) &&
+                    rec.foods.length > 0 && (
 
                     <div className="recommend-box">
 
-                      {/* ========================================= */}
-                      {/* FOODS */}
-                      {/* ========================================= */}
+                      <h3 className="section-title">
 
-                      {Array.isArray(rec.foods) &&
-                        rec.foods.length > 0 && (
+                        🍎 Recommended Foods
 
-                        <>
+                      </h3>
 
-                          <h3 className="section-title">
+                      <div className="food-list">
 
-                            🍎 Recommended Foods
+                        {rec.foods.map(
 
-                          </h3>
+                          (
+                            food,
+                            i
 
-                          <div className="food-list">
+                          ) => (
 
-                            {rec.foods.map(
+                            <span
 
-                              (
-                                food,
-                                i
+                              className="food-chip"
 
-                              ) => (
+                              key={i}
 
-                                <span
+                            >
 
-                                  className="food-chip"
+                              {food}
 
-                                  key={i}
+                            </span>
 
-                                >
+                          )
 
-                                  {food}
+                        )}
 
-                                </span>
-
-                              )
-
-                            )}
-
-                          </div>
-
-                        </>
-
-                      )}
-
-                      {/* ========================================= */}
-                      {/* 3 DAY PLAN */}
-                      {/* ========================================= */}
-
-                      {rec.plan &&
-                        Object.keys(rec.plan).length > 0 && (
-
-                        <>
-
-                          <h3 className="section-title">
-
-                            📅 3-Day Personalized Plan
-
-                          </h3>
-
-                          {Object.entries(
-                            rec.plan
-                          ).map(
-
-                            ([day, meals]) => (
-
-                              <div
-
-                                key={day}
-
-                                className="day-card"
-
-                              >
-
-                                <div className="day-title">
-
-                                  {day}
-
-                                </div>
-
-                                {mealOrder.map(
-
-                                  (meal) => {
-
-                                    const foods =
-                                      meals?.[meal];
-
-                                    return (
-
-                                      foods && (
-
-                                        <div
-
-                                          key={meal}
-
-                                          className="meal-card"
-
-                                        >
-
-                                          <h4>
-
-                                            {meal}
-
-                                          </h4>
-
-                                          <ul>
-
-                                            {foods.map(
-
-                                              (
-                                                food,
-                                                idx
-                                              ) => (
-
-                                                <li
-                                                  key={idx}
-                                                >
-
-                                                  {food}
-
-                                                </li>
-
-                                              )
-
-                                            )}
-
-                                          </ul>
-
-                                        </div>
-
-                                      )
-
-                                    );
-                                  }
-
-                                )}
-
-                              </div>
-
-                            )
-
-                          )}
-
-                        </>
-
-                      )}
+                      </div>
 
                     </div>
 
@@ -551,7 +465,21 @@ function Result({
 
           >
 
-            View Full AI Health Report
+            View Full AI Report
+
+          </button>
+
+          <button
+
+            className="view-report-btn"
+
+            onClick={() =>
+              navigate("/meal-plan")
+            }
+
+          >
+
+            View 3-Day Plan
 
           </button>
 
