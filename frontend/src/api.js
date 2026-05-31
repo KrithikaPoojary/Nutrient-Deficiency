@@ -1,40 +1,94 @@
 import axios from "axios";
 
+// =====================================
+// BASE API
+// =====================================
+
 const API = axios.create({
-  baseURL: "http://127.0.0.1:5000",
-  headers: {
-    "Content-Type": "application/json"
-  }
+
+  baseURL: "http://127.0.0.1:5000"
+
 });
 
-// 🔥 Predict
-export const predict = async (data) => {
-  const res = await API.post("/predict", data);
+// =====================================
+// PREDICT
+// =====================================
+
+export const predict = async (formData) => {
+
+  const res = await API.post(
+
+    "/predict",
+
+    formData,
+
+    {
+      headers: {
+
+        "Content-Type":
+        "multipart/form-data"
+
+      }
+    }
+
+  );
+
   return res.data;
 };
 
-// 🔥 Login
+// =====================================
+// LOGIN
+// =====================================
+
 export const loginUser = async (data) => {
-  const res = await API.post("/login", data);
+
+  const res = await API.post(
+    "/login",
+    data
+  );
+
   return res.data;
 };
 
-// 🔥 Register
+// =====================================
+// REGISTER
+// =====================================
+
 export const registerUser = async (data) => {
-  const res = await API.post("/register", data);
+
+  const res = await API.post(
+    "/register",
+    data
+  );
+
   return res.data;
 };
 
-// 🔥 Trend (ONLY use this, not history)
+// =====================================
+// TREND
+// =====================================
+
 export const getTrend = async (username) => {
-  const res = await API.get(`/trend/${username}`);
+
+  const res = await API.get(
+    `/trend/${username}`
+  );
+
   return res.data;
 };
 
-// 🔥 Food Suggestion (Auto-complete)
+// =====================================
+// FOOD SUGGESTIONS
+// =====================================
+
 export const getSuggestions = async (query) => {
+
   if (!query) return [];
-  
-  const res = await API.get(`/suggest/${query}`);
+
+  const res = await API.get(
+    `/suggest/${query}`
+  );
+
   return res.data;
 };
+
