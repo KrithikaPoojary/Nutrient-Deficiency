@@ -13,6 +13,8 @@ import Form from "./components/Form";
 import Result from "./components/Result";
 import History from "./components/History";
 import Home from "./components/Home";
+import FullReport from "./components/FullReport";
+import MealPlan from "./components/MealPlan";
 
 import "./App.css";
 
@@ -22,15 +24,21 @@ function App() {
   // STATES
   // =====================================
 
-  const [user, setUser] = useState(null);
-
-  const [result, setResult] = useState(null);
-
-  const [recommendations, setRecommendations] =
+  const [user, setUser] =
     useState(null);
 
-  const [fullResult, setFullResult] =
+  const [result, setResult] =
     useState(null);
+
+  const [
+    recommendations,
+    setRecommendations
+  ] = useState(null);
+
+  const [
+    fullResult,
+    setFullResult
+  ] = useState(null);
 
   // =====================================
   // LOGOUT
@@ -94,7 +102,9 @@ function App() {
 
           path="/register"
 
-          element={<Register />}
+          element={
+            <Register />
+          }
 
         />
 
@@ -152,7 +162,7 @@ function App() {
                 </div>
 
                 {/* ===================================== */}
-                {/* FORM PAGE ONLY */}
+                {/* FORM */}
                 {/* ===================================== */}
 
                 <div className="main-layout">
@@ -224,6 +234,60 @@ function App() {
                 <Navigate to="/dashboard" />
 
               )
+
+            ) : (
+
+              <Navigate to="/login" />
+
+            )
+
+          }
+
+        />
+
+        {/* ===================================== */}
+        {/* FULL REPORT */}
+        {/* ===================================== */}
+
+        <Route
+
+          path="/full-report"
+
+          element={
+
+            user ? (
+
+              <FullReport />
+
+            ) : (
+
+              <Navigate to="/login" />
+
+            )
+
+          }
+
+        />
+
+        {/* ===================================== */}
+        {/* MEAL PLAN */}
+        {/* ===================================== */}
+
+        <Route
+
+          path="/meal-plan"
+
+          element={
+
+            user ? (
+
+              <MealPlan
+
+                recommendations={
+                  recommendations
+                }
+
+              />
 
             ) : (
 
