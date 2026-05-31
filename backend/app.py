@@ -1,4 +1,3 @@
-
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 
@@ -8,6 +7,14 @@ from utils.recommend import recommend_food
 
 import pandas as pd
 import joblib
+import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+import tensorflow as tf
+from PIL import Image
+
+import numpy as np
 
 from datetime import datetime
 
@@ -74,57 +81,159 @@ models = joblib.load(model_path)
 print("✅ XGBoost Models Loaded")
 
 # =========================================
+# LOAD CNN IMAGE MODELS
+# =========================================
+
+eye_model = tf.saved_model.load(
+    "model/eye_saved_model"
+)
+
+nail_model = tf.saved_model.load(
+    "model/nail_deficiency_model"
+)
+
+tongue_model = tf.saved_model.load(
+    "model/tongue_deficiency_model"
+)
+
+print("✅ CNN Models Loaded")
+
+# =========================================
+# IMAGE PREDICTION FUNCTION
+# =========================================
+
+def predict_image(model, image_file):
+
+    try:
+
+        image = Image.open(image_file)
+
+        image = image.convert("RGB")
+
+        image = image.resize((224, 224))
+
+        image = np.array(image)
+
+        image = image / 255.0
+
+        image = np.expand_dims(
+            image,
+            axis=0
+        ).astype(np.float32)
+
+        infer = model.signatures[
+            "serving_default"
+        ]
+
+        prediction = infer(
+            tf.constant(image)
+        )
+
+        prediction = list(
+            prediction.values()
+        )[0].numpy()
+
+        score = float(
+            prediction[0][0]
+        )
+
+        return round(score * 100, 2)
+
+    except Exception as e:
+
+        print("IMAGE ERROR:", e)
+
+        return 0
+
+# =========================================
 # REGISTER
 # =========================================
 
 @app.route("/register", methods=["POST"])
 def register():
 
-    data = request.json
+    try:
 
-    username = data["username"].strip().lower()
-    password = str(data["password"]).strip()
+        data = request.json
 
-    age = int(data.get("age", 0))
-    gender = int(data.get("gender", 1))
+        username = (
+            data["username"]
+            .strip()
+            .lower()
+        )
 
-    conditions = data.get("conditions", "")
+        password = str(
+            data["password"]
+        ).strip()
 
-    cursor.execute(
-        "SELECT * FROM users WHERE LOWER(username)=%s",
-        (username,)
-    )
+        age = int(
+            data.get("age", 0)
+        )
 
-    existing_user = cursor.fetchone()
+        gender = int(
+            data.get("gender", 1)
+        )
 
-    if existing_user:
+        conditions = data.get(
+            "conditions",
+            ""
+        )
+
+        cursor.execute(
+
+            "SELECT * FROM users WHERE LOWER(username)=%s",
+
+            (username,)
+
+        )
+
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+
+            return jsonify({
+                "message":
+                "User already exists"
+            }), 400
+
+        cursor.execute("""
+
+            INSERT INTO users
+            (
+                username,
+                password,
+                age,
+                gender,
+                conditions
+            )
+
+            VALUES (%s, %s, %s, %s, %s)
+
+        """, (
+
+            username,
+            password,
+            age,
+            gender,
+            conditions
+
+        ))
+
+        conn.commit()
 
         return jsonify({
-            "message": "User already exists"
-        }), 400
+            "message":
+            "Registered successfully"
+        })
 
-    cursor.execute("""
+    except Exception as e:
 
-        INSERT INTO users
-        (username, password, age, gender, conditions)
+        print("REGISTER ERROR:", e)
 
-        VALUES (%s, %s, %s, %s, %s)
-
-    """, (
-
-        username,
-        password,
-        age,
-        gender,
-        conditions
-
-    ))
-
-    conn.commit()
-
-    return jsonify({
-        "message": "Registered successfully"
-    })
+        return jsonify({
+            "message":
+            "Registration failed"
+        }), 500
 
 # =========================================
 # LOGIN
@@ -133,45 +242,82 @@ def register():
 @app.route("/login", methods=["POST"])
 def login():
 
-    data = request.json
+    try:
 
-    username = data.get(
-        "username",
-        ""
-    ).strip().lower()
+        data = request.json
 
-    password = str(
-        data.get("password", "")
-    ).strip()
+        username = str(
+            data.get(
+                "username",
+                ""
+            )
+        ).strip().lower()
 
-    cursor.execute("SELECT * FROM users")
+        password = str(
+            data.get(
+                "password",
+                ""
+            )
+        ).strip()
 
-    users = cursor.fetchall()
+        cursor.execute("""
 
-    for user in users:
+            SELECT
+                id,
+                username,
+                password,
+                age,
+                gender,
+                conditions
 
-        db_username = str(user[1]).strip().lower()
-        db_password = str(user[2]).strip()
+            FROM users
 
-        if (
-            username == db_username
-            and
-            password == db_password
-        ):
+            WHERE LOWER(username)=%s
+
+        """, (username,))
+
+        user = cursor.fetchone()
+
+        if not user:
 
             return jsonify({
+                "message":
+                "Invalid username or password"
+            }), 401
 
-                "id": user[0],
-                "username": user[1],
-                "age": user[3],
-                "gender": user[4],
-                "conditions": user[5]
+        db_password = str(
+            user[2]
+        ).strip()
 
-            })
+        if password != db_password:
 
-    return jsonify({
-        "message": "Invalid username or password"
-    }), 401
+            return jsonify({
+                "message":
+                "Invalid username or password"
+            }), 401
+
+        return jsonify({
+
+            "id": user[0],
+
+            "username": user[1],
+
+            "age": user[3],
+
+            "gender": user[4],
+
+            "conditions": user[5]
+
+        })
+
+    except Exception as e:
+
+        print("LOGIN ERROR:", e)
+
+        return jsonify({
+            "message":
+            "Login failed"
+        }), 500
 
 # =========================================
 # FOOD SUGGESTION
@@ -180,22 +326,35 @@ def login():
 @app.route("/suggest/<query>", methods=["GET"])
 def suggest_food(query):
 
-    query = query.lower().strip()
+    try:
 
-    if not query:
-        return jsonify([])
+        query = query.lower().strip()
 
-    suggestions = df[
+        if not query:
+            return jsonify([])
 
-        df["food_name"].str.contains(
-            query,
-            case=False,
-            na=False
+        suggestions = df[
+
+            df["food_name"].str.contains(
+                query,
+                case=False,
+                na=False
+            )
+
+        ]["food_name"] \
+        .dropna() \
+        .unique() \
+        .tolist()
+
+        return jsonify(
+            suggestions[:5]
         )
 
-    ]["food_name"].dropna().unique().tolist()
+    except Exception as e:
 
-    return jsonify(suggestions[:5])
+        print("SUGGEST ERROR:", e)
+
+        return jsonify([])
 
 # =========================================
 # PREDICT
@@ -206,34 +365,68 @@ def predict():
 
     try:
 
-        data = request.json
+        data = request.form
 
-        user_id = data.get("user_id")
+        user_id = int(
+            data.get("user_id")
+        )
 
-        age = int(data.get("age", 0))
-        gender = int(data.get("gender", 1))
+        age = int(
+            data.get("age", 0)
+        )
 
-        bmi = float(data.get("bmi", 22))
+        gender = int(
+            data.get("gender", 1)
+        )
 
-        conditions = data.get("conditions", [])
-        foods = data.get("foods", [])
+        bmi = float(
+            data.get("bmi", 22)
+        )
 
-        # =========================================
+        foods = json.loads(
+            data.get("foods", "[]")
+        )
+
+        conditions = json.loads(
+            data.get("conditions", "[]")
+        )
+
+        # =====================================
+        # IMAGE FILES
+        # =====================================
+
+        eye_image = request.files.get(
+            "eye"
+        )
+
+        nail_image = request.files.get(
+            "nail"
+        )
+
+        tongue_image = request.files.get(
+            "tongue"
+        )
+
+        # =====================================
         # SAVE FOOD LOG
-        # =========================================
+        # =====================================
 
         if foods:
 
             cursor.execute("""
 
                 INSERT INTO food_log
-                (user_id, foods, date_time)
+                (
+                    user_id,
+                    foods,
+                    date_time
+                )
 
                 VALUES (%s, %s, %s)
 
             """, (
 
-                int(user_id),
+                user_id,
                 json.dumps(foods),
                 datetime.now()
 
@@ -241,20 +434,23 @@ def predict():
 
             conn.commit()
 
-        # =========================================
+        # =====================================
         # CALCULATE NUTRIENTS
-        # =========================================
+        # =====================================
 
         totals = calculate_nutrients(
             foods,
             df
         )
 
-        print("TOTAL NUTRIENTS:", totals)
+        print(
+            "TOTAL NUTRIENTS:",
+            totals
+        )
 
-        # =========================================
-        # CREATE INPUT DATAFRAME
-        # =========================================
+        # =====================================
+        # CREATE INPUT
+        # =====================================
 
         input_df = prepare_input(
 
@@ -262,37 +458,71 @@ def predict():
             gender,
             bmi,
 
-            totals.get("protein", 0),
-            totals.get("iron", 0),
-            totals.get("vitamin_c", 0),
-            totals.get("vitamin_d", 0),
-            totals.get("fiber", 0),
-            totals.get("vitamin_a", 0),
-            totals.get("vitamin_b12", 0)
+            totals.get(
+                "protein",
+                0
+            ),
+
+            totals.get(
+                "iron",
+                0
+            ),
+
+            totals.get(
+                "vitamin_c",
+                0
+            ),
+
+            totals.get(
+                "vitamin_d",
+                0
+            ),
+
+            totals.get(
+                "fiber",
+                0
+            ),
+
+            totals.get(
+                "vitamin_a",
+                0
+            ),
+
+            totals.get(
+                "vitamin_b12",
+                0
+            )
 
         )
 
-        print(input_df)
-
-        # =========================================
-        # MODEL PREDICTIONS
-        # =========================================
+        # =====================================
+        # LABELS
+        # =====================================
 
         name_map = {
 
-            "VitC_Label": "Vitamin C",
-            "VitD_Label": "Vitamin D",
-            "Iron_Label": "Iron",
-            "Protein_Label": "Protein",
-            "Fiber_Label": "Fiber",
-            "VitA_Label": "Vitamin A",
-            "B12_Label": "Vitamin B12"
+            "VitC_Label":
+            "Vitamin C",
+
+            "VitD_Label":
+            "Vitamin D",
+
+            "Iron_Label":
+            "Iron",
+
+            "Protein_Label":
+            "Protein",
+
+            "Fiber_Label":
+            "Fiber",
+
+            "VitA_Label":
+            "Vitamin A",
+
+            "B12_Label":
+            "Vitamin B12"
 
         }
-
-        # =========================================
-        # STATUS LABELS
-        # =========================================
 
         status_map = {
 
@@ -301,6 +531,10 @@ def predict():
             2: "Moderate"
 
         }
+
+        # =====================================
+        # XGBOOST PREDICTIONS
+        # =====================================
 
         results = {}
 
@@ -311,7 +545,8 @@ def predict():
             temp_input = input_df.copy()
 
             expected_features = (
-                model.get_booster().feature_names
+                model.get_booster()
+                .feature_names
             )
 
             temp_input = temp_input[
@@ -326,17 +561,178 @@ def predict():
 
             )
 
-            status = status_map[prediction]
+            status = status_map.get(
+                prediction,
+                "Normal"
+            )
 
             results[
                 name_map[model_name]
             ] = status
 
-        print("PREDICTIONS:", results)
+        print(
+            "PREDICTIONS:",
+            results
+        )
 
-        # =========================================
+        # =====================================
+        # IMAGE ANALYSIS
+        # =====================================
+
+        eye_score = 0
+        nail_score = 0
+        tongue_score = 0
+
+        if eye_image:
+
+            eye_score = predict_image(
+                eye_model,
+                eye_image
+            )
+
+        if nail_image:
+
+            nail_score = predict_image(
+                nail_model,
+                nail_image
+            )
+
+        if tongue_image:
+
+            tongue_score = predict_image(
+                tongue_model,
+                tongue_image
+            )
+
+        # =====================================
+        # SMART IMAGE ANALYSIS
+        # =====================================
+
+        # EYE
+
+        if eye_score >= 80:
+
+            eye_result = (
+                f"High Anemia Risk → "
+                f"{eye_score}%"
+            )
+
+        elif eye_score >= 50:
+
+            eye_result = (
+                f"Moderate Anemia Risk → "
+                f"{eye_score}%"
+            )
+
+        else:
+
+            eye_result = (
+                f"Normal Eye Condition → "
+                f"{eye_score}%"
+            )
+
+        # NAIL
+
+        if nail_score >= 80:
+
+            nail_result = (
+                "Koilonychia Signs Detected"
+            )
+
+        elif nail_score >= 50:
+
+            nail_result = (
+                "Possible Nail Deficiency"
+            )
+
+        else:
+
+            nail_result = (
+                "Normal Nail Condition"
+            )
+
+        # TONGUE
+
+        if tongue_score >= 80:
+
+            tongue_result = (
+                "Vitamin Deficiency Indicators Found"
+            )
+
+        elif tongue_score >= 50:
+
+            tongue_result = (
+                "Possible Tongue Abnormality"
+            )
+
+        else:
+
+            tongue_result = (
+                "Normal Tongue Condition"
+            )
+
+        image_analysis = {
+
+            "eye_analysis":
+            eye_result,
+
+            "nail_analysis":
+            nail_result,
+
+            "tongue_analysis":
+            tongue_result
+
+        }
+
+        # =====================================
+        # MULTIMODAL RISK SCORE
+        # =====================================
+
+        severity_score = 0
+
+        for status in results.values():
+
+            if status == "Severe":
+                severity_score += 3
+
+            elif status == "Moderate":
+                severity_score += 2
+
+            else:
+                severity_score += 1
+
+        image_avg = (
+            eye_score +
+            nail_score +
+            tongue_score
+        ) / 3
+
+        final_risk_score = (
+            severity_score * 10
+        ) + (
+            image_avg * 0.5
+        )
+
+        final_risk_score = round(
+            final_risk_score,
+            2
+        )
+
+        if final_risk_score >= 70:
+
+            risk_level = "Severe Risk"
+
+        elif final_risk_score >= 45:
+
+            risk_level = "Moderate Risk"
+
+        else:
+
+            risk_level = "Low Risk"
+
+        # =====================================
         # RECOMMENDATIONS
-        # =========================================
+        # =====================================
 
         recommendations = {}
 
@@ -354,35 +750,52 @@ def predict():
 
                 )
 
-                recommendations[nutrient] = rec
+                recommendations[
+                    nutrient
+                ] = rec
 
-        # =========================================
-        # SAVE HISTORY
-        # =========================================
+        # =====================================
+        # USERNAME
+        # =====================================
 
         cursor.execute(
 
             "SELECT username FROM users WHERE id=%s",
 
-            (int(user_id),)
+            (user_id,)
 
         )
 
-        username = cursor.fetchone()[0]
+        username_row = cursor.fetchone()
+
+        username = username_row[0]
+
+        # =====================================
+        # SAVE HISTORY
+        # =====================================
 
         cursor.execute("""
 
             INSERT INTO user_history
-            (username, date_time, age, bmi)
+            (
+                username,
+                date_time,
+                age,
+                bmi,
+                risk_score,
+                risk_level
+            )
 
-            VALUES (%s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s)
 
         """, (
 
             str(username),
             datetime.now(),
-            int(age),
-            float(bmi)
+            age,
+            bmi,
+            final_risk_score,
+            risk_level
 
         ))
 
@@ -390,88 +803,122 @@ def predict():
 
         history_id = cursor.lastrowid
 
-        # =========================================
+        # =====================================
         # SAVE RESULTS
-        # =========================================
+        # =====================================
 
         for nutrient, status in results.items():
 
             cursor.execute("""
 
                 INSERT INTO nutrient_results
-                (history_id, nutrient, status)
+                (
+                    history_id,
+                    nutrient,
+                    status
+                )
 
                 VALUES (%s, %s, %s)
 
             """, (
 
-                int(history_id),
-                str(nutrient),
-                str(status)
+                history_id,
+                nutrient,
+                status
 
             ))
 
         conn.commit()
 
-        # =========================================
+        # =====================================
         # RESPONSE
-        # =========================================
+        # =====================================
 
         return jsonify({
 
-            "results": results,
-            "recommendations": recommendations,
-            "nutrients": totals
+            "results":
+            results,
+
+            "recommendations":
+            recommendations,
+
+            "nutrients":
+            totals,
+
+            "image_analysis":
+            image_analysis,
+
+            "risk_score":
+            final_risk_score,
+
+            "risk_level":
+            risk_level
 
         })
 
     except Exception as e:
 
-        print("ERROR:", e)
+        print("PREDICT ERROR:", e)
 
         return jsonify({
             "error": str(e)
         }), 500
 
 # =========================================
-# TREND / HISTORY
+# TREND
 # =========================================
 
 @app.route("/trend/<username>")
 def trend(username):
 
-    cursor.execute("""
+    try:
 
-        SELECT
-            h.date_time,
-            n.nutrient,
-            n.status
+        cursor.execute("""
 
-        FROM user_history h
+            SELECT
+                h.date_time,
+                h.risk_score,
+                h.risk_level,
+                n.nutrient,
+                n.status
 
-        JOIN nutrient_results n
-        ON h.id = n.history_id
+            FROM user_history h
 
-        WHERE h.username = %s
+            JOIN nutrient_results n
+            ON h.id = n.history_id
 
-        ORDER BY h.date_time
+            WHERE h.username = %s
 
-    """, (username,))
+            ORDER BY h.date_time
 
-    rows = cursor.fetchall()
+        """, (username,))
 
-    trend_data = {}
+        rows = cursor.fetchall()
 
-    for row in rows:
+        trend_data = {}
 
-        date = str(row[0])
+        for row in rows:
 
-        if date not in trend_data:
-            trend_data[date] = {}
+            date = str(row[0])
 
-        trend_data[date][row[1]] = row[2]
+            if date not in trend_data:
 
-    return jsonify(trend_data)
+                trend_data[date] = {
+
+                    "risk_score": row[1],
+                    "risk_level": row[2]
+
+                }
+
+            trend_data[date][row[3]] = row[4]
+
+        return jsonify(trend_data)
+
+    except Exception as e:
+
+        print("TREND ERROR:", e)
+
+        return jsonify({})
 
 # =========================================
 # HOME
@@ -487,5 +934,5 @@ def home():
 # =========================================
 
 if __name__ == "__main__":
-    app.run(debug=True)
 
+    app.run(debug=True)
