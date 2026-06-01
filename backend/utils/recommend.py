@@ -119,6 +119,48 @@ def remove_unhealthy_foods(df):
     ]
 
 # ==========================================
+# ADAPTIVE RECOVERY MESSAGE
+# ==========================================
+
+def get_recovery_message(
+
+    deficiency,
+    severity
+
+):
+
+    if severity == "Severe":
+
+        return (
+
+            f"{deficiency} deficiency "
+            f"is critically high. "
+            f"Strict nutritional recovery "
+            f"diet recommended."
+
+        )
+
+    elif severity == "Moderate":
+
+        return (
+
+            f"{deficiency} deficiency "
+            f"requires nutritional "
+            f"improvement and monitoring."
+
+        )
+
+    else:
+
+        return (
+
+            f"{deficiency} levels "
+            f"show improvement. "
+            f"Maintain balanced diet."
+
+        )
+
+# ==========================================
 # MAIN RECOMMEND FUNCTION
 # ==========================================
 
@@ -167,7 +209,9 @@ def recommend_food(
         return {
 
             "foods": [],
-            "plan": {}
+            "plan": {},
+            "recovery_message":
+            "No recommendation available"
 
         }
 
@@ -523,7 +567,20 @@ def recommend_food(
     return {
 
         "foods": foods_list,
-        "plan": plan
+
+        "plan": plan,
+
+        "recovery_message":
+
+        get_recovery_message(
+
+            deficiency,
+            severity
+
+        ),
+
+        "severity":
+        severity
 
     }
 
