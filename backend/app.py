@@ -1,9 +1,14 @@
+# =========================================
+# IMPORTS
+# =========================================
+
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 
 from utils.preprocess import calculate_nutrients
 from utils.prepare_input import prepare_input
 from utils.recommend import recommend_food
+from utils.shap_explainer import explain_prediction
 
 import pandas as pd
 import joblib
@@ -392,20 +397,16 @@ def predict():
         )
 
         # =====================================
-        # IMAGE FILES
+        # SYMPTOMS
         # =====================================
 
-        eye_image = request.files.get(
-            "eye"
+        symptoms = json.loads(
+            data.get("symptoms", "[]")
         )
 
-        nail_image = request.files.get(
-            "nail"
-        )
-
-        tongue_image = request.files.get(
-            "tongue"
-        )
+        eye_image = request.files.get("eye")
+        nail_image = request.files.get("nail")
+        tongue_image = request.files.get("tongue")
 
         # =====================================
         # SAVE FOOD LOG
@@ -458,69 +459,29 @@ def predict():
             gender,
             bmi,
 
-            totals.get(
-                "protein",
-                0
-            ),
-
-            totals.get(
-                "iron",
-                0
-            ),
-
-            totals.get(
-                "vitamin_c",
-                0
-            ),
-
-            totals.get(
-                "vitamin_d",
-                0
-            ),
-
-            totals.get(
-                "fiber",
-                0
-            ),
-
-            totals.get(
-                "vitamin_a",
-                0
-            ),
-
-            totals.get(
-                "vitamin_b12",
-                0
-            )
+            totals.get("protein", 0),
+            totals.get("iron", 0),
+            totals.get("vitamin_c", 0),
+            totals.get("vitamin_d", 0),
+            totals.get("fiber", 0),
+            totals.get("vitamin_a", 0),
+            totals.get("vitamin_b12", 0)
 
         )
 
         # =====================================
-        # LABELS
+        # LABEL MAP
         # =====================================
 
         name_map = {
 
-            "VitC_Label":
-            "Vitamin C",
-
-            "VitD_Label":
-            "Vitamin D",
-
-            "Iron_Label":
-            "Iron",
-
-            "Protein_Label":
-            "Protein",
-
-            "Fiber_Label":
-            "Fiber",
-
-            "VitA_Label":
-            "Vitamin A",
-
-            "B12_Label":
-            "Vitamin B12"
+            "VitC_Label": "Vitamin C",
+            "VitD_Label": "Vitamin D",
+            "Iron_Label": "Iron",
+            "Protein_Label": "Protein",
+            "Fiber_Label": "Fiber",
+            "VitA_Label": "Vitamin A",
+            "B12_Label": "Vitamin B12"
 
         }
 
@@ -533,10 +494,12 @@ def predict():
         }
 
         # =====================================
-        # XGBOOST PREDICTIONS
+        # PREDICTIONS + SHAP
         # =====================================
 
         results = {}
+
+        shap_explanations = {}
 
         for model_name in models:
 
@@ -566,14 +529,41 @@ def predict():
                 "Normal"
             )
 
+            nutrient_name = name_map[
+                model_name
+            ]
+
             results[
-                name_map[model_name]
+                nutrient_name
             ] = status
 
-        print(
-            "PREDICTIONS:",
-            results
-        )
+            # =====================================
+            # SHAP
+            # =====================================
+
+            try:
+
+                top_features = explain_prediction(
+
+                    model,
+                    temp_input
+
+                )
+
+                shap_explanations[
+                    nutrient_name
+                ] = top_features
+
+            except Exception as e:
+
+                print(
+                    "SHAP ERROR:",
+                    e
+                )
+
+                shap_explanations[
+                    nutrient_name
+                ] = []
 
         # =====================================
         # IMAGE ANALYSIS
@@ -608,8 +598,6 @@ def predict():
         # SMART IMAGE ANALYSIS
         # =====================================
 
-        # EYE
-
         if eye_score >= 80:
 
             eye_result = (
@@ -631,8 +619,6 @@ def predict():
                 f"{eye_score}%"
             )
 
-        # NAIL
-
         if nail_score >= 80:
 
             nail_result = (
@@ -650,8 +636,6 @@ def predict():
             nail_result = (
                 "Normal Nail Condition"
             )
-
-        # TONGUE
 
         if tongue_score >= 80:
 
@@ -685,7 +669,63 @@ def predict():
         }
 
         # =====================================
-        # MULTIMODAL RISK SCORE
+        # SYMPTOM ANALYSIS
+        # =====================================
+
+        symptom_scores = {
+
+            "hair_fall":
+            ["Iron", "Protein"],
+
+            "fatigue":
+            ["Iron", "Vitamin B12"],
+
+            "weak_nails":
+            ["Iron"],
+
+            "dry_skin":
+            ["Vitamin A"],
+
+            "mouth_ulcers":
+            ["Vitamin B12"],
+
+            "muscle_pain":
+            ["Vitamin D"],
+
+            "dizziness":
+            ["Iron"],
+
+            "poor_immunity":
+            ["Vitamin C"]
+
+        }
+
+        symptom_analysis = []
+
+        symptom_risk = 0
+
+        for symptom in symptoms:
+
+            if symptom in symptom_scores:
+
+                affected = symptom_scores[
+                    symptom
+                ]
+
+                symptom_analysis.append({
+
+                    "symptom":
+                    symptom,
+
+                    "possible_deficiencies":
+                    affected
+
+                })
+
+                symptom_risk += 5
+
+        # =====================================
+        # RISK SCORE
         # =====================================
 
         severity_score = 0
@@ -711,7 +751,7 @@ def predict():
             severity_score * 10
         ) + (
             image_avg * 0.5
-        )
+        ) + symptom_risk
 
         final_risk_score = round(
             final_risk_score,
@@ -755,82 +795,6 @@ def predict():
                 ] = rec
 
         # =====================================
-        # USERNAME
-        # =====================================
-
-        cursor.execute(
-
-            "SELECT username FROM users WHERE id=%s",
-
-            (user_id,)
-
-        )
-
-        username_row = cursor.fetchone()
-
-        username = username_row[0]
-
-        # =====================================
-        # SAVE HISTORY
-        # =====================================
-
-        cursor.execute("""
-
-            INSERT INTO user_history
-            (
-                username,
-                date_time,
-                age,
-                bmi,
-                risk_score,
-                risk_level
-            )
-
-            VALUES (%s, %s, %s, %s, %s, %s)
-
-        """, (
-
-            str(username),
-            datetime.now(),
-            age,
-            bmi,
-            final_risk_score,
-            risk_level
-
-        ))
-
-        conn.commit()
-
-        history_id = cursor.lastrowid
-
-        # =====================================
-        # SAVE RESULTS
-        # =====================================
-
-        for nutrient, status in results.items():
-
-            cursor.execute("""
-
-                INSERT INTO nutrient_results
-                (
-                    history_id,
-                    nutrient,
-                    status
-                )
-
-                VALUES (%s, %s, %s)
-
-            """, (
-
-                history_id,
-                nutrient,
-                status
-
-            ))
-
-        conn.commit()
-
-        # =====================================
         # RESPONSE
         # =====================================
 
@@ -848,11 +812,20 @@ def predict():
             "image_analysis":
             image_analysis,
 
+            "symptom_analysis":
+            symptom_analysis,
+
+            "symptoms":
+            symptoms,
+
             "risk_score":
             final_risk_score,
 
             "risk_level":
-            risk_level
+            risk_level,
+
+            "shap_explanations":
+            shap_explanations
 
         })
 
@@ -863,62 +836,6 @@ def predict():
         return jsonify({
             "error": str(e)
         }), 500
-
-# =========================================
-# TREND
-# =========================================
-
-@app.route("/trend/<username>")
-def trend(username):
-
-    try:
-
-        cursor.execute("""
-
-            SELECT
-                h.date_time,
-                h.risk_score,
-                h.risk_level,
-                n.nutrient,
-                n.status
-
-            FROM user_history h
-
-            JOIN nutrient_results n
-            ON h.id = n.history_id
-
-            WHERE h.username = %s
-
-            ORDER BY h.date_time
-
-        """, (username,))
-
-        rows = cursor.fetchall()
-
-        trend_data = {}
-
-        for row in rows:
-
-            date = str(row[0])
-
-            if date not in trend_data:
-
-                trend_data[date] = {
-
-                    "risk_score": row[1],
-                    "risk_level": row[2]
-
-                }
-
-            trend_data[date][row[3]] = row[4]
-
-        return jsonify(trend_data)
-
-    except Exception as e:
-
-        print("TREND ERROR:", e)
-
-        return jsonify({})
 
 # =========================================
 # HOME
