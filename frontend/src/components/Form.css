@@ -157,6 +157,7 @@ input:focus{
   display:flex;
 
   justify-content:center;
+
   align-items:center;
 
   padding:18px;
@@ -171,6 +172,81 @@ input:focus{
   font-weight:600;
 
   font-size:18px;
+}
+
+/* ========================================= */
+/* SYMPTOM SECTION */
+/* ========================================= */
+
+.symptom-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(220px,1fr));
+
+  gap:18px;
+
+  margin-top:10px;
+}
+
+/* ========================================= */
+/* SYMPTOM ITEM */
+/* ========================================= */
+
+.symptom-item{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  color:#dbeafe;
+
+  font-size:17px;
+
+  font-weight:500;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.symptom-item:hover{
+
+  transform:translateY(-2px);
+
+  border:
+  1px solid rgba(20,184,166,0.35);
+
+  background:
+  rgba(20,184,166,0.08);
+}
+
+/* ========================================= */
+/* CHECKBOX */
+/* ========================================= */
+
+.symptom-item input{
+
+  width:20px;
+
+  height:20px;
+
+  accent-color:#14b8a6;
+
+  cursor:pointer;
 }
 
 /* ========================================= */
@@ -502,5 +578,15 @@ button{
   .predict-btn{
 
     font-size:18px;
+  }
+
+  .symptom-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .image-upload-grid{
+
+    grid-template-columns:1fr;
   }
 }

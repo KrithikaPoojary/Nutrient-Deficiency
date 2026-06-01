@@ -1,10 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, {
 
-import { useNavigate } from "react-router-dom";
+  useState,
+  useEffect
+
+} from "react";
 
 import {
+
+  useNavigate
+
+} from "react-router-dom";
+
+import {
+
   predict,
   getSuggestions
+
 } from "../api";
 
 function Form({
@@ -32,29 +43,38 @@ function Form({
   });
 
   // =====================================
+  // SYMPTOMS
+  // =====================================
+
+  const [symptoms, setSymptoms] =
+    useState([]);
+
+  // =====================================
   // IMAGE UPLOADS
   // =====================================
 
-  const [images, setImages] = useState({
+  const [images, setImages] =
+    useState({
 
-    eye: null,
-    nail: null,
-    tongue: null
+      eye: null,
+      nail: null,
+      tongue: null
 
-  });
+    });
 
   // =====================================
   // FOOD MEALS
   // =====================================
 
-  const [meals, setMeals] = useState({
+  const [meals, setMeals] =
+    useState({
 
-    morning: [""],
-    afternoon: [""],
-    evening: [""],
-    night: [""]
+      morning: [""],
+      afternoon: [""],
+      evening: [""],
+      night: [""]
 
-  });
+    });
 
   // =====================================
   // SUGGESTIONS
@@ -70,8 +90,10 @@ function Form({
   useEffect(() => {
 
     if (
+
       data.height_cm &&
       data.weight
+
     ) {
 
       const h =
@@ -107,6 +129,44 @@ function Form({
     data.weight
 
   ]);
+
+  // =====================================
+  // HANDLE SYMPTOMS
+  // =====================================
+
+  const handleSymptomChange = (
+    symptom
+  ) => {
+
+    if (
+      symptoms.includes(symptom)
+    ) {
+
+      setSymptoms(
+
+        symptoms.filter(
+
+          item =>
+            item !== symptom
+
+        )
+
+      );
+
+    }
+
+    else {
+
+      setSymptoms([
+
+        ...symptoms,
+        symptom
+
+      ]);
+
+    }
+
+  };
 
   // =====================================
   // GET LAST WORD
@@ -487,6 +547,18 @@ function Form({
     );
 
     // =====================================
+    // SYMPTOMS
+    // =====================================
+
+    formData.append(
+
+      "symptoms",
+
+      JSON.stringify(symptoms)
+
+    );
+
+    // =====================================
     // IMAGE FILES
     // =====================================
 
@@ -649,6 +721,105 @@ function Form({
           {
             data.bmi ||
             "Calculating..."
+          }
+
+        </div>
+
+      </div>
+
+      {/* ===================================== */}
+      {/* SYMPTOM QUESTIONNAIRE */}
+      {/* ===================================== */}
+
+      <div className="image-section">
+
+        <h3>
+
+          🩺 Symptom Questionnaire
+
+        </h3>
+
+        <div className="symptom-grid">
+
+          {
+
+            [
+
+              {
+                label:
+                "Hair Fall",
+
+                value:
+                "hair_fall"
+              },
+
+              {
+                label:
+                "Fatigue",
+
+                value:
+                "fatigue"
+              },
+
+              {
+                label:
+                "Weak Nails",
+
+                value:
+                "weak_nails"
+              },
+
+              {
+                label:
+                "Dry Skin",
+
+                value:
+                "dry_skin"
+              },
+
+              {
+                label:
+                "Dizziness",
+
+                value:
+                "dizziness"
+              }
+
+            ].map((item) => (
+
+              <label
+                key={item.value}
+                className="symptom-item"
+              >
+
+                <input
+
+                  type="checkbox"
+
+                  checked={
+
+                    symptoms.includes(
+                      item.value
+                    )
+
+                  }
+
+                  onChange={() =>
+
+                    handleSymptomChange(
+                      item.value
+                    )
+
+                  }
+
+                />
+
+                {item.label}
+
+              </label>
+
+            ))
+
           }
 
         </div>
