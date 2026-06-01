@@ -48,7 +48,11 @@ function Dashboard({ user }) {
             📈 History
           </button>
 
-          <button>
+          <button
+            onClick={() =>
+              navigate("/full-report")
+            }
+          >
             📄 Reports
           </button>
 
@@ -106,6 +110,7 @@ function Dashboard({ user }) {
             <p>
               Analyze food intake,
               medical images,
+              symptom questionnaire,
               deficiency severity,
               and personalized health insights.
             </p>
@@ -158,6 +163,20 @@ function Dashboard({ user }) {
           <div className="dash-card">
 
             <h3>
+              📋 Symptom Questionnaire
+            </h3>
+
+            <p>
+              Hair fall, fatigue,
+              pale skin, dizziness,
+              weakness, and symptom analysis.
+            </p>
+
+          </div>
+
+          <div className="dash-card">
+
+            <h3>
               📈 Trend Monitoring
             </h3>
 
@@ -176,8 +195,90 @@ function Dashboard({ user }) {
 
             <p>
               AI-generated food
-              recommendations and meal plans.
+              recommendations and adaptive meal plans.
             </p>
+
+          </div>
+
+          <div className="dash-card">
+
+            <h3>
+              🤖 Explainable AI
+            </h3>
+
+            <p>
+              Top contributing factors,
+              multimodal contribution,
+              and interpretable prediction insights.
+            </p>
+
+          </div>
+
+        </div>
+
+        {/* ===================================== */}
+        {/* SYSTEM OVERVIEW */}
+        {/* ===================================== */}
+
+        <div className="system-overview">
+
+          <h2>
+            🔬 Multimodal Healthcare Framework
+          </h2>
+
+          <div className="overview-grid">
+
+            <div className="overview-card">
+
+              <h3>
+                🍽 Food Intake
+              </h3>
+
+              <p>
+                Daily meal and nutrient
+                consumption tracking.
+              </p>
+
+            </div>
+
+            <div className="overview-card">
+
+              <h3>
+                👁 Medical Images
+              </h3>
+
+              <p>
+                CNN-based eye, nail,
+                and tongue deficiency analysis.
+              </p>
+
+            </div>
+
+            <div className="overview-card">
+
+              <h3>
+                📋 Symptoms
+              </h3>
+
+              <p>
+                Questionnaire-based
+                symptom intelligence system.
+              </p>
+
+            </div>
+
+            <div className="overview-card">
+
+              <h3>
+                📈 Long-Term Monitoring
+              </h3>
+
+              <p>
+                Continuous nutritional
+                health tracking and analysis.
+              </p>
+
+            </div>
 
           </div>
 
