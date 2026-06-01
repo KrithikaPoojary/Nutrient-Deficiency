@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import NutrientChart from "./NutrientChart";
 
+import downloadReport from "./DownloadReport";
+
 import "./Result.css";
 
 function Result({
@@ -116,6 +118,20 @@ function Result({
     fullResult?.image_analysis || {};
 
   // =========================================
+  // SYMPTOM ANALYSIS
+  // =========================================
+
+  const symptomAnalysis =
+    fullResult?.symptom_analysis || [];
+
+  // =========================================
+  // SHAP
+  // =========================================
+
+  const shapExplanations =
+    fullResult?.shap_explanations || {};
+
+  // =========================================
   // UI
   // =========================================
 
@@ -143,6 +159,68 @@ function Result({
             Deficiency Report
 
           </p>
+
+        </div>
+
+        {/* ========================================= */}
+        {/* RISK SUMMARY */}
+        {/* ========================================= */}
+
+        <div className="risk-summary-card">
+
+          <h2>
+
+            🚨 AI Risk Assessment
+
+          </h2>
+
+          <div className="risk-summary-grid">
+
+            <div className="risk-box">
+
+              <h3>
+
+                Risk Score
+
+              </h3>
+
+              <p>
+
+                {
+
+                  fullResult?.risk_score || 0
+
+                }
+
+                /100
+
+              </p>
+
+            </div>
+
+            <div className="risk-box">
+
+              <h3>
+
+                Risk Level
+
+              </h3>
+
+              <p>
+
+                {
+
+                  fullResult?.risk_level ||
+
+                  "Low Risk"
+
+                }
+
+              </p>
+
+            </div>
+
+          </div>
 
         </div>
 
@@ -251,6 +329,190 @@ function Result({
               </p>
 
             </div>
+
+          </div>
+
+        </div>
+
+        {/* ========================================= */}
+        {/* SYMPTOM ANALYSIS */}
+        {/* ========================================= */}
+
+        {
+
+          symptomAnalysis.length > 0 && (
+
+            <div className="symptom-result-card">
+
+              <h2>
+
+                🩺 Symptom Questionnaire Analysis
+
+              </h2>
+
+              <div className="symptom-grid">
+
+                {
+
+                  symptomAnalysis.map(
+
+                    (
+                      item,
+                      index
+                    ) => (
+
+                      <div
+                        key={index}
+                        className="symptom-box"
+                      >
+
+                        <h3>
+
+                          {
+
+                            item.symptom
+                            .replaceAll(
+                              "_",
+                              " "
+                            )
+
+                          }
+
+                        </h3>
+
+                        <p>
+
+                          Possible Deficiencies:
+
+                        </p>
+
+                        <ul>
+
+                          {
+
+                            item
+                            .possible_deficiencies
+                            .map(
+
+                              (
+                                d,
+                                i
+                              ) => (
+
+                                <li key={i}>
+
+                                  {d}
+
+                                </li>
+
+                              )
+
+                            )
+
+                          }
+
+                        </ul>
+
+                      </div>
+
+                    )
+
+                  )
+
+                }
+
+              </div>
+
+            </div>
+
+          )
+
+        }
+
+        {/* ========================================= */}
+        {/* EXPLAINABLE AI */}
+        {/* ========================================= */}
+
+        <div className="shap-section-main">
+
+          <h2>
+
+            🤖 Explainable AI Insights
+
+          </h2>
+
+          <div className="shap-grid">
+
+            {
+
+              Object.entries(
+                shapExplanations
+              ).map(
+
+                (
+                  [nutrient, features],
+                  index
+                ) => (
+
+                  <div
+                    key={index}
+                    className="shap-box"
+                  >
+
+                    <h3>
+
+                      {nutrient}
+
+                    </h3>
+
+                    {
+
+                      features.length > 0 ? (
+
+                        <ul>
+
+                          {
+
+                            features.map(
+
+                              (
+                                feature,
+                                idx
+                              ) => (
+
+                                <li key={idx}>
+
+                                  {feature}
+
+                                </li>
+
+                              )
+
+                            )
+
+                          }
+
+                        </ul>
+
+                      ) : (
+
+                        <p>
+
+                          No SHAP explanation available
+
+                        </p>
+
+                      )
+
+                    }
+
+                  </div>
+
+                )
+
+              )
+
+            }
 
           </div>
 
@@ -450,6 +712,52 @@ function Result({
         </div>
 
         {/* ========================================= */}
+        {/* CONTINUOUS MONITORING */}
+        {/* ========================================= */}
+
+        <div className="monitor-card">
+
+          <h2>
+
+            📈 Continuous Health Monitoring
+
+          </h2>
+
+          <p>
+
+            Historical nutritional
+            records are stored for
+            long-term monitoring,
+            adaptive recovery tracking,
+            and future comparison.
+
+          </p>
+
+          <div className="monitor-grid">
+
+            <div className="monitor-box">
+
+              ✅ Longitudinal Tracking
+
+            </div>
+
+            <div className="monitor-box">
+
+              ✅ Personalized Recovery
+
+            </div>
+
+            <div className="monitor-box">
+
+              ✅ Historical AI Monitoring
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* ========================================= */}
         {/* REPORT BUTTONS */}
         {/* ========================================= */}
 
@@ -486,6 +794,8 @@ function Result({
           <button
 
             className="download-report-btn"
+
+            onClick={downloadReport}
 
           >
 
