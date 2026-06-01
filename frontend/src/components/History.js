@@ -9,6 +9,18 @@ import { getTrend } from "../api";
 
 import "./History.css";
 
+import {
+
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+
+} from "recharts";
+
 function History({ user }) {
 
   const [trend, setTrend] =
@@ -32,7 +44,7 @@ function History({ user }) {
 
           fetchTrend,
 
-          2000
+          5000
 
         );
 
@@ -115,6 +127,62 @@ function History({ user }) {
   };
 
   // =========================================
+  // TREND MESSAGE
+  // =========================================
+
+  const getTrendMessage = (
+
+    current,
+    previous
+
+  ) => {
+
+    if (!previous)
+      return "First Analysis";
+
+    if (current < previous)
+
+      return (
+        "✅ Health Improving"
+      );
+
+    if (current > previous)
+
+      return (
+        "⚠ Risk Increasing"
+      );
+
+    return "➖ Stable";
+  };
+
+  // =========================================
+  // SORTED DATES
+  // =========================================
+
+  const sortedEntries =
+    Object.entries(trend)
+    .reverse();
+
+  // =========================================
+  // CHART DATA
+  // =========================================
+
+  const chartData = sortedEntries.map(
+
+    ([date, nutrients]) => ({
+
+      date:
+      new Date(date)
+      .toLocaleDateString(),
+
+      risk_score:
+      nutrients.risk_score
+
+    })
+
+  );
+
+  // =========================================
   // UI
   // =========================================
 
@@ -124,122 +192,345 @@ function History({ user }) {
 
       <div className="history-container">
 
+        {/* ========================================= */}
+        {/* HEADER */}
+        {/* ========================================= */}
+
         <div className="history-header">
 
           <h1>
-            📈 Nutrient Trend Analysis
+
+            📈 Nutritional Trend Monitoring
+
           </h1>
 
           <p>
-            Longitudinal Nutritional
-            Monitoring Dashboard
+
+            Continuous AI-Based
+            Longitudinal Health Tracking
+
           </p>
 
         </div>
 
+        {/* ========================================= */}
+        {/* LOADING */}
+        {/* ========================================= */}
+
         {loading ? (
 
           <div className="loading-box">
+
             Loading History...
+
           </div>
 
         ) : Object.keys(trend).length === 0 ? (
 
           <div className="empty-history">
+
             No History Available
+
           </div>
 
         ) : (
 
-          <div className="history-grid">
+          <>
 
-            {Object.entries(trend)
+            {/* ========================================= */}
+            {/* ADVANCED RISK CHART */}
+            {/* ========================================= */}
 
-              .reverse()
+            <div className="chart-container">
 
-              .map(
+              <h2>
 
-                ([date, nutrients], index) => (
+                📊 Longitudinal Risk Analytics
 
-                  <div
-                    key={index}
-                    className="history-card"
-                  >
+              </h2>
 
-                    {/* ========================================= */}
-                    {/* DATE */}
-                    {/* ========================================= */}
+              <ResponsiveContainer
+                width="100%"
+                height={350}
+              >
 
-                    <div className="history-date">
+                <LineChart data={chartData}>
 
-                      {new Date(date)
-                        .toLocaleString()}
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                  />
 
-                    </div>
+                  <XAxis dataKey="date" />
 
-                    {/* ========================================= */}
-                    {/* NUTRIENTS */}
-                    {/* ========================================= */}
+                  <YAxis />
 
-                    {Object.entries(
-                      nutrients
-                    ).map(
+                  <Tooltip />
 
-                      ([nutrient, status]) => (
+                  <Line
+                    type="monotone"
+                    dataKey="risk_score"
+                    stroke="#06b6d4"
+                    strokeWidth={4}
+                  />
 
-                        <div
-                          key={nutrient}
-                          className="trend-item"
-                        >
+                </LineChart>
 
-                          <div className="trend-top">
+              </ResponsiveContainer>
 
-                            <span className="nutrient-name">
-                              {nutrient}
-                            </span>
+            </div>
 
-                            <span
-                              className="status-text"
-                              style={{
-                                color:
-                                  getColor(status)
-                              }}
-                            >
-                              {status}
-                            </span>
+            {/* ========================================= */}
+            {/* OVERVIEW */}
+            {/* ========================================= */}
 
-                          </div>
+            <div className="overview-grid">
 
-                          <div className="trend-bar">
+              <div className="overview-card">
 
-                            <div
-                              className="trend-fill"
-                              style={{
+                <h3>
 
-                                width:
-                                  `${statusScore(status)}%`,
+                  Total Reports
 
-                                background:
-                                  getColor(status)
+                </h3>
 
-                              }}
-                            ></div>
+                <p>
 
-                          </div>
+                  {sortedEntries.length}
+
+                </p>
+
+              </div>
+
+              <div className="overview-card">
+
+                <h3>
+
+                  Latest Risk
+
+                </h3>
+
+                <p>
+
+                  {
+
+                    sortedEntries[0][1]
+                    ?.risk_level ||
+
+                    "Low Risk"
+
+                  }
+
+                </p>
+
+              </div>
+
+              <div className="overview-card">
+
+                <h3>
+
+                  Monitoring Status
+
+                </h3>
+
+                <p>
+
+                  Active
+
+                </p>
+
+              </div>
+
+            </div>
+
+            {/* ========================================= */}
+            {/* HISTORY GRID */}
+            {/* ========================================= */}
+
+            <div className="history-grid">
+
+              {sortedEntries.map(
+
+                (
+                  [date, nutrients],
+                  index
+                ) => {
+
+                  const currentScore =
+                    nutrients.risk_score;
+
+                  const previousScore =
+                    sortedEntries[
+                      index + 1
+                    ]?.[1]
+                    ?.risk_score;
+
+                  return (
+
+                    <div
+                      key={index}
+                      className="history-card"
+                    >
+
+                      {/* ========================================= */}
+                      {/* DATE */}
+                      {/* ========================================= */}
+
+                      <div className="history-date">
+
+                        {new Date(date)
+                          .toLocaleString()}
+
+                      </div>
+
+                      {/* ========================================= */}
+                      {/* RISK SECTION */}
+                      {/* ========================================= */}
+
+                      <div className="risk-section">
+
+                        <div className="risk-box">
+
+                          <h4>
+
+                            Risk Score
+
+                          </h4>
+
+                          <p>
+
+                            {
+                              nutrients.risk_score
+                            }
+
+                          </p>
 
                         </div>
 
+                        <div className="risk-box">
+
+                          <h4>
+
+                            Risk Level
+
+                          </h4>
+
+                          <p>
+
+                            {
+                              nutrients.risk_level
+                            }
+
+                          </p>
+
+                        </div>
+
+                      </div>
+
+                      {/* ========================================= */}
+                      {/* TREND STATUS */}
+                      {/* ========================================= */}
+
+                      <div className="trend-message">
+
+                        {
+
+                          getTrendMessage(
+
+                            currentScore,
+
+                            previousScore
+
+                          )
+
+                        }
+
+                      </div>
+
+                      {/* ========================================= */}
+                      {/* NUTRIENTS */}
+                      {/* ========================================= */}
+
+                      {Object.entries(
+                        nutrients
                       )
 
-                    )}
+                      .filter(
 
-                  </div>
+                        ([key]) =>
 
-                )
+                          key !==
+                          "risk_score"
+
+                          &&
+
+                          key !==
+                          "risk_level"
+
+                      )
+
+                      .map(
+
+                        ([nutrient, status]) => (
+
+                          <div
+                            key={nutrient}
+                            className="trend-item"
+                          >
+
+                            <div className="trend-top">
+
+                              <span className="nutrient-name">
+
+                                {nutrient}
+
+                              </span>
+
+                              <span
+                                className="status-text"
+                                style={{
+                                  color:
+                                  getColor(status)
+                                }}
+                              >
+
+                                {status}
+
+                              </span>
+
+                            </div>
+
+                            <div className="trend-bar">
+
+                              <div
+                                className="trend-fill"
+                                style={{
+
+                                  width:
+                                  `${statusScore(status)}%`,
+
+                                  background:
+                                  getColor(status)
+
+                                }}
+                              ></div>
+
+                            </div>
+
+                          </div>
+
+                        )
+
+                      )}
+
+                    </div>
+
+                  );
+                }
 
               )}
 
-          </div>
+            </div>
+          </>
 
         )}
 
@@ -251,3 +542,4 @@ function History({ user }) {
 }
 
 export default History;
+

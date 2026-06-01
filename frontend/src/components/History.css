@@ -25,7 +25,7 @@
 
 .history-container{
 
-  max-width:1400px;
+  max-width:1450px;
 
   margin:auto;
 }
@@ -38,16 +38,18 @@
 
   text-align:center;
 
-  margin-bottom:40px;
+  margin-bottom:45px;
 }
 
 .history-header h1{
 
-  font-size:42px;
+  font-size:44px;
 
-  margin-bottom:12px;
+  margin-bottom:14px;
 
   color:white;
+
+  font-weight:700;
 }
 
 .history-header p{
@@ -55,27 +57,68 @@
   color:#cbd5e1;
 
   font-size:20px;
+
+  line-height:1.7;
 }
 
 /* ========================================= */
-/* GRID */
+/* CHART CONTAINER */
 /* ========================================= */
 
-.history-grid{
+.chart-container{
+
+  background:
+  rgba(255,255,255,0.06);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  border-radius:30px;
+
+  padding:35px;
+
+  margin-bottom:40px;
+
+  backdrop-filter:blur(12px);
+
+  box-shadow:
+  0 12px 35px rgba(0,0,0,0.25);
+}
+
+.chart-container h2{
+
+  margin-bottom:30px;
+
+  color:#5eead4;
+
+  font-size:28px;
+
+  font-weight:700;
+
+  text-align:center;
+}
+
+/* ========================================= */
+/* OVERVIEW GRID */
+/* ========================================= */
+
+.overview-grid{
 
   display:grid;
 
   grid-template-columns:
-  repeat(auto-fit,minmax(400px,1fr));
+  repeat(auto-fit,minmax(250px,1fr));
 
-  gap:30px;
+  gap:25px;
+
+  margin-bottom:40px;
 }
 
 /* ========================================= */
-/* CARD */
+/* OVERVIEW CARD */
 /* ========================================= */
 
-.history-card{
+.overview-card{
 
   background:
   rgba(255,255,255,0.06);
@@ -87,6 +130,69 @@
 
   padding:28px;
 
+  text-align:center;
+
+  backdrop-filter:blur(12px);
+
+  transition:0.3s;
+}
+
+.overview-card:hover{
+
+  transform:translateY(-5px);
+
+  box-shadow:
+  0 10px 28px rgba(0,0,0,0.3);
+}
+
+.overview-card h3{
+
+  color:#5eead4;
+
+  margin-bottom:15px;
+
+  font-size:20px;
+}
+
+.overview-card p{
+
+  font-size:34px;
+
+  font-weight:700;
+
+  color:white;
+}
+
+/* ========================================= */
+/* HISTORY GRID */
+/* ========================================= */
+
+.history-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(430px,1fr));
+
+  gap:30px;
+}
+
+/* ========================================= */
+/* HISTORY CARD */
+/* ========================================= */
+
+.history-card{
+
+  background:
+  rgba(255,255,255,0.06);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  border-radius:30px;
+
+  padding:30px;
+
   backdrop-filter:blur(12px);
 
   transition:0.3s;
@@ -97,7 +203,7 @@
   transform:translateY(-5px);
 
   box-shadow:
-  0 12px 30px rgba(0,0,0,0.3);
+  0 14px 35px rgba(0,0,0,0.3);
 }
 
 /* ========================================= */
@@ -108,9 +214,84 @@
 
   font-size:20px;
 
-  font-weight:600;
+  font-weight:700;
 
   margin-bottom:25px;
+
+  color:#5eead4;
+}
+
+/* ========================================= */
+/* RISK SECTION */
+/* ========================================= */
+
+.risk-section{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(2,1fr);
+
+  gap:20px;
+
+  margin-bottom:25px;
+}
+
+/* ========================================= */
+/* RISK BOX */
+/* ========================================= */
+
+.risk-box{
+
+  background:
+  rgba(255,255,255,0.05);
+
+  padding:20px;
+
+  border-radius:22px;
+
+  text-align:center;
+}
+
+.risk-box h4{
+
+  margin-bottom:10px;
+
+  color:#cbd5e1;
+
+  font-size:16px;
+}
+
+.risk-box p{
+
+  font-size:24px;
+
+  font-weight:700;
+
+  color:white;
+}
+
+/* ========================================= */
+/* TREND MESSAGE */
+/* ========================================= */
+
+.trend-message{
+
+  margin-bottom:28px;
+
+  padding:15px;
+
+  border-radius:18px;
+
+  background:
+  rgba(94,234,212,0.08);
+
+  border:
+  1px solid rgba(94,234,212,0.15);
+
+  text-align:center;
+
+  font-weight:600;
 
   color:#5eead4;
 }
@@ -121,7 +302,7 @@
 
 .trend-item{
 
-  margin-bottom:22px;
+  margin-bottom:24px;
 }
 
 /* ========================================= */
@@ -139,6 +320,10 @@
   margin-bottom:10px;
 }
 
+/* ========================================= */
+/* NUTRIENT */
+/* ========================================= */
+
 .nutrient-name{
 
   font-size:18px;
@@ -148,11 +333,15 @@
   color:#f8fafc;
 }
 
+/* ========================================= */
+/* STATUS */
+/* ========================================= */
+
 .status-text{
 
   font-size:15px;
 
-  font-weight:600;
+  font-weight:700;
 }
 
 /* ========================================= */
@@ -173,6 +362,10 @@
   overflow:hidden;
 }
 
+/* ========================================= */
+/* FILL */
+/* ========================================= */
+
 .trend-fill{
 
   height:100%;
@@ -190,14 +383,17 @@
 
   text-align:center;
 
-  padding:60px;
+  padding:70px;
 
-  font-size:24px;
+  font-size:26px;
 
   background:
   rgba(255,255,255,0.05);
 
-  border-radius:25px;
+  border-radius:28px;
+
+  border:
+  1px solid rgba(255,255,255,0.08);
 }
 
 /* ========================================= */
@@ -208,14 +404,17 @@
 
   text-align:center;
 
-  padding:60px;
+  padding:70px;
 
-  font-size:24px;
+  font-size:26px;
 
   background:
   rgba(255,255,255,0.05);
 
-  border-radius:25px;
+  border-radius:28px;
+
+  border:
+  1px solid rgba(255,255,255,0.08);
 }
 
 /* ========================================= */
@@ -234,8 +433,34 @@
     grid-template-columns:1fr;
   }
 
+  .overview-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .risk-section{
+
+    grid-template-columns:1fr;
+  }
+
   .history-header h1{
 
     font-size:32px;
   }
+
+  .overview-card p{
+
+    font-size:28px;
+  }
+
+  .chart-container{
+
+    padding:20px;
+  }
+
+  .chart-container h2{
+
+    font-size:22px;
+  }
 }
+
