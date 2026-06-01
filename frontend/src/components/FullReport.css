@@ -1,3 +1,7 @@
+/* ========================================= */
+/* PAGE */
+/* ========================================= */
+
 .full-report-page{
 
   min-height:100vh;
@@ -23,11 +27,15 @@
   color:white;
 }
 
+/* ========================================= */
+/* CARD */
+/* ========================================= */
+
 .full-report-card{
 
   width:100%;
 
-  max-width:1100px;
+  max-width:1200px;
 
   margin:auto;
 
@@ -35,7 +43,7 @@
 
   box-sizing:border-box;
 
-  border-radius:30px;
+  border-radius:32px;
 
   background:
   rgba(255,255,255,0.06);
@@ -49,24 +57,93 @@
   0 10px 40px rgba(0,0,0,0.35);
 }
 
-.full-report-card h1{
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.report-header{
 
   text-align:center;
 
-  margin-bottom:40px;
-
-  font-size:42px;
-
-  color:#ffffff;
+  margin-bottom:45px;
 }
+
+.report-header h1{
+
+  font-size:46px;
+
+  color:white;
+
+  margin-bottom:12px;
+}
+
+.report-header p{
+
+  color:#cbd5e1;
+
+  font-size:20px;
+
+  line-height:1.7;
+}
+
+/* ========================================= */
+/* DOWNLOAD BUTTON */
+/* ========================================= */
+
+.download-btn-wrapper{
+
+  display:flex;
+
+  justify-content:center;
+
+  margin-bottom:35px;
+}
+
+.download-btn{
+
+  padding:16px 28px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #14b8a6,
+    #0f766e
+  );
+
+  color:white;
+
+  font-size:17px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.download-btn:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:
+  0 10px 25px rgba(20,184,166,0.35);
+}
+
+/* ========================================= */
+/* SECTION */
+/* ========================================= */
 
 .report-section{
 
   margin-bottom:35px;
 
-  padding:25px;
+  padding:28px;
 
-  border-radius:22px;
+  border-radius:24px;
 
   background:
   rgba(255,255,255,0.05);
@@ -87,17 +164,17 @@
 
 .report-section h2{
 
-  margin-bottom:18px;
+  margin-bottom:22px;
 
   color:#5eead4;
 
-  font-size:28px;
+  font-size:30px;
 }
 
 .report-section p,
 .report-section li{
 
-  line-height:1.8;
+  line-height:1.9;
 
   color:#dbeafe;
 
@@ -106,26 +183,34 @@
 
 .report-section ul{
 
-  padding-left:25px;
+  padding-left:24px;
 }
+
+/* ========================================= */
+/* RISK GRID */
+/* ========================================= */
 
 .risk-grid{
 
   display:grid;
 
   grid-template-columns:
-  repeat(auto-fit,minmax(220px,1fr));
+  repeat(auto-fit,minmax(240px,1fr));
 
-  gap:20px;
+  gap:22px;
 
-  margin-top:20px;
+  margin-top:22px;
 }
+
+/* ========================================= */
+/* RISK BOX */
+/* ========================================= */
 
 .risk-box{
 
-  padding:25px;
+  padding:28px;
 
-  border-radius:20px;
+  border-radius:22px;
 
   text-align:center;
 
@@ -147,16 +232,434 @@
 
 .risk-box p{
 
-  font-size:28px;
+  font-size:30px;
 
-  font-weight:bold;
+  font-weight:700;
 
   color:white;
 }
 
-/* ===================================== */
-/* MOBILE RESPONSIVE */
-/* ===================================== */
+/* ========================================= */
+/* RISK COLORS */
+/* ========================================= */
+
+.risk-severe{
+
+  color:#ef4444 !important;
+}
+
+.risk-moderate{
+
+  color:#f59e0b !important;
+}
+
+.risk-low{
+
+  color:#10b981 !important;
+}
+
+/* ========================================= */
+/* RISK SUMMARY */
+/* ========================================= */
+
+.risk-summary{
+
+  margin-top:25px;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  background:
+  rgba(94,234,212,0.08);
+
+  border:
+  1px solid rgba(94,234,212,0.15);
+
+  text-align:center;
+
+  font-size:18px;
+
+  font-weight:600;
+
+  color:#5eead4;
+}
+
+/* ========================================= */
+/* ALERT BOX */
+/* ========================================= */
+
+.alert-box{
+
+  padding:24px;
+
+  border-radius:22px;
+
+  background:
+  rgba(239,68,68,0.08);
+
+  border:
+  1px solid rgba(239,68,68,0.2);
+}
+
+.alert-box p{
+
+  margin-bottom:14px;
+
+  color:#fca5a5;
+
+  font-weight:600;
+}
+
+/* ========================================= */
+/* CONTRIBUTION GRID */
+/* ========================================= */
+
+.contribution-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(180px,1fr));
+
+  gap:20px;
+
+  margin-top:20px;
+}
+
+/* ========================================= */
+/* CONTRIBUTION CARD */
+/* ========================================= */
+
+.contribution-card{
+
+  padding:22px;
+
+  border-radius:20px;
+
+  text-align:center;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  transition:0.3s;
+}
+
+.contribution-card:hover{
+
+  transform:translateY(-4px);
+}
+
+.contribution-card h3{
+
+  font-size:18px;
+
+  margin-bottom:12px;
+
+  color:#cbd5e1;
+}
+
+.contribution-card p{
+
+  font-size:28px;
+
+  font-weight:700;
+
+  color:#5eead4;
+}
+
+/* ========================================= */
+/* IMAGE GRID */
+/* ========================================= */
+
+.image-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(260px,1fr));
+
+  gap:22px;
+}
+
+/* ========================================= */
+/* IMAGE BOX */
+/* ========================================= */
+
+.image-box{
+
+  padding:24px;
+
+  border-radius:22px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+}
+
+.image-box h3{
+
+  margin-bottom:14px;
+
+  color:#5eead4;
+
+  font-size:22px;
+}
+
+.image-box p{
+
+  font-size:17px;
+
+  line-height:1.8;
+}
+
+/* ========================================= */
+/* RECOVERY CARD */
+/* ========================================= */
+
+.recovery-card{
+
+  margin-bottom:22px;
+
+  padding:24px;
+
+  border-radius:22px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+}
+
+.recovery-card h3{
+
+  margin-bottom:14px;
+
+  color:#5eead4;
+
+  font-size:24px;
+}
+
+.recovery-card p{
+
+  line-height:1.8;
+
+  color:#dbeafe;
+}
+
+/* ========================================= */
+/* SEVERITY BADGE */
+/* ========================================= */
+
+.severity-badge{
+
+  margin-top:18px;
+
+  display:inline-block;
+
+  padding:10px 18px;
+
+  border-radius:30px;
+
+  background:
+  rgba(94,234,212,0.12);
+
+  border:
+  1px solid rgba(94,234,212,0.2);
+
+  color:#5eead4;
+
+  font-weight:700;
+
+  font-size:15px;
+}
+
+/* ========================================= */
+/* SHAP SECTION */
+/* ========================================= */
+
+.shap-section{
+
+  margin-top:35px;
+}
+
+.shap-section h3{
+
+  color:#5eead4;
+
+  margin-bottom:20px;
+
+  font-size:26px;
+}
+
+/* ========================================= */
+/* SHAP CARD */
+/* ========================================= */
+
+.shap-card{
+
+  margin-bottom:24px;
+
+  padding:24px;
+
+  border-radius:22px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+}
+
+.shap-card h4{
+
+  color:#f8fafc;
+
+  margin-bottom:14px;
+
+  font-size:22px;
+}
+
+.shap-card ul{
+
+  padding-left:24px;
+}
+
+.shap-card li{
+
+  margin-bottom:12px;
+
+  color:#dbeafe;
+
+  line-height:1.8;
+}
+
+/* ========================================= */
+/* SYMPTOM ANALYSIS GRID */
+/* ========================================= */
+
+.symptom-analysis-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(260px,1fr));
+
+  gap:22px;
+
+  margin-top:22px;
+}
+
+/* ========================================= */
+/* SYMPTOM CARD */
+/* ========================================= */
+
+.symptom-card{
+
+  padding:24px;
+
+  border-radius:22px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  transition:0.3s;
+}
+
+.symptom-card:hover{
+
+  transform:translateY(-4px);
+
+  border:
+  1px solid rgba(94,234,212,0.3);
+
+  background:
+  rgba(255,255,255,0.07);
+}
+
+.symptom-card h3{
+
+  color:#5eead4;
+
+  margin-bottom:14px;
+
+  font-size:22px;
+
+  text-transform:capitalize;
+}
+
+.symptom-card p{
+
+  color:#dbeafe;
+
+  margin-bottom:12px;
+
+  font-size:17px;
+}
+
+.symptom-card ul{
+
+  padding-left:22px;
+}
+
+.symptom-card li{
+
+  margin-bottom:10px;
+
+  color:#cbd5e1;
+
+  line-height:1.7;
+}
+
+/* ========================================= */
+/* MONITORING BOX */
+/* ========================================= */
+
+.monitoring-box{
+
+  margin-top:25px;
+
+  padding:22px;
+
+  border-radius:22px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+}
+
+.monitoring-box p{
+
+  margin-bottom:12px;
+
+  color:#5eead4;
+
+  font-weight:600;
+}
+
+/* ========================================= */
+/* REPORT LIST */
+/* ========================================= */
+
+.report-list li{
+
+  margin-bottom:14px;
+}
+
+/* ========================================= */
+/* MOBILE */
+/* ========================================= */
 
 @media(max-width:768px){
 
@@ -167,17 +670,27 @@
 
   .full-report-card{
 
-    padding:25px;
+    padding:24px;
   }
 
-  .full-report-card h1{
+  .report-header h1{
 
-    font-size:30px;
+    font-size:34px;
+  }
+
+  .report-header p{
+
+    font-size:17px;
+  }
+
+  .report-section{
+
+    padding:22px;
   }
 
   .report-section h2{
 
-    font-size:22px;
+    font-size:24px;
   }
 
   .report-section p,
@@ -188,6 +701,36 @@
 
   .risk-box p{
 
-    font-size:22px;
+    font-size:24px;
+  }
+
+  .contribution-card p{
+
+    font-size:24px;
+  }
+
+  .image-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .risk-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .contribution-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .symptom-analysis-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .download-btn{
+
+    width:100%;
   }
 }
