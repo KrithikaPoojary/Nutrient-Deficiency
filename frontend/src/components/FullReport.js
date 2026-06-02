@@ -1,973 +1,421 @@
-import React, { useEffect } from "react";
+import React from "react";
+
+import {
+  useNavigate
+} from "react-router-dom";
 
 import "./FullReport.css";
 
-import downloadReport from "./DownloadReport";
-
 function FullReport({
 
-  fullResult,
-  result
+  result,
+  recommendations,
+  fullResult
 
 }) {
 
-  // =====================================
-  // AUTO SCROLL TOP
-  // =====================================
+  const navigate = useNavigate();
 
-  useEffect(() => {
+  // =========================================
+  // EMPTY
+  // =========================================
 
-    window.scrollTo(0, 0);
+  if (
 
-  }, []);
+    !result ||
 
-  // =====================================
-  // DATA
-  // =====================================
+    Object.keys(result).length === 0
 
-  const riskScore =
-    fullResult?.risk_score || 0;
+  ) {
 
-  const riskLevel =
-    fullResult?.risk_level || "Low Risk";
+    return (
+
+      <div className="full-report-page">
+
+        <div className="full-report-container">
+
+          No Report Found
+
+        </div>
+
+      </div>
+
+    );
+
+  }
+
+  // =========================================
+  // SAFE RISK
+  // =========================================
+
+  const riskScore = Math.min(
+
+    Number(fullResult?.risk_score || 0),
+
+    100
+
+  );
+
+  // =========================================
+  // IMAGE ANALYSIS
+  // =========================================
 
   const imageAnalysis =
     fullResult?.image_analysis || {};
 
-  const recommendations =
-    fullResult?.recommendations || {};
+  // =========================================
+  // PREVIOUS HISTORY
+  // =========================================
 
-  const shapExplanations =
-    fullResult?.shap_explanations || {};
+  const previousRisk =
+    fullResult?.previous_risk_score || 0;
 
-  const symptomAnalysis =
-    fullResult?.symptom_analysis || [];
-
-  // =====================================
-  // SEVERE / MODERATE COUNT
-  // =====================================
-
-  let severeCount = 0;
-
-  let moderateCount = 0;
-
-  Object.values(result || {}).forEach(
-
-    (status) => {
-
-      if (status === "Severe") {
-
-        severeCount++;
-
-      }
-
-      else if (
-        status === "Moderate"
-      ) {
-
-        moderateCount++;
-
-      }
-
-    }
-
-  );
-
-  // =====================================
-  // RECOVERY MESSAGE
-  // =====================================
-
-  const getRecoveryMessage = () => {
-
-    if (riskScore >= 70) {
-
-      return (
-        "Immediate nutritional recovery plan recommended."
-      );
-
-    }
-
-    if (riskScore >= 45) {
-
-      return (
-        "Moderate nutritional monitoring required."
-      );
-
-    }
-
-    return (
-      "Nutritional condition currently stable."
-    );
-  };
-
-  // =====================================
-  // HEALTH STATUS COLOR
-  // =====================================
-
-  const getRiskClass = () => {
-
-    if (riskScore >= 70)
-      return "risk-severe";
-
-    if (riskScore >= 45)
-      return "risk-moderate";
-
-    return "risk-low";
-  };
-
-  // =====================================
-  // SMART ALERTS
-  // =====================================
-
-  const getSmartAlerts = () => {
-
-    let alerts = [];
-
-    if (riskScore >= 70) {
-
-      alerts.push(
-        "⚠ Severe nutritional imbalance detected."
-      );
-
-      alerts.push(
-        "⚠ Immediate dietary intervention recommended."
-      );
-
-    }
-
-    if (severeCount >= 2) {
-
-      alerts.push(
-        "⚠ Multiple severe nutrient deficiencies identified."
-      );
-
-    }
-
-    if (
-
-      imageAnalysis.eye_analysis
-      ?.includes("High")
-
-    ) {
-
-      alerts.push(
-        "⚠ Eye analysis indicates possible anemia risk."
-      );
-
-    }
-
-    if (
-
-      imageAnalysis.nail_analysis
-      ?.includes("Deficiency")
-
-    ) {
-
-      alerts.push(
-        "⚠ Nail abnormalities associated with deficiency detected."
-      );
-
-    }
-
-    if (
-
-      imageAnalysis.tongue_analysis
-      ?.includes("Deficiency")
-
-    ) {
-
-      alerts.push(
-        "⚠ Tongue deficiency indicators detected."
-      );
-
-    }
-
-    return alerts;
-  };
-
-  const smartAlerts =
-    getSmartAlerts();
-
-  // =====================================
-  // UI
-  // =====================================
+  const trendMessage =
+    fullResult?.trend_message ||
+    "No Trend";
 
   return (
 
-    <div
-      className="full-report-page"
-      id="full-report-download"
-    >
+    <div className="full-report-page">
 
-      <div className="full-report-card">
+      <div className="full-report-container">
 
-        {/* ===================================== */}
-        {/* TITLE */}
-        {/* ===================================== */}
+        {/* ========================================= */}
+        {/* HEADER */}
+        {/* ========================================= */}
 
         <div className="report-header">
 
           <h1>
 
-            📄 Full AI Health Report
+            Nutritional Deficiency Analysis Report
 
           </h1>
 
           <p>
 
-            AI-Based Multimodal
-            Nutritional Assessment
-            System
+            Personalized Nutrient Assessment
 
           </p>
 
         </div>
 
-        {/* ===================================== */}
-        {/* DOWNLOAD BUTTON */}
-        {/* ===================================== */}
+        {/* ========================================= */}
+        {/* MAIN BOX */}
+        {/* ========================================= */}
 
-        <div className="download-btn-wrapper">
+        <div className="main-report-box">
 
-          <button
-            className="download-btn"
-            onClick={downloadReport}
-          >
+          {/* ========================================= */}
+          {/* RISK */}
+          {/* ========================================= */}
 
-            📄 Download PDF Report
+          <div className="report-section">
 
-          </button>
+            <h2>
 
-        </div>
+              Risk Assessment
 
-        {/* ===================================== */}
-        {/* OVERALL RISK */}
-        {/* ===================================== */}
+            </h2>
 
-        <div className="report-section">
+            <div className="risk-grid">
 
-          <h2>
+              <div className="risk-card">
 
-            ❤️ Overall Nutritional Risk
+                <h3>
 
-          </h2>
+                  Risk Score
 
-          <div className="risk-grid">
+                </h3>
 
-            <div className="risk-box">
+                <p>
 
-              <h3>
+                  {riskScore.toFixed(1)}/100
 
-                Risk Score
+                </p>
 
-              </h3>
+              </div>
 
-              <p className={getRiskClass()}>
+              <div className="risk-card">
 
-                {riskScore}
+                <h3>
 
-                {" "}
+                  Risk Level
 
-                / 100
+                </h3>
 
-              </p>
+                <p>
 
-            </div>
+                  {
 
-            <div className="risk-box">
+                    fullResult?.risk_level ||
 
-              <h3>
+                    "Low"
 
-                Risk Level
+                  }
 
-              </h3>
+                </p>
 
-              <p className={getRiskClass()}>
+              </div>
 
-                {riskLevel}
+              {/* ========================================= */}
+              {/* PREVIOUS RISK */}
+              {/* ========================================= */}
 
-              </p>
+              <div className="risk-card">
 
-            </div>
+                <h3>
 
-          </div>
+                  Previous Risk
 
-          <div className="risk-summary">
+                </h3>
 
-            {getRecoveryMessage()}
+                <p>
 
-          </div>
+                  {previousRisk}/100
 
-        </div>
+                </p>
 
-        {/* ===================================== */}
-        {/* SMART ALERTS */}
-        {/* ===================================== */}
+              </div>
 
-        {
+              {/* ========================================= */}
+              {/* TREND */}
+              {/* ========================================= */}
 
-          smartAlerts.length > 0 && (
+              <div className="risk-card">
 
-            <div className="report-section">
+                <h3>
 
-              <h2>
+                  Health Trend
 
-                🚨 Smart Clinical Alerts
+                </h3>
 
-              </h2>
+                <p>
 
-              <div className="alert-box">
+                  {trendMessage}
 
-                {
-
-                  smartAlerts.map(
-
-                    (
-                      alert,
-                      index
-                    ) => (
-
-                      <p key={index}>
-
-                        {alert}
-
-                      </p>
-
-                    )
-
-                  )
-
-                }
+                </p>
 
               </div>
 
             </div>
 
-          )
+          </div>
 
-        }
+          {/* ========================================= */}
+          {/* IMAGE ANALYSIS */}
+          {/* ========================================= */}
 
-        {/* ===================================== */}
-        {/* MULTIMODAL */}
-        {/* ===================================== */}
+          <div className="report-section">
 
-        <div className="report-section">
+            <h2>
 
-          <h2>
+              Medical Image Findings
 
-            🧠 Multimodal Contribution
+            </h2>
 
-          </h2>
+            <div className="image-grid">
 
-          <div className="contribution-grid">
+              <div className="image-card">
 
-            <div className="contribution-card">
+                <h3>
 
-              <h3>
+                  Eye Analysis
 
-                🍽 Food Intake
+                </h3>
 
-              </h3>
+                <p>
 
-              <p>
+                  {
 
-                30%
+                    imageAnalysis.eye_analysis ||
 
-              </p>
+                    "Normal"
 
-            </div>
+                  }
 
-            <div className="contribution-card">
+                </p>
 
-              <h3>
+              </div>
 
-                📊 Nutrient Prediction
+              <div className="image-card">
 
-              </h3>
+                <h3>
 
-              <p>
+                  Nail Analysis
 
-                25%
+                </h3>
 
-              </p>
+                <p>
 
-            </div>
+                  {
 
-            <div className="contribution-card">
+                    imageAnalysis.nail_analysis ||
 
-              <h3>
+                    "Normal"
 
-                🩺 Symptom Analysis
+                  }
 
-              </h3>
+                </p>
 
-              <p>
+              </div>
 
-                20%
+              <div className="image-card">
 
-              </p>
+                <h3>
 
-            </div>
+                  Tongue Analysis
 
-            <div className="contribution-card">
+                </h3>
 
-              <h3>
+                <p>
 
-                👁 Eye Analysis
+                  {
 
-              </h3>
+                    imageAnalysis.tongue_analysis ||
 
-              <p>
+                    "Normal"
 
-                15%
+                  }
 
-              </p>
+                </p>
 
-            </div>
-
-            <div className="contribution-card">
-
-              <h3>
-
-                💅 Nail + Tongue
-
-              </h3>
-
-              <p>
-
-                10%
-
-              </p>
+              </div>
 
             </div>
 
           </div>
 
-        </div>
+          {/* ========================================= */}
+          {/* RESULTS */}
+          {/* ========================================= */}
 
-        {/* ===================================== */}
-        {/* IMAGE ANALYSIS */}
-        {/* ===================================== */}
+          <div className="report-section">
 
-        <div className="report-section">
+            <h2>
 
-          <h2>
+              Deficiency Results
 
-            🩺 Medical Image Findings
+            </h2>
 
-          </h2>
+            <div className="result-grid">
 
-          <div className="image-grid">
+              {
 
-            <div className="image-box">
+                Object.entries(result).map(
 
-              <h3>
+                  ([key, val]) => (
 
-                👁 Eye Analysis
+                    <div
 
-              </h3>
+                      key={key}
 
-              <p>
+                      className="result-card"
 
-                {
+                    >
 
-                  imageAnalysis.eye_analysis ||
-
-                  "No Eye Analysis"
-
-                }
-
-              </p>
-
-            </div>
-
-            <div className="image-box">
-
-              <h3>
-
-                💅 Nail Analysis
-
-              </h3>
-
-              <p>
-
-                {
-
-                  imageAnalysis.nail_analysis ||
-
-                  "No Nail Analysis"
-
-                }
-
-              </p>
-
-            </div>
-
-            <div className="image-box">
-
-              <h3>
-
-                👅 Tongue Analysis
-
-              </h3>
-
-              <p>
-
-                {
-
-                  imageAnalysis.tongue_analysis ||
-
-                  "No Tongue Analysis"
-
-                }
-
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* ===================================== */}
-        {/* ADAPTIVE RECOVERY */}
-        {/* ===================================== */}
-
-        <div className="report-section">
-
-          <h2>
-
-            🌿 Adaptive Recovery Intelligence
-
-          </h2>
-
-          {
-
-            Object.entries(
-              recommendations
-            ).map(
-
-              (
-                [nutrient, data],
-                index
-              ) => (
-
-                <div
-                  key={index}
-                  className="recovery-card"
-                >
-
-                  <h3>
-
-                    {nutrient}
-
-                  </h3>
-
-                  <p>
-
-                    {
-
-                      data.recovery_message ||
-
-                      "Recovery monitoring active."
-
-                    }
-
-                  </p>
-
-                  <div className="severity-badge">
-
-                    Severity:
-
-                    {" "}
-
-                    {
-
-                      data.severity ||
-
-                      "Moderate"
-
-                    }
-
-                  </div>
-
-                </div>
-
-              )
-
-            )
-
-          }
-
-        </div>
-
-        {/* ===================================== */}
-        {/* SYMPTOM ANALYSIS */}
-        {/* ===================================== */}
-
-        {
-
-          symptomAnalysis.length > 0 && (
-
-            <div className="report-section">
-
-              <h2>
-
-                🩺 Symptom Questionnaire Analysis
-
-              </h2>
-
-              <div className="symptom-analysis-grid">
-
-                {
-
-                  symptomAnalysis.map(
-
-                    (
-                      item,
-                      index
-                    ) => (
-
-                      <div
-                        key={index}
-                        className="symptom-card"
-                      >
+                      <div className="card-top">
 
                         <h3>
 
-                          {
-
-                            item.symptom
-                            .replaceAll(
-                              "_",
-                              " "
-                            )
-
-                          }
+                          {key}
 
                         </h3>
 
-                        <p>
+                        <span
 
-                          Possible Deficiencies:
+                          className={`badge ${val.toLowerCase()}`}
 
-                        </p>
+                        >
 
-                        <ul>
+                          {val}
 
-                          {
-
-                            item
-                            .possible_deficiencies
-                            .map(
-
-                              (
-                                d,
-                                i
-                              ) => (
-
-                                <li key={i}>
-
-                                  {d}
-
-                                </li>
-
-                              )
-
-                            )
-
-                          }
-
-                        </ul>
+                        </span>
 
                       </div>
 
-                    )
+                      {
+
+                        val !== "Normal" &&
+                        recommendations?.[key]?.foods && (
+
+                          <>
+
+                            <h4>
+
+                              Recommended Foods
+
+                            </h4>
+
+                            <div className="food-list">
+
+                              {
+
+                                recommendations[
+                                  key
+                                ].foods.map(
+
+                                  (
+                                    food,
+                                    i
+                                  ) => (
+
+                                    <span
+                                      key={i}
+                                      className="food-chip"
+                                    >
+
+                                      {food}
+
+                                    </span>
+
+                                  )
+
+                                )
+
+                              }
+
+                            </div>
+
+                          </>
+
+                        )
+
+                      }
+
+                    </div>
 
                   )
 
-                }
+                )
 
-              </div>
+              }
 
             </div>
 
-          )
-
-        }
-
-        {/* ===================================== */}
-        {/* EXPLAINABLE AI */}
-        {/* ===================================== */}
-
-        <div className="report-section">
-
-          <h2>
-
-            🤖 Explainable AI Insights
-
-          </h2>
-
-          <ul className="report-list">
-
-            {
-
-              severeCount > 0 && (
-
-                <li>
-
-                  Severe nutrient
-                  deficiencies detected
-                  through AI prediction.
-
-                </li>
-
-              )
-
-            }
-
-            {
-
-              moderateCount > 0 && (
-
-                <li>
-
-                  Moderate nutritional
-                  imbalance identified
-                  from dietary analysis.
-
-                </li>
-
-              )
-
-            }
-
-            <li>
-
-              Medical image analysis
-              contributed to multimodal
-              prediction scoring.
-
-            </li>
-
-            <li>
-
-              Symptom questionnaire
-              analysis enhanced clinical
-              nutritional reasoning.
-
-            </li>
-
-            <li>
-
-              Personalized food
-              recommendations generated
-              using nutrient severity.
-
-            </li>
-
-            <li>
-
-              AI integrated food intake,
-              nutrient estimation,
-              symptom analysis,
-              and CNN image analysis.
-
-            </li>
-
-          </ul>
-
-          {/* ===================================== */}
-          {/* SHAP FEATURE IMPORTANCE */}
-          {/* ===================================== */}
-
-          <div className="shap-section">
-
-            <h3>
-
-              🔍 Top Contributing Factors
-
-            </h3>
-
-            {
-
-              Object.entries(
-                shapExplanations
-              ).map(
-
-                (
-                  [nutrient, features],
-                  index
-                ) => (
-
-                  <div
-                    key={index}
-                    className="shap-card"
-                  >
-
-                    <h4>
-
-                      {nutrient}
-
-                    </h4>
-
-                    {
-
-                      features.length > 0 ? (
-
-                        <ul>
-
-                          {
-
-                            features.map(
-
-                              (
-                                feature,
-                                idx
-                              ) => (
-
-                                <li key={idx}>
-
-                                  {feature}
-
-                                </li>
-
-                              )
-
-                            )
-
-                          }
-
-                        </ul>
-
-                      ) : (
-
-                        <p>
-
-                          No SHAP explanation available.
-
-                        </p>
-
-                      )
-
-                    }
-
-                  </div>
-
-                )
-
-              )
-
-            }
-
           </div>
 
-        </div>
+          {/* ========================================= */}
+          {/* BUTTONS */}
+          {/* ========================================= */}
 
-        {/* ===================================== */}
-        {/* CONTINUOUS MONITORING */}
-        {/* ===================================== */}
+          <div className="report-buttons">
 
-        <div className="report-section">
+            <button
 
-          <h2>
+              onClick={() =>
+                navigate("/result")
+              }
 
-            📈 Continuous Health Monitoring
+              className="back-btn"
 
-          </h2>
+            >
 
-          <p>
+              Back
 
-            The system stores historical
-            nutritional records for
-            long-term health tracking
-            and continuous monitoring.
-
-          </p>
-
-          <p>
-
-            Future reports can be
-            compared to identify
-            nutritional improvement,
-            deterioration, and
-            recovery trends.
-
-          </p>
-
-          <div className="monitoring-box">
-
-            <p>
-
-              ✅ Longitudinal Tracking Enabled
-
-            </p>
-
-            <p>
-
-              ✅ Historical Risk Monitoring Enabled
-
-            </p>
-
-            <p>
-
-              ✅ Personalized Recovery Monitoring Enabled
-
-            </p>
+            </button>
 
           </div>
-
-        </div>
-
-        {/* ===================================== */}
-        {/* FINAL SUMMARY */}
-        {/* ===================================== */}
-
-        <div className="report-section">
-
-          <h2>
-
-            📋 Final AI Summary
-
-          </h2>
-
-          <p>
-
-            The proposed multimodal AI
-            healthcare system analyzed
-            food intake, symptom
-            questionnaire patterns,
-            nutrient trends, and
-            medical images to predict
-            nutritional deficiencies
-            and generate personalized
-            recommendations.
-
-          </p>
-
-          <p>
-
-            The system integrates
-            XGBoost prediction models,
-            CNN-based medical image
-            analysis, explainable AI,
-            adaptive recovery intelligence,
-            personalized meal planning,
-            symptom-aware assessment,
-            and continuous nutritional
-            monitoring.
-
-          </p>
-
-          <p>
-
-            This platform supports
-            long-term nutritional
-            tracking and intelligent
-            healthcare assistance
-            using multimodal AI.
-
-          </p>
 
         </div>
 
@@ -976,6 +424,8 @@ function FullReport({
     </div>
 
   );
+
 }
 
 export default FullReport;
+
