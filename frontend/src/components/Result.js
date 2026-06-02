@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import NutrientChart from "./NutrientChart";
-
 import downloadReport from "./DownloadReport";
 
 import "./Result.css";
@@ -21,7 +19,7 @@ function Result({
   const navigate = useNavigate();
 
   // =========================================
-  // AUTO SCROLL TOP
+  // AUTO SCROLL
   // =========================================
 
   useEffect(() => {
@@ -45,50 +43,23 @@ function Result({
       </div>
 
     );
+
   }
 
   // =========================================
-  // STATUS STYLE
+  // RISK SCORE
   // =========================================
 
-  const getStatusClass = (status) => {
+  const riskScore = Math.min(
 
-    switch (status) {
+    Number(fullResult?.risk_score || 0),
 
-      case "Severe":
-        return "status-severe";
+    100
 
-      case "Moderate":
-        return "status-moderate";
-
-      case "Mild":
-        return "status-mild";
-
-      default:
-        return "status-normal";
-    }
-  };
+  );
 
   // =========================================
-  // STATUS ICON
-  // =========================================
-
-  const getIcon = (status) => {
-
-    if (status === "Severe")
-      return "🔴";
-
-    if (status === "Moderate")
-      return "🟠";
-
-    if (status === "Mild")
-      return "🔵";
-
-    return "🟢";
-  };
-
-  // =========================================
-  // PERCENTAGE
+  // PERCENT
   // =========================================
 
   const getPercent = (
@@ -108,28 +79,32 @@ function Result({
       100
 
     );
+
   };
 
   // =========================================
-  // IMAGE ANALYSIS
+  // STATUS CLASS
   // =========================================
 
-  const imageAnalysis =
-    fullResult?.image_analysis || {};
+  const getStatusClass = (status) => {
 
-  // =========================================
-  // SYMPTOM ANALYSIS
-  // =========================================
+    switch (status) {
 
-  const symptomAnalysis =
-    fullResult?.symptom_analysis || [];
+      case "Severe":
+        return "status-severe";
 
-  // =========================================
-  // SHAP
-  // =========================================
+      case "Moderate":
+        return "status-moderate";
 
-  const shapExplanations =
-    fullResult?.shap_explanations || {};
+      case "Mild":
+        return "status-mild";
+
+      default:
+        return "status-normal";
+
+    }
+
+  };
 
   // =========================================
   // UI
@@ -139,44 +114,43 @@ function Result({
 
     <div className="result-page">
 
-      <div className="result-container">
+      <div className="report-container">
 
         {/* ========================================= */}
         {/* HEADER */}
         {/* ========================================= */}
 
-        <div className="result-header">
+        <div className="report-header">
 
           <h1>
 
-            📊 AI Nutritional Analysis
+            Nutritional Deficiency Analysis Report
 
           </h1>
 
           <p>
 
-            Personalized Nutrient
-            Deficiency Report
+            Personalized Nutrient Assessment
 
           </p>
 
         </div>
 
         {/* ========================================= */}
-        {/* RISK SUMMARY */}
+        {/* RISK SCORE */}
         {/* ========================================= */}
 
-        <div className="risk-summary-card">
+        <div className="report-section">
 
           <h2>
 
-            🚨 AI Risk Assessment
+            Risk Assessment
 
           </h2>
 
-          <div className="risk-summary-grid">
+          <div className="summary-grid">
 
-            <div className="risk-box">
+            <div className="summary-box">
 
               <h3>
 
@@ -186,19 +160,13 @@ function Result({
 
               <p>
 
-                {
-
-                  fullResult?.risk_score || 0
-
-                }
-
-                /100
+                {riskScore.toFixed(1)}/100
 
               </p>
 
             </div>
 
-            <div className="risk-box">
+            <div className="summary-box">
 
               <h3>
 
@@ -212,7 +180,49 @@ function Result({
 
                   fullResult?.risk_level ||
 
-                  "Low Risk"
+                  "Low"
+
+                }
+
+              </p>
+
+            </div>
+
+            <div className="summary-box">
+
+              <h3>
+
+                Previous Risk
+
+              </h3>
+
+              <p>
+
+                {
+
+                  fullResult?.previous_risk_score || 0
+
+                }/100
+
+              </p>
+
+            </div>
+
+            <div className="summary-box">
+
+              <h3>
+
+                Health Trend
+
+              </h3>
+
+              <p>
+
+                {
+
+                  fullResult?.trend_message ||
+
+                  "No Trend"
 
                 }
 
@@ -225,164 +235,244 @@ function Result({
         </div>
 
         {/* ========================================= */}
-        {/* CHART */}
+        {/* DEFICIENCY RESULTS */}
         {/* ========================================= */}
 
-        {nutrients && rda && (
-
-          <div className="chart-wrapper">
-
-            <NutrientChart
-
-              nutrients={nutrients}
-
-              rda={rda}
-
-            />
-
-          </div>
-
-        )}
-
-        {/* ========================================= */}
-        {/* IMAGE ANALYSIS */}
-        {/* ========================================= */}
-
-        <div className="image-analysis-card">
+        <div className="report-section">
 
           <h2>
 
-            🧠 Medical Image Analysis
+            Deficiency Results
 
           </h2>
 
-          <div className="image-analysis-grid">
+          <div className="deficiency-grid">
 
-            {/* EYE */}
+            {
 
-            <div className="analysis-box">
+              Object.entries(result).map(
 
-              <h3>
+                ([key, val]) => {
 
-                👁 Eye Analysis
+                  const rec =
+                    recommendations?.[key];
 
-              </h3>
+                  const value =
+                    nutrients?.[key];
 
-              <p>
+                  const required =
+                    rda?.[key];
 
-                {
+                  const percent =
+                    getPercent(
+                      value,
+                      required
+                    );
 
-                  imageAnalysis.eye_analysis ||
+                  return (
 
-                  "No Eye Analysis"
+                    <div
+
+                      key={key}
+
+                      className="deficiency-card"
+
+                    >
+
+                      <div className="deficiency-top">
+
+                        <h3>
+
+                          {key}
+
+                        </h3>
+
+                        <span
+
+                          className={`status-badge ${getStatusClass(val)}`}
+
+                        >
+
+                          {val}
+
+                        </span>
+
+                      </div>
+
+                      {
+
+                        value !== undefined &&
+                        required !== undefined && (
+
+                          <div className="nutrient-data">
+
+                            <p>
+
+                              Current:
+                              {" "}
+                              <strong>
+
+                                {value}
+
+                              </strong>
+
+                            </p>
+
+                            <p>
+
+                              Required:
+                              {" "}
+                              <strong>
+
+                                {required}
+
+                              </strong>
+
+                            </p>
+
+                            <p>
+
+                              {percent.toFixed(1)}%
+                              {" "}
+                              of Daily Requirement
+
+                            </p>
+
+                            <div className="progress-bar">
+
+                              <div
+
+                                className="progress-fill"
+
+                                style={{
+
+                                  width:
+                                  `${percent}%`
+
+                                }}
+
+                              ></div>
+
+                            </div>
+
+                          </div>
+
+                        )
+
+                      }
+
+                      {
+
+                        val !== "Normal" &&
+                        rec &&
+                        Array.isArray(rec.foods) &&
+                        rec.foods.length > 0 && (
+
+                          <div className="food-section">
+
+                            <h4>
+
+                              Recommended Foods
+
+                            </h4>
+
+                            <div className="food-list">
+
+                              {
+
+                                rec.foods.map(
+
+                                  (
+                                    food,
+                                    i
+                                  ) => (
+
+                                    <span
+
+                                      className="food-chip"
+
+                                      key={i}
+
+                                    >
+
+                                      {food}
+
+                                    </span>
+
+                                  )
+
+                                )
+
+                              }
+
+                            </div>
+
+                          </div>
+
+                        )
+
+                      }
+
+                    </div>
+
+                  );
 
                 }
 
-              </p>
+              )
 
-            </div>
-
-            {/* NAIL */}
-
-            <div className="analysis-box">
-
-              <h3>
-
-                💅 Nail Analysis
-
-              </h3>
-
-              <p>
-
-                {
-
-                  imageAnalysis.nail_analysis ||
-
-                  "No Nail Analysis"
-
-                }
-
-              </p>
-
-            </div>
-
-            {/* TONGUE */}
-
-            <div className="analysis-box">
-
-              <h3>
-
-                👅 Tongue Analysis
-
-              </h3>
-
-              <p>
-
-                {
-
-                  imageAnalysis.tongue_analysis ||
-
-                  "No Tongue Analysis"
-
-                }
-
-              </p>
-
-            </div>
+            }
 
           </div>
 
         </div>
 
         {/* ========================================= */}
-        {/* SYMPTOM ANALYSIS */}
+        {/* EXPLAINABLE AI */}
         {/* ========================================= */}
 
         {
 
-          symptomAnalysis.length > 0 && (
+          fullResult?.shap_explanations && (
 
-            <div className="symptom-result-card">
+            <div className="report-section">
 
               <h2>
 
-                🩺 Symptom Questionnaire Analysis
+                Explainable AI Analysis
 
               </h2>
 
-              <div className="symptom-grid">
+              <div className="deficiency-grid">
 
                 {
 
-                  symptomAnalysis.map(
+                  Object.entries(
 
-                    (
-                      item,
-                      index
-                    ) => (
+                    fullResult.shap_explanations
+
+                  ).map(
+
+                    ([nutrient, reasons]) => (
 
                       <div
-                        key={index}
-                        className="symptom-box"
+
+                        key={nutrient}
+
+                        className="deficiency-card"
+
                       >
 
                         <h3>
 
-                          {
-
-                            item.symptom
-                            .replaceAll(
-                              "_",
-                              " "
-                            )
-
-                          }
+                          {nutrient}
 
                         </h3>
 
                         <p>
 
-                          Possible Deficiencies:
+                          AI detected this
+                          deficiency based on:
 
                         </p>
 
@@ -390,18 +480,26 @@ function Result({
 
                           {
 
-                            item
-                            .possible_deficiencies
-                            .map(
+                            reasons.map(
 
-                              (
-                                d,
-                                i
-                              ) => (
+                              (item, i) => (
 
                                 <li key={i}>
 
-                                  {d}
+                                  {
+
+                                    item.feature
+
+                                  }
+
+                                  :
+                                  {" "}
+
+                                  {
+
+                                    item.value
+
+                                  }
 
                                 </li>
 
@@ -430,335 +528,7 @@ function Result({
         }
 
         {/* ========================================= */}
-        {/* EXPLAINABLE AI */}
-        {/* ========================================= */}
-
-        <div className="shap-section-main">
-
-          <h2>
-
-            🤖 Explainable AI Insights
-
-          </h2>
-
-          <div className="shap-grid">
-
-            {
-
-              Object.entries(
-                shapExplanations
-              ).map(
-
-                (
-                  [nutrient, features],
-                  index
-                ) => (
-
-                  <div
-                    key={index}
-                    className="shap-box"
-                  >
-
-                    <h3>
-
-                      {nutrient}
-
-                    </h3>
-
-                    {
-
-                      features.length > 0 ? (
-
-                        <ul>
-
-                          {
-
-                            features.map(
-
-                              (
-                                feature,
-                                idx
-                              ) => (
-
-                                <li key={idx}>
-
-                                  {feature}
-
-                                </li>
-
-                              )
-
-                            )
-
-                          }
-
-                        </ul>
-
-                      ) : (
-
-                        <p>
-
-                          No SHAP explanation available
-
-                        </p>
-
-                      )
-
-                    }
-
-                  </div>
-
-                )
-
-              )
-
-            }
-
-          </div>
-
-        </div>
-
-        {/* ========================================= */}
-        {/* RESULT GRID */}
-        {/* ========================================= */}
-
-        <div className="result-grid">
-
-          {Object.entries(result).map(
-
-            ([key, val]) => {
-
-              const rec =
-                recommendations?.[key];
-
-              const value =
-                nutrients?.[key];
-
-              const required =
-                rda?.[key];
-
-              const percent =
-                getPercent(
-                  value,
-                  required
-                );
-
-              return (
-
-                <div
-
-                  className="result-card"
-
-                  key={key}
-
-                >
-
-                  {/* ========================================= */}
-                  {/* CARD TOP */}
-                  {/* ========================================= */}
-
-                  <div className="card-top">
-
-                    <h2>
-
-                      {key}
-
-                    </h2>
-
-                    <div
-
-                      className={`status-badge ${getStatusClass(val)}`}
-
-                    >
-
-                      {getIcon(val)}
-                      {" "}
-                      {val}
-
-                    </div>
-
-                  </div>
-
-                  {/* ========================================= */}
-                  {/* NUTRIENT INFO */}
-                  {/* ========================================= */}
-
-                  {value !== undefined &&
-                    required !== undefined && (
-
-                    <div className="nutrient-section">
-
-                      <div className="nutrient-values">
-
-                        <span>
-
-                          Current:
-
-                          <strong>
-
-                            {" "}
-                            {value}
-
-                          </strong>
-
-                        </span>
-
-                        <span>
-
-                          Required:
-
-                          <strong>
-
-                            {" "}
-                            {required}
-
-                          </strong>
-
-                        </span>
-
-                      </div>
-
-                      <p className="percent-text">
-
-                        {percent.toFixed(1)}%
-
-                        {" "}
-
-                        of Daily Requirement
-
-                      </p>
-
-                      {/* ========================================= */}
-                      {/* PROGRESS BAR */}
-                      {/* ========================================= */}
-
-                      <div className="progress-bar">
-
-                        <div
-
-                          className="progress-fill"
-
-                          style={{
-
-                            width:
-                            `${percent}%`
-
-                          }}
-
-                        ></div>
-
-                      </div>
-
-                    </div>
-
-                  )}
-
-                  {/* ========================================= */}
-                  {/* RECOMMENDED FOODS */}
-                  {/* ========================================= */}
-
-                  {val !== "Normal" &&
-                    rec &&
-                    Array.isArray(rec.foods) &&
-                    rec.foods.length > 0 && (
-
-                    <div className="recommend-box">
-
-                      <h3 className="section-title">
-
-                        🍎 Recommended Foods
-
-                      </h3>
-
-                      <div className="food-list">
-
-                        {rec.foods.map(
-
-                          (
-                            food,
-                            i
-
-                          ) => (
-
-                            <span
-
-                              className="food-chip"
-
-                              key={i}
-
-                            >
-
-                              {food}
-
-                            </span>
-
-                          )
-
-                        )}
-
-                      </div>
-
-                    </div>
-
-                  )}
-
-                </div>
-
-              );
-            }
-
-          )}
-
-        </div>
-
-        {/* ========================================= */}
-        {/* CONTINUOUS MONITORING */}
-        {/* ========================================= */}
-
-        <div className="monitor-card">
-
-          <h2>
-
-            📈 Continuous Health Monitoring
-
-          </h2>
-
-          <p>
-
-            Historical nutritional
-            records are stored for
-            long-term monitoring,
-            adaptive recovery tracking,
-            and future comparison.
-
-          </p>
-
-          <div className="monitor-grid">
-
-            <div className="monitor-box">
-
-              ✅ Longitudinal Tracking
-
-            </div>
-
-            <div className="monitor-box">
-
-              ✅ Personalized Recovery
-
-            </div>
-
-            <div className="monitor-box">
-
-              ✅ Historical AI Monitoring
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* ========================================= */}
-        {/* REPORT BUTTONS */}
+        {/* BUTTONS */}
         {/* ========================================= */}
 
         <div className="report-buttons">
@@ -773,7 +543,7 @@ function Result({
 
           >
 
-            View Full AI Report
+            View Full Report
 
           </button>
 
@@ -810,6 +580,7 @@ function Result({
     </div>
 
   );
+
 }
 
 export default Result;
