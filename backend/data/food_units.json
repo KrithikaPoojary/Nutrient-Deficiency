@@ -1,0 +1,110 @@
+{
+  "rice": {
+    "bowl": {
+      "grams": 150,
+      "multiplier": 1.5
+    },
+    "plate": {
+      "grams": 250,
+      "multiplier": 2.5
+    },
+    "cup": {
+      "grams": 130,
+      "multiplier": 1.3
+    }
+  },
+
+  "pizza": {
+    "slice": {
+      "grams": 120,
+      "multiplier": 1.2
+    },
+    "whole": {
+      "grams": 900,
+      "multiplier": 9
+    }
+  },
+
+  "burger": {
+    "piece": {
+      "grams": 180,
+      "multiplier": 1.8
+    }
+  },
+
+  "egg": {
+    "piece": {
+      "grams": 50,
+      "multiplier": 0.5
+    }
+  },
+
+  "milk": {
+    "ml": {
+      "grams": 1,
+      "multiplier": 0.01
+    },
+    "glass": {
+      "grams": 250,
+      "multiplier": 2.5
+    },
+    "cup": {
+      "grams": 240,
+      "multiplier": 2.4
+    }
+  },
+
+  "maggi": {
+    "packet": {
+      "grams": 70,
+      "multiplier": 0.7
+    }
+  },
+
+  "tea": {
+    "cup": {
+      "grams": 150,
+      "multiplier": 1.5
+    },
+    "glass": {
+      "grams": 250,
+      "multiplier": 2.5
+    }
+  },
+
+  "coke": {
+    "can": {
+      "grams": 330,
+      "multiplier": 3.3
+    },
+    "ml": {
+      "grams": 1,
+      "multiplier": 0.01
+    }
+  },
+
+  "fries": {
+    "packet": {
+      "grams": 100,
+      "multiplier": 1
+    },
+    "plate": {
+      "grams": 250,
+      "multiplier": 2.5
+    }
+  },
+
+  "apple": {
+    "piece": {
+      "grams": 180,
+      "multiplier": 1.8
+    }
+  },
+
+  "banana": {
+    "piece": {
+      "grams": 120,
+      "multiplier": 1.2
+    }
+  }
+}
