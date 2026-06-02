@@ -1,22 +1,18 @@
 import React, {
-
   useState,
   useEffect
-
 } from "react";
 
 import {
-
   useNavigate
-
 } from "react-router-dom";
 
 import {
-
   predict,
   getSuggestions
-
 } from "../api";
+
+import "./Form.css";
 
 function Form({
 
@@ -30,17 +26,25 @@ function Form({
   const navigate = useNavigate();
 
   // =====================================
+  // STEP
+  // =====================================
+
+  const [step, setStep] =
+    useState(1);
+
+  // =====================================
   // USER DETAILS
   // =====================================
 
-  const [data, setData] = useState({
+  const [data, setData] =
+    useState({
 
-    height_cm: "",
-    weight: "",
-    bmi: "",
-    conditions: ""
+      height_cm: "",
+      weight: "",
+      bmi: "",
+      conditions: ""
 
-  });
+    });
 
   // =====================================
   // SYMPTOMS
@@ -49,8 +53,12 @@ function Form({
   const [symptoms, setSymptoms] =
     useState([]);
 
+  const [otherSymptoms,
+    setOtherSymptoms] =
+    useState("");
+
   // =====================================
-  // IMAGE UPLOADS
+  // IMAGES
   // =====================================
 
   const [images, setImages] =
@@ -63,16 +71,24 @@ function Form({
     });
 
   // =====================================
-  // FOOD MEALS
+  // FOOD
   // =====================================
+
+  const defaultFood = {
+
+    name: "",
+    qty: "",
+    unit: ""
+
+  };
 
   const [meals, setMeals] =
     useState({
 
-      morning: [""],
-      afternoon: [""],
-      evening: [""],
-      night: [""]
+      morning: [{ ...defaultFood }],
+      afternoon: [{ ...defaultFood }],
+      evening: [{ ...defaultFood }],
+      night: [{ ...defaultFood }]
 
     });
 
@@ -80,11 +96,70 @@ function Form({
   // SUGGESTIONS
   // =====================================
 
-  const [suggestions, setSuggestions] =
+  const [suggestions,
+    setSuggestions] =
     useState({});
 
   // =====================================
-  // BMI AUTO CALCULATION
+  // FOOD UNITS
+  // =====================================
+
+  const foodUnits = [
+
+    {
+      value: "piece",
+      label: "Piece"
+    },
+
+    {
+      value: "bowl",
+      label: "Bowl"
+    },
+
+    {
+      value: "cup",
+      label: "Cup"
+    },
+
+    {
+      value: "glass",
+      label: "Glass"
+    },
+
+    {
+      value: "slice",
+      label: "Slice"
+    },
+
+    {
+      value: "plate",
+      label: "Plate"
+    },
+
+    {
+      value: "ml",
+      label: "ML"
+    },
+
+    {
+      value: "gram",
+      label: "Gram"
+    },
+
+    {
+      value: "packet",
+      label: "Packet"
+    },
+
+    {
+      value: "can",
+      label: "Can"
+    }
+
+  ];
+
+  // =====================================
+  // BMI
   // =====================================
 
   useEffect(() => {
@@ -114,7 +189,6 @@ function Form({
         setData(prev => ({
 
           ...prev,
-
           bmi
 
         }));
@@ -131,135 +205,122 @@ function Form({
   ]);
 
   // =====================================
-  // HANDLE SYMPTOMS
+  // SYMPTOMS
   // =====================================
 
-  const handleSymptomChange = (
-    symptom
-  ) => {
+  const handleSymptomChange =
+    (symptom) => {
 
-    if (
-      symptoms.includes(symptom)
-    ) {
+      if (
+        symptoms.includes(symptom)
+      ) {
 
-      setSymptoms(
+        setSymptoms(
 
-        symptoms.filter(
+          symptoms.filter(
 
-          item =>
-            item !== symptom
+            item =>
+              item !== symptom
 
-        )
+          )
 
-      );
+        );
 
-    }
+      }
 
-    else {
+      else {
 
-      setSymptoms([
+        setSymptoms([
 
-        ...symptoms,
-        symptom
+          ...symptoms,
+          symptom
 
-      ]);
+        ]);
 
-    }
-
-  };
-
-  // =====================================
-  // GET LAST WORD
-  // =====================================
-
-  const getLastWord = (value) => {
-
-    const parts =
-      value.split(",");
-
-    return parts[
-      parts.length - 1
-    ].trim();
-
-  };
-
-  // =====================================
-  // FOOD INPUT
-  // =====================================
-
-  const handleMealChange = async (
-
-    mealType,
-    index,
-    value
-
-  ) => {
-
-    const updated = {
-
-      ...meals
+      }
 
     };
 
-    updated[
-      mealType
-    ][index] = value;
+  // =====================================
+  // FOOD CHANGE
+  // =====================================
 
-    setMeals(updated);
+  const handleFoodChange =
+    async (
 
-    const key =
-      `${mealType}-${index}`;
+      mealType,
+      index,
+      field,
+      value
 
-    const lastWord =
-      getLastWord(value);
+    ) => {
 
-    if (lastWord.length > 1) {
+      const updated = {
+        ...meals
+      };
 
-      try {
+      updated[
+        mealType
+      ][index][field] = value;
 
-        const res =
-          await getSuggestions(
-            lastWord
-          );
+      setMeals(updated);
 
-        setSuggestions(prev => ({
+      // SUGGESTIONS
 
-          ...prev,
+      if (field === "name") {
 
-          [key]:
+        const key =
+          `${mealType}-${index}`;
 
-            Array.isArray(res)
-              ? res
-              : []
+        if (value.length > 1) {
 
-        }));
+          try {
+
+            const res =
+              await getSuggestions(
+                value
+              );
+
+            setSuggestions(prev => ({
+
+              ...prev,
+
+              [key]:
+
+                Array.isArray(res)
+                  ? res
+                  : []
+
+            }));
+
+          }
+
+          catch (err) {
+
+            console.error(err);
+
+          }
+
+        }
+
+        else {
+
+          setSuggestions(prev => ({
+
+            ...prev,
+
+            [key]: []
+
+          }));
+
+        }
 
       }
 
-      catch (err) {
-
-        console.error(err);
-
-      }
-
-    }
-
-    else {
-
-      setSuggestions(prev => ({
-
-        ...prev,
-
-        [key]: []
-
-      }));
-
-    }
-
-  };
+    };
 
   // =====================================
-  // SELECT SUGGESTION
+  // SELECT FOOD
   // =====================================
 
   const selectSuggestion = (
@@ -273,28 +334,13 @@ function Form({
     const key =
       `${mealType}-${index}`;
 
-    const current =
-      meals[mealType][index];
-
-    const parts =
-      current.split(",");
-
-    parts[
-      parts.length - 1
-    ] = " " + selected;
-
-    const updatedValue =
-      parts.join(",");
-
     const updated = {
-
       ...meals
-
     };
 
     updated[
       mealType
-    ][index] = updatedValue;
+    ][index].name = selected;
 
     setMeals(updated);
 
@@ -309,32 +355,32 @@ function Form({
   };
 
   // =====================================
-  // ADD FOOD FIELD
+  // ADD FOOD
   // =====================================
 
-  const addMealField = (
+  const addMealField =
+    (mealType) => {
 
-    mealType
+      setMeals({
 
-  ) => {
+        ...meals,
 
-    setMeals({
+        [mealType]: [
 
-      ...meals,
+          ...meals[mealType],
 
-      [mealType]: [
+          {
+            ...defaultFood
+          }
 
-        ...meals[mealType],
-        ""
+        ]
 
-      ]
+      });
 
-    });
-
-  };
+    };
 
   // =====================================
-  // REMOVE FOOD FIELD
+  // REMOVE FOOD
   // =====================================
 
   const removeMealField = (
@@ -366,49 +412,39 @@ function Form({
   // PARSE FOOD
   // =====================================
 
-  const parseFood = (input) => {
+  const parseFood = (food) => {
 
-    if (!input) return [];
+    if (
 
-    return input
+      !food.name ||
+      !food.qty ||
+      !food.unit
 
-      .toLowerCase()
+    ) {
 
-      .replace(/\(.*?\)/g, "")
+      return null;
 
-      .replace(
+    }
 
-        /[^a-z0-9,\- ]/g,
-        ""
+    return {
 
-      )
+      name:
+        food.name
+          .trim()
+          .toLowerCase(),
 
-      .split(",")
+      qty:
+        Number(food.qty),
 
-      .map(item => {
+      unit:
+        food.unit
 
-        const parts =
-
-          item.trim().split("-");
-
-        return {
-
-          name:
-            parts[0]?.trim(),
-
-          qty:
-            Number(parts[1]) || 1
-
-        };
-
-      })
-
-      .filter(f => f.name);
+    };
 
   };
 
   // =====================================
-  // IMAGE CHANGE
+  // IMAGE
   // =====================================
 
   const handleImageUpload = (
@@ -432,725 +468,739 @@ function Form({
   // SUBMIT
   // =====================================
 
-  const handleSubmit = async () => {
+  const handleSubmit =
+    async () => {
 
-    if (!user) {
+      if (!user) {
 
-      return alert(
-        "Login required ❌"
-      );
+        return alert(
+          "Login required"
+        );
 
-    }
+      }
 
-    if (
+      const allFoods = [
 
-      !data.weight ||
-      !data.height_cm
+        ...meals.morning
+          .map(parseFood),
 
-    ) {
+        ...meals.afternoon
+          .map(parseFood),
 
-      return alert(
-        "Enter weight & height ❌"
-      );
+        ...meals.evening
+          .map(parseFood),
 
-    }
+        ...meals.night
+          .map(parseFood)
 
-    // =====================================
-    // PARSE ALL FOODS
-    // =====================================
+      ].filter(Boolean);
 
-    const allFoods = [
+      const allSymptoms = [
 
-      ...meals.morning.flatMap(
-        parseFood
-      ),
+        ...symptoms,
 
-      ...meals.afternoon.flatMap(
-        parseFood
-      ),
+        ...otherSymptoms
+          .split(",")
+          .map(s => s.trim())
+          .filter(Boolean)
 
-      ...meals.evening.flatMap(
-        parseFood
-      ),
+      ];
 
-      ...meals.night.flatMap(
-        parseFood
-      )
-
-    ];
-
-    if (allFoods.length === 0) {
-
-      return alert(
-        "Enter valid food ❌"
-      );
-
-    }
-
-    // =====================================
-    // CREATE FORMDATA
-    // =====================================
-
-    const formData = new FormData();
-
-    formData.append(
-      "user_id",
-      user.id
-    );
-
-    formData.append(
-      "age",
-      user.age
-    );
-
-    formData.append(
-      "gender",
-      user.gender || 1
-    );
-
-    formData.append(
-      "bmi",
-      Number(data.bmi) || 22
-    );
-
-    formData.append(
-
-      "foods",
-
-      JSON.stringify(allFoods)
-
-    );
-
-    formData.append(
-
-      "conditions",
-
-      JSON.stringify(
-
-        data.conditions
-
-          ? data.conditions
-
-              .split(",")
-
-              .map(c =>
-
-                c.trim()
-                 .toLowerCase()
-
-              )
-
-          : []
-
-      )
-
-    );
-
-    // =====================================
-    // SYMPTOMS
-    // =====================================
-
-    formData.append(
-
-      "symptoms",
-
-      JSON.stringify(symptoms)
-
-    );
-
-    // =====================================
-    // IMAGE FILES
-    // =====================================
-
-    if (images.eye) {
+      const formData =
+        new FormData();
 
       formData.append(
-        "eye",
-        images.eye
+        "user_id",
+        user.id
       );
-
-    }
-
-    if (images.nail) {
 
       formData.append(
-        "nail",
-        images.nail
+        "age",
+        user.age
       );
-
-    }
-
-    if (images.tongue) {
 
       formData.append(
-        "tongue",
-        images.tongue
+        "gender",
+        user.gender || 1
       );
 
-    }
-
-    try {
-
-      const res =
-        await predict(formData);
-
-      // =====================================
-      // SAVE RESULT
-      // =====================================
-
-      setResult(
-        res.results
+      formData.append(
+        "bmi",
+        Number(data.bmi) || 22
       );
 
-      setRecommendations(
-        res.recommendations
+      formData.append(
+
+        "foods",
+
+        JSON.stringify(allFoods)
+
       );
 
-      setFullResult(res);
+      formData.append(
 
-      // =====================================
-      // NAVIGATE
-      // =====================================
+        "conditions",
 
-      navigate("/result");
+        JSON.stringify(
 
-    }
+          data.conditions
 
-    catch (err) {
+            ? data.conditions
+                .split(",")
+                .map(c =>
 
-      console.error(err);
+                  c.trim()
+                   .toLowerCase()
 
-      alert(
-        "Prediction failed ❌"
+                )
+
+            : []
+
+        )
+
       );
 
-    }
+      formData.append(
 
-  };
+        "symptoms",
 
-  // =====================================
-  // UI
-  // =====================================
+        JSON.stringify(
+          allSymptoms
+        )
+
+      );
+
+      if (images.eye) {
+
+        formData.append(
+          "eye",
+          images.eye
+        );
+
+      }
+
+      if (images.nail) {
+
+        formData.append(
+          "nail",
+          images.nail
+        );
+
+      }
+
+      if (images.tongue) {
+
+        formData.append(
+          "tongue",
+          images.tongue
+        );
+
+      }
+
+      try {
+
+        const res =
+          await predict(formData);
+
+        setResult(
+          res.results
+        );
+
+        setRecommendations(
+          res.recommendations
+        );
+
+        setFullResult(res);
+
+        navigate("/result");
+
+      }
+
+      catch (err) {
+
+        console.error(err);
+
+        alert(
+          "Prediction failed"
+        );
+
+      }
+
+    };
 
   return (
 
     <div className="card">
 
-      {/* TITLE */}
-
-      <h2>
-
-        Enter Details
-
-      </h2>
-
-      {/* ===================================== */}
-      {/* USER DETAILS */}
-      {/* ===================================== */}
-
-      <div className="form-grid">
-
-        <input
-
-          placeholder="Weight (kg)"
-
-          value={data.weight}
-
-          onChange={(e) =>
-
-            setData({
-
-              ...data,
-
-              weight:
-                e.target.value
-
-            })
-
-          }
-
-        />
-
-        <input
-
-          placeholder="Height (cm)"
-
-          value={data.height_cm}
-
-          onChange={(e) =>
-
-            setData({
-
-              ...data,
-
-              height_cm:
-                e.target.value
-
-            })
-
-          }
-
-        />
-
-        <input
-
-          placeholder="Health Conditions"
-
-          value={data.conditions}
-
-          onChange={(e) =>
-
-            setData({
-
-              ...data,
-
-              conditions:
-                e.target.value
-
-            })
-
-          }
-
-        />
-
-        <div className="bmi-box">
-
-          BMI:
-          {" "}
-
-          {
-            data.bmi ||
-            "Calculating..."
-          }
-
-        </div>
-
-      </div>
-
-      {/* ===================================== */}
-      {/* SYMPTOM QUESTIONNAIRE */}
-      {/* ===================================== */}
-
-      <div className="image-section">
-
-        <h3>
-
-          🩺 Symptom Questionnaire
-
-        </h3>
-
-        <div className="symptom-grid">
-
-          {
-
-            [
-
-              {
-                label:
-                "Hair Fall",
-
-                value:
-                "hair_fall"
-              },
-
-              {
-                label:
-                "Fatigue",
-
-                value:
-                "fatigue"
-              },
-
-              {
-                label:
-                "Weak Nails",
-
-                value:
-                "weak_nails"
-              },
-
-              {
-                label:
-                "Dry Skin",
-
-                value:
-                "dry_skin"
-              },
-
-              {
-                label:
-                "Dizziness",
-
-                value:
-                "dizziness"
-              }
-
-            ].map((item) => (
-
-              <label
-                key={item.value}
-                className="symptom-item"
-              >
-
-                <input
-
-                  type="checkbox"
-
-                  checked={
-
-                    symptoms.includes(
-                      item.value
-                    )
-
-                  }
-
-                  onChange={() =>
-
-                    handleSymptomChange(
-                      item.value
-                    )
-
-                  }
-
-                />
-
-                {item.label}
-
-              </label>
-
-            ))
-
-          }
-
-        </div>
-
-      </div>
-
-      {/* ===================================== */}
-      {/* IMAGE SECTION */}
-      {/* ===================================== */}
-
-      <div className="image-section">
-
-        <h3>
-
-          Medical Image Analysis
-
-        </h3>
-
-        <div className="image-upload-grid">
-
-          {/* EYE */}
-
-          <div className="upload-box">
-
-            <label>
-
-              Upload Eye Image
-
-            </label>
-
-            <input
-
-              type="file"
-
-              accept="image/*"
-
-              onChange={(e) =>
-
-                handleImageUpload(
-
-                  "eye",
-
-                  e.target.files[0]
-
-                )
-
-              }
-
-            />
-
-          </div>
-
-          {/* NAIL */}
-
-          <div className="upload-box">
-
-            <label>
-
-              Upload Nail Image
-
-            </label>
-
-            <input
-
-              type="file"
-
-              accept="image/*"
-
-              onChange={(e) =>
-
-                handleImageUpload(
-
-                  "nail",
-
-                  e.target.files[0]
-
-                )
-
-              }
-
-            />
-
-          </div>
-
-          {/* TONGUE */}
-
-          <div className="upload-box">
-
-            <label>
-
-              Upload Tongue Image
-
-            </label>
-
-            <input
-
-              type="file"
-
-              accept="image/*"
-
-              onChange={(e) =>
-
-                handleImageUpload(
-
-                  "tongue",
-
-                  e.target.files[0]
-
-                )
-
-              }
-
-            />
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* ===================================== */}
-      {/* FOOD SECTION */}
-      {/* ===================================== */}
-
-      <h3 className="food-title">
-
-        Food Intake Tracking
-
-      </h3>
+      {/* STEP 1 */}
 
       {
 
-        [
+        step === 1 && (
 
-          "morning",
-          "afternoon",
-          "evening",
-          "night"
+          <>
 
-        ].map((mealType) => (
+            <div className="step-title">
 
-          <div
+              Step 1 of 3
 
-            key={mealType}
+            </div>
 
-            className="meal-card"
+            <h2>
 
-          >
+              Enter Details
 
-            <h4>
+            </h2>
+
+            <div className="form-grid">
+
+              <input
+
+                placeholder="Weight (kg)"
+
+                value={data.weight}
+
+                onChange={(e) =>
+
+                  setData({
+
+                    ...data,
+
+                    weight:
+                      e.target.value
+
+                  })
+
+                }
+
+              />
+
+              <input
+
+                placeholder="Height (cm)"
+
+                value={data.height_cm}
+
+                onChange={(e) =>
+
+                  setData({
+
+                    ...data,
+
+                    height_cm:
+                      e.target.value
+
+                  })
+
+                }
+
+              />
+
+              <input
+
+                placeholder="Health Conditions"
+
+                value={data.conditions}
+
+                onChange={(e) =>
+
+                  setData({
+
+                    ...data,
+
+                    conditions:
+                      e.target.value
+
+                  })
+
+                }
+
+              />
+
+              <div className="bmi-box">
+
+                BMI:
+                {" "}
+
+                {
+
+                  data.bmi ||
+                  "Calculating..."
+
+                }
+
+              </div>
+
+            </div>
+
+            <button
+
+              className="next-btn"
+
+              onClick={() =>
+                setStep(2)
+              }
+
+            >
+
+              Next
+
+            </button>
+
+          </>
+
+        )
+
+      }
+
+      {/* STEP 2 */}
+
+      {
+
+        step === 2 && (
+
+          <>
+
+            <div className="step-title">
+
+              Step 2 of 3
+
+            </div>
+
+            <h2>
+
+              Upload Images
+
+            </h2>
+
+            <div className="image-upload-grid">
 
               {
 
-                mealType.charAt(0)
-                .toUpperCase()
+                [
 
-                +
+                  "eye",
+                  "nail",
+                  "tongue"
 
-                mealType.slice(1)
+                ].map((type) => (
 
-              }
+                  <div
+                    key={type}
+                    className="upload-box"
+                  >
 
-            </h4>
-
-            {
-
-              meals[mealType].map(
-
-                (item, index) => {
-
-                  const key =
-
-                    `${mealType}-${index}`;
-
-                  return (
-
-                    <div
-
-                      key={index}
-
-                      className="row"
-
-                      style={{
-                        position:
-                        "relative"
-                      }}
-
-                    >
-
-                      <input
-
-                        value={item}
-
-                        placeholder="rice-2,egg-1"
-
-                        onChange={(e) =>
-
-                          handleMealChange(
-
-                            mealType,
-                            index,
-                            e.target.value
-
-                          )
-
-                        }
-
-                      />
-
-                      <button
-
-                        type="button"
-
-                        className="remove-btn"
-
-                        onClick={() =>
-
-                          removeMealField(
-
-                            mealType,
-                            index
-
-                          )
-
-                        }
-
-                      >
-
-                        ❌
-
-                      </button>
+                    <label>
 
                       {
 
-                        suggestions[key]
-                        ?.length > 0 && (
+                        type.charAt(0)
+                        .toUpperCase()
 
-                          <div className="dropdown">
+                        +
 
-                            {
+                        type.slice(1)
 
-                              suggestions[key]
-                              .map((s, i) => (
+                      }
 
-                                <div
+                      {" "}
+                      Image
 
-                                  key={i}
+                    </label>
 
-                                  className="dropdown-item"
+                    <input
 
-                                  onClick={() =>
+                      type="file"
 
-                                    selectSuggestion(
+                      accept="image/*"
 
-                                      mealType,
-                                      index,
-                                      s
+                      onChange={(e) =>
 
-                                    )
+                        handleImageUpload(
 
-                                  }
+                          type,
 
-                                >
-
-                                  {s}
-
-                                </div>
-
-                              ))
-
-                            }
-
-                          </div>
+                          e.target.files[0]
 
                         )
 
                       }
 
-                    </div>
+                    />
 
-                  );
+                  </div>
 
-                }
-
-              )
-
-            }
-
-            <button
-
-              type="button"
-
-              className="add-btn"
-
-              onClick={() =>
-
-                addMealField(
-                  mealType
-                )
+                ))
 
               }
 
-            >
+            </div>
 
-              ➕ Add Food
+            <div className="step-buttons">
 
-            </button>
+              <button
 
-          </div>
+                className="back-btn"
 
-        ))
+                onClick={() =>
+                  setStep(1)
+                }
+
+              >
+
+                Back
+
+              </button>
+
+              <button
+
+                className="next-btn"
+
+                onClick={() =>
+                  setStep(3)
+                }
+
+              >
+
+                Next
+
+              </button>
+
+            </div>
+
+          </>
+
+        )
 
       }
 
-      {/* ===================================== */}
-      {/* PREDICT */}
-      {/* ===================================== */}
+      {/* STEP 3 */}
 
-      <button
+      {
 
-        type="button"
+        step === 3 && (
 
-        className="predict-btn"
+          <>
 
-        onClick={handleSubmit}
+            <div className="step-title">
 
-      >
+              Step 3 of 3
 
-        Predict Nutritional Risk
+            </div>
 
-      </button>
+            <h2>
+
+              Food Intake Tracking
+
+            </h2>
+
+            {
+
+              [
+
+                "morning",
+                "afternoon",
+                "evening",
+                "night"
+
+              ].map((mealType) => (
+
+                <div
+                  key={mealType}
+                  className="meal-card"
+                >
+
+                  <h4>
+
+                    {
+
+                      mealType.charAt(0)
+                      .toUpperCase()
+
+                      +
+
+                      mealType.slice(1)
+
+                    }
+
+                  </h4>
+
+                  {
+
+                    meals[mealType].map(
+
+                      (
+                        item,
+                        index
+                      ) => {
+
+                        const key =
+
+                          `${mealType}-${index}`;
+
+                        return (
+
+                          <div
+                            key={index}
+                            className="food-row"
+                          >
+
+                            {/* FOOD */}
+
+                            <div className="food-input-box">
+
+                              <input
+
+                                value={item.name}
+
+                                placeholder="Search Food"
+
+                                onChange={(e) =>
+
+                                  handleFoodChange(
+
+                                    mealType,
+                                    index,
+                                    "name",
+                                    e.target.value
+
+                                  )
+
+                                }
+
+                              />
+
+                              {
+
+                                suggestions[key]
+                                ?.length > 0 && (
+
+                                  <div className="dropdown">
+
+                                    {
+
+                                      suggestions[key]
+                                      .map((s, i) => (
+
+                                        <div
+
+                                          key={i}
+
+                                          className="dropdown-item"
+
+                                          onClick={() =>
+
+                                            selectSuggestion(
+
+                                              mealType,
+                                              index,
+                                              s
+
+                                            )
+
+                                          }
+
+                                        >
+
+                                          {s}
+
+                                        </div>
+
+                                      ))
+
+                                    }
+
+                                  </div>
+
+                                )
+
+                              }
+
+                            </div>
+
+                            {/* QTY */}
+
+                            <input
+
+                              type="number"
+
+                              className="qty-input"
+
+                              min="1"
+
+                              placeholder="Qty"
+
+                              value={item.qty}
+
+                              onChange={(e) =>
+
+                                handleFoodChange(
+
+                                  mealType,
+                                  index,
+                                  "qty",
+                                  e.target.value
+
+                                )
+
+                              }
+
+                            />
+
+                            {/* UNIT */}
+
+                            <div className="unit-box">
+
+                              <select
+
+                                className="unit-select"
+
+                                value={item.unit}
+
+                                onChange={(e) =>
+
+                                  handleFoodChange(
+
+                                    mealType,
+                                    index,
+                                    "unit",
+                                    e.target.value
+
+                                  )
+
+                                }
+
+                              >
+
+                                <option value="">
+
+                                  Unit
+
+                                </option>
+
+                                {
+
+                                  foodUnits.map(
+
+                                    (unit) => (
+
+                                      <option
+                                        key={unit.value}
+                                        value={unit.value}
+                                      >
+
+                                        {unit.label}
+
+                                      </option>
+
+                                    )
+
+                                  )
+
+                                }
+
+                              </select>
+
+                            </div>
+
+                            {/* REMOVE */}
+
+                            <button
+
+                              type="button"
+
+                              className="remove-btn"
+
+                              onClick={() =>
+
+                                removeMealField(
+
+                                  mealType,
+                                  index
+
+                                )
+
+                              }
+
+                            >
+
+                              Remove
+
+                            </button>
+
+                          </div>
+
+                        );
+
+                      }
+
+                    )
+
+                  }
+
+                  <button
+
+                    type="button"
+
+                    className="add-btn"
+
+                    onClick={() =>
+
+                      addMealField(
+                        mealType
+                      )
+
+                    }
+
+                  >
+
+                    Add Food
+
+                  </button>
+
+                </div>
+
+              ))
+
+            }
+
+            <div className="step-buttons">
+
+              <button
+
+                className="back-btn"
+
+                onClick={() =>
+                  setStep(2)
+                }
+
+              >
+
+                Back
+
+              </button>
+
+              <button
+
+                type="button"
+
+                className="predict-btn"
+
+                onClick={handleSubmit}
+
+              >
+
+                Predict Nutritional Risk
+
+              </button>
+
+            </div>
+
+          </>
+
+        )
+
+      }
 
     </div>
 
