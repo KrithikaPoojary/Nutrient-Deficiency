@@ -249,7 +249,8 @@ function App() {
         {/* FULL REPORT */}
         {/* ===================================== */}
 
-        <Route
+            
+                  <Route
 
           path="/full-report"
 
@@ -257,7 +258,19 @@ function App() {
 
             user ? (
 
-              <FullReport />
+              <FullReport
+
+                result={result}
+
+                recommendations={
+                  recommendations
+                }
+
+                fullResult={
+                  fullResult
+                }
+
+              />
 
             ) : (
 
@@ -268,6 +281,7 @@ function App() {
           }
 
         />
+
 
         {/* ===================================== */}
         {/* MEAL PLAN */}
@@ -320,6 +334,7 @@ function App() {
             )
 
           }
+
 
         />
 
