@@ -40,10 +40,19 @@ CORS(app)
 def get_connection():
 
     return mysql.connector.connect(
-        host="localhost",
+
+        host="127.0.0.1",
+
         user="root",
+
         password="mite",
-        database="nutrition_tracker"
+
+        database="nutrition_tracker",
+
+        ssl_disabled=True,
+
+        auth_plugin='mysql_native_password'
+
     )
 
 conn = get_connection()
@@ -104,7 +113,7 @@ tongue_model = tf.saved_model.load(
 print("✅ CNN Models Loaded")
 
 # =========================================
-# IMAGE PREDICTION FUNCTION
+# IMAGE PREDICTION
 # =========================================
 
 def predict_image(model, image_file):
@@ -396,10 +405,6 @@ def predict():
             data.get("conditions", "[]")
         )
 
-        # =====================================
-        # SYMPTOMS
-        # =====================================
-
         symptoms = json.loads(
             data.get("symptoms", "[]")
         )
@@ -450,7 +455,7 @@ def predict():
         )
 
         # =====================================
-        # CREATE INPUT
+        # PREPARE INPUT
         # =====================================
 
         input_df = prepare_input(
@@ -494,7 +499,7 @@ def predict():
         }
 
         # =====================================
-        # PREDICTIONS + SHAP
+        # PREDICTIONS
         # =====================================
 
         results = {}
@@ -536,10 +541,6 @@ def predict():
             results[
                 nutrient_name
             ] = status
-
-            # =====================================
-            # SHAP
-            # =====================================
 
             try:
 
@@ -595,65 +596,44 @@ def predict():
             )
 
         # =====================================
-        # SMART IMAGE ANALYSIS
+        # CLEAN IMAGE ANALYSIS
         # =====================================
 
         if eye_score >= 80:
 
-            eye_result = (
-                f"High Anemia Risk → "
-                f"{eye_score}%"
-            )
+            eye_result = "Possible Anemia Detected"
 
         elif eye_score >= 50:
 
-            eye_result = (
-                f"Moderate Anemia Risk → "
-                f"{eye_score}%"
-            )
+            eye_result = "Mild Eye Deficiency Signs"
 
         else:
 
-            eye_result = (
-                f"Normal Eye Condition → "
-                f"{eye_score}%"
-            )
+            eye_result = "Normal"
 
         if nail_score >= 80:
 
-            nail_result = (
-                "Koilonychia Signs Detected"
-            )
+            nail_result = "Nail Deficiency Signs Detected"
 
         elif nail_score >= 50:
 
-            nail_result = (
-                "Possible Nail Deficiency"
-            )
+            nail_result = "Mild Nail Abnormality"
 
         else:
 
-            nail_result = (
-                "Normal Nail Condition"
-            )
+            nail_result = "Normal"
 
         if tongue_score >= 80:
 
-            tongue_result = (
-                "Vitamin Deficiency Indicators Found"
-            )
+            tongue_result = "Tongue Deficiency Signs Detected"
 
         elif tongue_score >= 50:
 
-            tongue_result = (
-                "Possible Tongue Abnormality"
-            )
+            tongue_result = "Mild Tongue Abnormality"
 
         else:
 
-            tongue_result = (
-                "Normal Tongue Condition"
-            )
+            tongue_result = "Normal"
 
         image_analysis = {
 
@@ -725,7 +705,48 @@ def predict():
                 symptom_risk += 5
 
         # =====================================
-        # RISK SCORE
+        # FETCH PREVIOUS HISTORY
+        # =====================================
+
+        cursor.execute("""
+
+            SELECT
+                risk_score,
+                risk_level
+
+            FROM user_history
+
+            WHERE username=%s
+
+            ORDER BY date_time DESC
+
+            LIMIT 1
+
+        """, (str(user_id),))
+
+        previous_record = cursor.fetchone()
+
+        previous_risk_score = 0
+
+        previous_risk_level = "None"
+
+        if previous_record:
+
+            previous_risk_score = (
+                previous_record[0]
+            )
+
+            previous_risk_level = (
+                previous_record[1]
+            )
+
+        print(
+            "PREVIOUS RISK:",
+            previous_risk_score
+        )
+
+        # =====================================
+        # CURRENT RISK SCORE
         # =====================================
 
         severity_score = 0
@@ -733,42 +754,138 @@ def predict():
         for status in results.values():
 
             if status == "Severe":
-                severity_score += 3
+
+                severity_score += 25
 
             elif status == "Moderate":
-                severity_score += 2
 
-            else:
-                severity_score += 1
+                severity_score += 15
 
-        image_avg = (
-            eye_score +
-            nail_score +
-            tongue_score
-        ) / 3
+        image_risk = 0
+
+        if eye_score >= 80:
+            image_risk += 15
+
+        elif eye_score >= 50:
+            image_risk += 8
+
+        if nail_score >= 80:
+            image_risk += 15
+
+        elif nail_score >= 50:
+            image_risk += 8
+
+        if tongue_score >= 80:
+            image_risk += 15
+
+        elif tongue_score >= 50:
+            image_risk += 8
+
+        current_session_score = (
+
+            severity_score
+
+            +
+
+            image_risk
+
+            +
+
+            symptom_risk
+
+        )
+
+        # =====================================
+        # HISTORY WEIGHT
+        # =====================================
+
+        history_weight = 0
+
+        if previous_risk_score >= 70:
+
+            history_weight = 10
+
+        elif previous_risk_score >= 45:
+
+            history_weight = 5
+
+        # =====================================
+        # FINAL SCORE
+        # =====================================
 
         final_risk_score = (
-            severity_score * 10
-        ) + (
-            image_avg * 0.5
-        ) + symptom_risk
 
-        final_risk_score = round(
-            final_risk_score,
-            2
+            current_session_score
+
+            +
+
+            history_weight
+
         )
+
+        final_risk_score = min(
+            round(final_risk_score, 2),
+            100
+        )
+
+        # =====================================
+        # RISK LEVEL
+        # =====================================
 
         if final_risk_score >= 70:
 
-            risk_level = "Severe Risk"
+            risk_level = "High"
 
-        elif final_risk_score >= 45:
+        elif final_risk_score >= 40:
 
-            risk_level = "Moderate Risk"
+            risk_level = "Moderate"
 
         else:
 
-            risk_level = "Low Risk"
+            risk_level = "Low"
+
+        # =====================================
+        # TREND ANALYSIS
+        # =====================================
+
+        trend_message = (
+            "No previous records"
+        )
+
+        if previous_risk_score > 0:
+
+            difference = round(
+
+                final_risk_score
+                -
+                previous_risk_score,
+
+                2
+            )
+
+            if difference > 0:
+
+                trend_message = (
+
+                    f"Risk Increased by "
+                    f"{difference}%"
+
+                )
+
+            elif difference < 0:
+
+                trend_message = (
+
+                    f"Health Improved by "
+                    f"{abs(difference)}%"
+
+                )
+
+            else:
+
+                trend_message = (
+                    "No significant change"
+                )
 
         # =====================================
         # RECOMMENDATIONS
@@ -793,6 +910,52 @@ def predict():
                 recommendations[
                     nutrient
                 ] = rec
+
+        # =====================================
+        # SAVE USER HISTORY
+        # =====================================
+
+        cursor.execute("""
+
+            INSERT INTO user_history (
+
+                username,
+                date_time,
+                age,
+                bmi,
+                risk_score,
+                risk_level,
+                eye_score,
+                nail_score,
+                tongue_score
+
+            )
+
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+
+        """, (
+
+            str(user_id),
+
+            datetime.now(),
+
+            age,
+
+            bmi,
+
+            final_risk_score,
+
+            risk_level,
+
+            eye_score,
+
+            nail_score,
+
+            tongue_score
+
+        ))
+
+        conn.commit()
 
         # =====================================
         # RESPONSE
@@ -824,8 +987,22 @@ def predict():
             "risk_level":
             risk_level,
 
-            "shap_explanations":
-            shap_explanations
+            "previous_risk_score":
+            previous_risk_score,
+
+            "previous_risk_level":
+            previous_risk_level,
+
+            "trend_message":
+            trend_message,
+
+            "shap_explanations": {
+
+                k: v for k, v in
+                shap_explanations.items()
+
+                if v
+            }
 
         })
 
