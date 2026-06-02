@@ -1,12 +1,8 @@
-# =========================================
-# IMPORTS
-# =========================================
-
 import shap
 import numpy as np
 
 # =========================================
-# SHAP EXPLAIN FUNCTION
+# SHAP EXPLAINER
 # =========================================
 
 def explain_prediction(
@@ -19,7 +15,7 @@ def explain_prediction(
     try:
 
         # =====================================
-        # SHAP EXPLAINER
+        # CREATE EXPLAINER
         # =====================================
 
         explainer = shap.TreeExplainer(
@@ -31,75 +27,67 @@ def explain_prediction(
         )
 
         # =====================================
-        # MULTICLASS HANDLING
+        # MULTICLASS FIX
         # =====================================
 
-        if isinstance(shap_values, list):
+        if isinstance(
+            shap_values,
+            list
+        ):
 
-            shap_array = np.abs(
-                shap_values[0][0]
-            )
-
-        else:
-
-            shap_array = np.abs(
-                shap_values[0]
-            )
+            shap_values = shap_values[0]
 
         # =====================================
-        # FEATURE IMPORTANCE
+        # ABS VALUES
         # =====================================
 
-        feature_names = (
-            input_df.columns.tolist()
+        values = np.abs(
+            shap_values[0]
         )
 
-        importance = list(
-
-            zip(
-                feature_names,
-                shap_array
-            )
-
+        feature_names = list(
+            input_df.columns
         )
 
-        importance = sorted(
-
-            importance,
-
-            key=lambda x: x[1],
-
-            reverse=True
-
+        feature_values = (
+            input_df.iloc[0]
+            .values
         )
 
         # =====================================
         # TOP FEATURES
         # =====================================
 
-        top_features = []
+        top_idx = np.argsort(
+            values
+        )[::-1][:5]
 
-        for feature, score in importance[:5]:
+        explanations = []
 
-            readable = (
-                feature
-                .replace("_", " ")
-            )
+        for idx in top_idx:
 
-            top_features.append({
+            explanations.append({
 
                 "feature":
-                readable,
+                feature_names[idx],
 
-                "importance":
-                round(float(score), 3)
+                "value":
+                round(
+                    float(
+                        feature_values[idx]
+                    ),
+                    2
+                )
 
             })
 
-        return top_features
+        return explanations
 
     except Exception as e:
 
-        print("SHAP ERROR:", e)
+        print(
+            "SHAP ERROR:",
+            e
+        )
 
         return []
