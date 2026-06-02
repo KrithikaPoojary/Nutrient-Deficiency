@@ -20,123 +20,16 @@
 }
 
 /* ========================================= */
-/* CONTAINER */
+/* MAIN CONTAINER */
 /* ========================================= */
 
-.result-container{
+.report-container{
 
   width:100%;
 
-  max-width:1400px;
+  max-width:1200px;
 
   margin:auto;
-}
-
-/* ========================================= */
-/* HEADER */
-/* ========================================= */
-
-.result-header{
-
-  text-align:center;
-
-  margin-bottom:40px;
-}
-
-.result-header h1{
-
-  font-size:44px;
-
-  margin-bottom:10px;
-
-  color:white;
-}
-
-.result-header p{
-
-  color:#cbd5e1;
-
-  font-size:20px;
-}
-
-/* ========================================= */
-/* RISK SUMMARY */
-/* ========================================= */
-
-.risk-summary-card{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-
-  margin-bottom:35px;
-
-  backdrop-filter:blur(14px);
-}
-
-.risk-summary-card h2{
-
-  margin-bottom:25px;
-
-  color:#5eead4;
-
-  font-size:30px;
-}
-
-.risk-summary-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(250px,1fr));
-
-  gap:25px;
-}
-
-.risk-box{
-
-  background:
-  rgba(15,23,42,0.45);
-
-  border:
-  1px solid rgba(255,255,255,0.05);
-
-  border-radius:22px;
-
-  padding:25px;
-
-  text-align:center;
-}
-
-.risk-box h3{
-
-  margin-bottom:15px;
-
-  color:#5eead4;
-
-  font-size:22px;
-}
-
-.risk-box p{
-
-  font-size:30px;
-
-  font-weight:bold;
-
-  color:white;
-}
-
-/* ========================================= */
-/* CHART */
-/* ========================================= */
-
-.chart-wrapper{
 
   background:
   rgba(255,255,255,0.05);
@@ -144,64 +37,80 @@
   border:
   1px solid rgba(255,255,255,0.08);
 
-  border-radius:25px;
+  border-radius:32px;
 
-  padding:25px;
-
-  margin-bottom:35px;
-
-  backdrop-filter:blur(10px);
-}
-
-/* ========================================= */
-/* IMAGE ANALYSIS */
-/* ========================================= */
-
-.image-analysis-card{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-
-  margin-bottom:35px;
+  padding:40px;
 
   backdrop-filter:blur(14px);
+
+  box-shadow:
+  0 10px 35px rgba(0,0,0,0.3);
 }
 
-.image-analysis-card h2{
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.report-header{
+
+  text-align:center;
+
+  margin-bottom:40px;
+}
+
+.report-header h1{
+
+  font-size:42px;
+
+  margin-bottom:12px;
+
+  color:white;
+}
+
+.report-header p{
+
+  color:#cbd5e1;
+
+  font-size:18px;
+}
+
+/* ========================================= */
+/* SECTION */
+/* ========================================= */
+
+.report-section{
+
+  margin-bottom:40px;
+}
+
+.report-section h2{
+
+  font-size:30px;
 
   margin-bottom:25px;
 
   color:#5eead4;
-
-  font-size:30px;
 }
 
 /* ========================================= */
-/* IMAGE ANALYSIS GRID */
+/* DEFICIENCY GRID */
 /* ========================================= */
 
-.image-analysis-grid{
+.deficiency-grid{
 
   display:grid;
 
   grid-template-columns:
-  repeat(auto-fit,minmax(280px,1fr));
+  repeat(auto-fit,minmax(320px,1fr));
 
-  gap:22px;
+  gap:24px;
 }
 
 /* ========================================= */
-/* ANALYSIS BOX */
+/* DEFICIENCY CARD */
 /* ========================================= */
 
-.analysis-box{
+.deficiency-card{
 
   background:
   rgba(15,23,42,0.45);
@@ -209,14 +118,14 @@
   border:
   1px solid rgba(255,255,255,0.05);
 
-  border-radius:22px;
+  border-radius:24px;
 
-  padding:24px;
+  padding:26px;
 
   transition:0.3s;
 }
 
-.analysis-box:hover{
+.deficiency-card:hover{
 
   transform:translateY(-4px);
 
@@ -224,225 +133,11 @@
   0 10px 25px rgba(0,0,0,0.25);
 }
 
-.analysis-box h3{
-
-  margin-bottom:14px;
-
-  color:#5eead4;
-
-  font-size:22px;
-}
-
-.analysis-box p{
-
-  color:#dbeafe;
-
-  line-height:1.7;
-
-  font-size:16px;
-}
-
-/* ========================================= */
-/* SYMPTOM SECTION */
-/* ========================================= */
-
-.symptom-result-card{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-
-  margin-bottom:35px;
-
-  backdrop-filter:blur(14px);
-}
-
-.symptom-result-card h2{
-
-  margin-bottom:25px;
-
-  color:#5eead4;
-
-  font-size:30px;
-}
-
-.symptom-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(280px,1fr));
-
-  gap:22px;
-}
-
-.symptom-box{
-
-  background:
-  rgba(15,23,42,0.45);
-
-  border:
-  1px solid rgba(255,255,255,0.05);
-
-  border-radius:22px;
-
-  padding:24px;
-}
-
-.symptom-box h3{
-
-  margin-bottom:15px;
-
-  color:#5eead4;
-
-  text-transform:capitalize;
-}
-
-.symptom-box p{
-
-  margin-bottom:10px;
-
-  color:#dbeafe;
-}
-
-.symptom-box ul{
-
-  padding-left:20px;
-}
-
-.symptom-box li{
-
-  margin-bottom:8px;
-
-  color:#e2e8f0;
-}
-
-/* ========================================= */
-/* SHAP */
-/* ========================================= */
-
-.shap-section-main{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-
-  margin-bottom:35px;
-
-  backdrop-filter:blur(14px);
-}
-
-.shap-section-main h2{
-
-  margin-bottom:25px;
-
-  color:#5eead4;
-
-  font-size:30px;
-}
-
-.shap-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(300px,1fr));
-
-  gap:22px;
-}
-
-.shap-box{
-
-  background:
-  rgba(15,23,42,0.45);
-
-  border:
-  1px solid rgba(255,255,255,0.05);
-
-  border-radius:22px;
-
-  padding:24px;
-}
-
-.shap-box h3{
-
-  margin-bottom:15px;
-
-  color:#5eead4;
-}
-
-.shap-box ul{
-
-  padding-left:20px;
-}
-
-.shap-box li{
-
-  margin-bottom:10px;
-
-  color:#dbeafe;
-}
-
-/* ========================================= */
-/* GRID */
-/* ========================================= */
-
-.result-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(400px,1fr));
-
-  gap:30px;
-}
-
-/* ========================================= */
-/* CARD */
-/* ========================================= */
-
-.result-card{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:28px;
-
-  backdrop-filter:blur(14px);
-
-  transition:0.3s;
-}
-
-.result-card:hover{
-
-  transform:translateY(-5px);
-
-  box-shadow:
-  0 10px 30px rgba(0,0,0,0.25);
-}
-
 /* ========================================= */
 /* CARD TOP */
 /* ========================================= */
 
-.card-top{
+.deficiency-top{
 
   display:flex;
 
@@ -450,10 +145,12 @@
 
   align-items:center;
 
-  margin-bottom:20px;
+  gap:15px;
+
+  margin-bottom:22px;
 }
 
-.card-top h2{
+.deficiency-top h3{
 
   margin:0;
 
@@ -472,9 +169,9 @@
 
   border-radius:30px;
 
-  font-weight:600;
+  font-size:14px;
 
-  font-size:15px;
+  font-weight:600;
 }
 
 .status-severe{
@@ -510,30 +207,21 @@
 }
 
 /* ========================================= */
-/* NUTRIENT */
+/* NUTRIENT DATA */
 /* ========================================= */
 
-.nutrient-section{
+.nutrient-data{
 
-  margin-bottom:25px;
+  margin-bottom:24px;
 }
 
-.nutrient-values{
-
-  display:flex;
-
-  justify-content:space-between;
+.nutrient-data p{
 
   margin-bottom:10px;
 
   color:#dbeafe;
-}
 
-.percent-text{
-
-  margin-bottom:12px;
-
-  color:#cbd5e1;
+  line-height:1.6;
 }
 
 /* ========================================= */
@@ -546,12 +234,14 @@
 
   height:12px;
 
-  background:
-  rgba(255,255,255,0.08);
+  margin-top:14px;
 
   border-radius:20px;
 
   overflow:hidden;
+
+  background:
+  rgba(255,255,255,0.08);
 }
 
 .progress-fill{
@@ -569,868 +259,18 @@
 }
 
 /* ========================================= */
-/* SECTION */
+/* FOOD SECTION */
 /* ========================================= */
 
-.section-title{
+.food-section h4{
 
-  margin-top:25px;
-
-  margin-bottom:15px;
+  margin-bottom:16px;
 
   color:#5eead4;
-
-  font-size:22px;
-}
-
-/* ========================================= */
-/* FOOD CHIPS */
-/* ========================================= */
-
-.food-list{
-
-  display:flex;
-
-  flex-wrap:wrap;
-
-  gap:12px;
-
-  margin-bottom:25px;
-}
-
-.food-chip{
-
-  padding:10px 16px;
-
-  border-radius:30px;
-
-  background:
-  rgba(20,184,166,0.15);
-
-  color:#99f6e4;
-
-  font-size:14px;
-}
-
-/* ========================================= */
-/* MONITOR */
-/* ========================================= */
-
-.monitor-card{
-
-  margin-top:40px;
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-}
-
-.monitor-card h2{
-
-  margin-bottom:20px;
-
-  color:#5eead4;
-}
-
-.monitor-card p{
-
-  color:#dbeafe;
-
-  line-height:1.8;
-}
-
-.monitor-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(220px,1fr));
-
-  gap:20px;
-
-  margin-top:25px;
-}
-
-.monitor-box{
-
-  background:
-  rgba(15,23,42,0.45);
-
-  border-radius:18px;
-
-  padding:20px;
-
-  text-align:center;
-
-  color:#99f6e4;
-
-  font-weight:600;
-}
-
-/* ========================================= */
-/* REPORT BUTTONS */
-/* ========================================= */
-
-.report-buttons{
-
-  margin-top:50px;
-
-  display:flex;
-
-  justify-content:center;
-
-  gap:25px;
-
-  flex-wrap:wrap;
-}
-
-/* ========================================= */
-/* VIEW REPORT BUTTON */
-/* ========================================= */
-
-.view-report-btn{
-
-  padding:18px 32px;
-
-  border:none;
-
-  border-radius:18px;
-
-  background:
-  linear-gradient(
-    135deg,
-    #3b82f6,
-    #2563eb
-  );
-
-  color:white;
-
-  font-size:18px;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.3s;
-
-  box-shadow:
-  0 10px 25px rgba(59,130,246,0.25);
-}
-
-.view-report-btn:hover{
-
-  transform:translateY(-3px);
-
-  box-shadow:
-  0 15px 35px rgba(59,130,246,0.35);
-}
-
-/* ========================================= */
-/* DOWNLOAD BUTTON */
-/* ========================================= */
-
-.download-report-btn{
-
-  padding:18px 32px;
-
-  border:none;
-
-  border-radius:18px;
-
-  background:
-  linear-gradient(
-    135deg,
-    #14b8a6,
-    #0f766e
-  );
-
-  color:white;
-
-  font-size:18px;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.3s;
-
-  box-shadow:
-  0 10px 25px rgba(20,184,166,0.25);
-}
-
-.download-report-btn:hover{
-
-  transform:translateY(-3px);
-
-  box-shadow:
-  0 15px 35px rgba(20,184,166,0.35);
-}
-
-/* ========================================= */
-/* EMPTY */
-/* ========================================= */
-
-.result-empty{
-
-  color:white;
-
-  text-align:center;
-
-  padding:40px;
-
-  font-size:24px;
-}
-
-/* ========================================= */
-/* MOBILE */
-/* ========================================= */
-
-@media(max-width:768px){
-
-  .result-page{
-
-    padding:20px;
-  }
-
-  .result-grid{
-
-    grid-template-columns:1fr;
-  }
-
-  .card-top{
-
-    flex-direction:column;
-
-    align-items:flex-start;
-
-    gap:15px;
-  }
-
-  .result-header h1{
-
-    font-size:32px;
-  }
-
-  .image-analysis-grid{
-
-    grid-template-columns:1fr;
-  }
-
-  .report-buttons{
-
-    flex-direction:column;
-  }
-
-  .view-report-btn,
-  .download-report-btn{
-
-    width:100%;
-  }
-
-  .symptom-grid{
-
-    grid-template-columns:1fr;
-  }
-
-  .shap-grid{
-
-    grid-template-columns:1fr;
-  }
-}/* ========================================= */
-/* PAGE */
-/* ========================================= */
-
-.result-page{
-
-  min-height:100vh;
-
-  padding:40px;
-
-  background:
-  linear-gradient(
-    135deg,
-    #071821,
-    #0d2530,
-    #123848
-  );
-
-  color:white;
-}
-
-/* ========================================= */
-/* CONTAINER */
-/* ========================================= */
-
-.result-container{
-
-  width:100%;
-
-  max-width:1400px;
-
-  margin:auto;
-}
-
-/* ========================================= */
-/* HEADER */
-/* ========================================= */
-
-.result-header{
-
-  text-align:center;
-
-  margin-bottom:40px;
-}
-
-.result-header h1{
-
-  font-size:44px;
-
-  margin-bottom:10px;
-
-  color:white;
-}
-
-.result-header p{
-
-  color:#cbd5e1;
 
   font-size:20px;
 }
 
-/* ========================================= */
-/* RISK SUMMARY */
-/* ========================================= */
-
-.risk-summary-card{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-
-  margin-bottom:35px;
-
-  backdrop-filter:blur(14px);
-}
-
-.risk-summary-card h2{
-
-  margin-bottom:25px;
-
-  color:#5eead4;
-
-  font-size:30px;
-}
-
-.risk-summary-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(250px,1fr));
-
-  gap:25px;
-}
-
-.risk-box{
-
-  background:
-  rgba(15,23,42,0.45);
-
-  border:
-  1px solid rgba(255,255,255,0.05);
-
-  border-radius:22px;
-
-  padding:25px;
-
-  text-align:center;
-}
-
-.risk-box h3{
-
-  margin-bottom:15px;
-
-  color:#5eead4;
-
-  font-size:22px;
-}
-
-.risk-box p{
-
-  font-size:30px;
-
-  font-weight:bold;
-
-  color:white;
-}
-
-/* ========================================= */
-/* CHART */
-/* ========================================= */
-
-.chart-wrapper{
-
-  background:
-  rgba(255,255,255,0.05);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:25px;
-
-  padding:25px;
-
-  margin-bottom:35px;
-
-  backdrop-filter:blur(10px);
-}
-
-/* ========================================= */
-/* IMAGE ANALYSIS */
-/* ========================================= */
-
-.image-analysis-card{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-
-  margin-bottom:35px;
-
-  backdrop-filter:blur(14px);
-}
-
-.image-analysis-card h2{
-
-  margin-bottom:25px;
-
-  color:#5eead4;
-
-  font-size:30px;
-}
-
-/* ========================================= */
-/* IMAGE ANALYSIS GRID */
-/* ========================================= */
-
-.image-analysis-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(280px,1fr));
-
-  gap:22px;
-}
-
-/* ========================================= */
-/* ANALYSIS BOX */
-/* ========================================= */
-
-.analysis-box{
-
-  background:
-  rgba(15,23,42,0.45);
-
-  border:
-  1px solid rgba(255,255,255,0.05);
-
-  border-radius:22px;
-
-  padding:24px;
-
-  transition:0.3s;
-}
-
-.analysis-box:hover{
-
-  transform:translateY(-4px);
-
-  box-shadow:
-  0 10px 25px rgba(0,0,0,0.25);
-}
-
-.analysis-box h3{
-
-  margin-bottom:14px;
-
-  color:#5eead4;
-
-  font-size:22px;
-}
-
-.analysis-box p{
-
-  color:#dbeafe;
-
-  line-height:1.7;
-
-  font-size:16px;
-}
-
-/* ========================================= */
-/* SYMPTOM SECTION */
-/* ========================================= */
-
-.symptom-result-card{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-
-  margin-bottom:35px;
-
-  backdrop-filter:blur(14px);
-}
-
-.symptom-result-card h2{
-
-  margin-bottom:25px;
-
-  color:#5eead4;
-
-  font-size:30px;
-}
-
-.symptom-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(280px,1fr));
-
-  gap:22px;
-}
-
-.symptom-box{
-
-  background:
-  rgba(15,23,42,0.45);
-
-  border:
-  1px solid rgba(255,255,255,0.05);
-
-  border-radius:22px;
-
-  padding:24px;
-}
-
-.symptom-box h3{
-
-  margin-bottom:15px;
-
-  color:#5eead4;
-
-  text-transform:capitalize;
-}
-
-.symptom-box p{
-
-  margin-bottom:10px;
-
-  color:#dbeafe;
-}
-
-.symptom-box ul{
-
-  padding-left:20px;
-}
-
-.symptom-box li{
-
-  margin-bottom:8px;
-
-  color:#e2e8f0;
-}
-
-/* ========================================= */
-/* SHAP */
-/* ========================================= */
-
-.shap-section-main{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-
-  margin-bottom:35px;
-
-  backdrop-filter:blur(14px);
-}
-
-.shap-section-main h2{
-
-  margin-bottom:25px;
-
-  color:#5eead4;
-
-  font-size:30px;
-}
-
-.shap-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(300px,1fr));
-
-  gap:22px;
-}
-
-.shap-box{
-
-  background:
-  rgba(15,23,42,0.45);
-
-  border:
-  1px solid rgba(255,255,255,0.05);
-
-  border-radius:22px;
-
-  padding:24px;
-}
-
-.shap-box h3{
-
-  margin-bottom:15px;
-
-  color:#5eead4;
-}
-
-.shap-box ul{
-
-  padding-left:20px;
-}
-
-.shap-box li{
-
-  margin-bottom:10px;
-
-  color:#dbeafe;
-}
-
-/* ========================================= */
-/* GRID */
-/* ========================================= */
-
-.result-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(400px,1fr));
-
-  gap:30px;
-}
-
-/* ========================================= */
-/* CARD */
-/* ========================================= */
-
-.result-card{
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:28px;
-
-  backdrop-filter:blur(14px);
-
-  transition:0.3s;
-}
-
-.result-card:hover{
-
-  transform:translateY(-5px);
-
-  box-shadow:
-  0 10px 30px rgba(0,0,0,0.25);
-}
-
-/* ========================================= */
-/* CARD TOP */
-/* ========================================= */
-
-.card-top{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  margin-bottom:20px;
-}
-
-.card-top h2{
-
-  margin:0;
-
-  font-size:30px;
-
-  color:white;
-}
-
-/* ========================================= */
-/* STATUS */
-/* ========================================= */
-
-.status-badge{
-
-  padding:10px 18px;
-
-  border-radius:30px;
-
-  font-weight:600;
-
-  font-size:15px;
-}
-
-.status-severe{
-
-  background:
-  rgba(239,68,68,0.18);
-
-  color:#fca5a5;
-}
-
-.status-moderate{
-
-  background:
-  rgba(245,158,11,0.18);
-
-  color:#fcd34d;
-}
-
-.status-mild{
-
-  background:
-  rgba(59,130,246,0.18);
-
-  color:#93c5fd;
-}
-
-.status-normal{
-
-  background:
-  rgba(16,185,129,0.18);
-
-  color:#6ee7b7;
-}
-
-/* ========================================= */
-/* NUTRIENT */
-/* ========================================= */
-
-.nutrient-section{
-
-  margin-bottom:25px;
-}
-
-.nutrient-values{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  margin-bottom:10px;
-
-  color:#dbeafe;
-}
-
-.percent-text{
-
-  margin-bottom:12px;
-
-  color:#cbd5e1;
-}
-
-/* ========================================= */
-/* PROGRESS */
-/* ========================================= */
-
-.progress-bar{
-
-  width:100%;
-
-  height:12px;
-
-  background:
-  rgba(255,255,255,0.08);
-
-  border-radius:20px;
-
-  overflow:hidden;
-}
-
-.progress-fill{
-
-  height:100%;
-
-  border-radius:20px;
-
-  background:
-  linear-gradient(
-    90deg,
-    #14b8a6,
-    #2dd4bf
-  );
-}
-
-/* ========================================= */
-/* SECTION */
-/* ========================================= */
-
-.section-title{
-
-  margin-top:25px;
-
-  margin-bottom:15px;
-
-  color:#5eead4;
-
-  font-size:22px;
-}
-
-/* ========================================= */
-/* FOOD CHIPS */
-/* ========================================= */
-
 .food-list{
 
   display:flex;
@@ -1438,8 +278,6 @@
   flex-wrap:wrap;
 
   gap:12px;
-
-  margin-bottom:25px;
 }
 
 .food-chip{
@@ -1457,128 +295,27 @@
 }
 
 /* ========================================= */
-/* MONITOR */
-/* ========================================= */
-
-.monitor-card{
-
-  margin-top:40px;
-
-  background:
-  rgba(255,255,255,0.06);
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  border-radius:28px;
-
-  padding:30px;
-}
-
-.monitor-card h2{
-
-  margin-bottom:20px;
-
-  color:#5eead4;
-}
-
-.monitor-card p{
-
-  color:#dbeafe;
-
-  line-height:1.8;
-}
-
-.monitor-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(220px,1fr));
-
-  gap:20px;
-
-  margin-top:25px;
-}
-
-.monitor-box{
-
-  background:
-  rgba(15,23,42,0.45);
-
-  border-radius:18px;
-
-  padding:20px;
-
-  text-align:center;
-
-  color:#99f6e4;
-
-  font-weight:600;
-}
-
-/* ========================================= */
-/* REPORT BUTTONS */
+/* BUTTONS */
 /* ========================================= */
 
 .report-buttons{
-
-  margin-top:50px;
 
   display:flex;
 
   justify-content:center;
 
-  gap:25px;
-
   flex-wrap:wrap;
+
+  gap:22px;
+
+  margin-top:45px;
 }
 
 /* ========================================= */
-/* VIEW REPORT BUTTON */
+/* BUTTON COMMON */
 /* ========================================= */
 
-.view-report-btn{
-
-  padding:18px 32px;
-
-  border:none;
-
-  border-radius:18px;
-
-  background:
-  linear-gradient(
-    135deg,
-    #3b82f6,
-    #2563eb
-  );
-
-  color:white;
-
-  font-size:18px;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.3s;
-
-  box-shadow:
-  0 10px 25px rgba(59,130,246,0.25);
-}
-
-.view-report-btn:hover{
-
-  transform:translateY(-3px);
-
-  box-shadow:
-  0 15px 35px rgba(59,130,246,0.35);
-}
-
-/* ========================================= */
-/* DOWNLOAD BUTTON */
-/* ========================================= */
-
+.view-report-btn,
 .download-report-btn{
 
   padding:18px 32px;
@@ -1587,22 +324,51 @@
 
   border-radius:18px;
 
+  color:white;
+
+  font-size:17px;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+/* ========================================= */
+/* VIEW BUTTON */
+/* ========================================= */
+
+.view-report-btn{
+
+  background:
+  linear-gradient(
+    135deg,
+    #3b82f6,
+    #2563eb
+  );
+
+  box-shadow:
+  0 10px 25px rgba(59,130,246,0.25);
+}
+
+.view-report-btn:hover{
+
+  transform:translateY(-3px);
+}
+
+/* ========================================= */
+/* DOWNLOAD BUTTON */
+/* ========================================= */
+
+.download-report-btn{
+
   background:
   linear-gradient(
     135deg,
     #14b8a6,
     #0f766e
   );
-
-  color:white;
-
-  font-size:18px;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.3s;
 
   box-shadow:
   0 10px 25px rgba(20,184,166,0.25);
@@ -1611,9 +377,6 @@
 .download-report-btn:hover{
 
   transform:translateY(-3px);
-
-  box-shadow:
-  0 15px 35px rgba(20,184,166,0.35);
 }
 
 /* ========================================= */
@@ -1622,13 +385,13 @@
 
 .result-empty{
 
-  color:white;
-
   text-align:center;
 
-  padding:40px;
+  padding:50px;
 
-  font-size:24px;
+  font-size:26px;
+
+  color:white;
 }
 
 /* ========================================= */
@@ -1642,28 +405,26 @@
     padding:20px;
   }
 
-  .result-grid{
+  .report-container{
+
+    padding:24px;
+  }
+
+  .report-header h1{
+
+    font-size:30px;
+  }
+
+  .deficiency-grid{
 
     grid-template-columns:1fr;
   }
 
-  .card-top{
+  .deficiency-top{
 
     flex-direction:column;
 
     align-items:flex-start;
-
-    gap:15px;
-  }
-
-  .result-header h1{
-
-    font-size:32px;
-  }
-
-  .image-analysis-grid{
-
-    grid-template-columns:1fr;
   }
 
   .report-buttons{
@@ -1677,13 +438,4 @@
     width:100%;
   }
 
-  .symptom-grid{
-
-    grid-template-columns:1fr;
-  }
-
-  .shap-grid{
-
-    grid-template-columns:1fr;
-  }
 }
