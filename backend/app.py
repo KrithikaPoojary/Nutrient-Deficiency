@@ -42,15 +42,10 @@ def get_connection():
     return mysql.connector.connect(
 
         host="127.0.0.1",
-
         user="root",
-
         password="mite",
-
         database="nutrition_tracker",
-
         ssl_disabled=True,
-
         auth_plugin='mysql_native_password'
 
     )
@@ -313,13 +308,9 @@ def login():
         return jsonify({
 
             "id": user[0],
-
             "username": user[1],
-
             "age": user[3],
-
             "gender": user[4],
-
             "conditions": user[5]
 
         })
@@ -394,7 +385,7 @@ def predict():
         )
 
         bmi = float(
-            data.get("bmi", 22)
+            data.get("bmi", 0)
         )
 
         foods = json.loads(
@@ -412,6 +403,31 @@ def predict():
         eye_image = request.files.get("eye")
         nail_image = request.files.get("nail")
         tongue_image = request.files.get("tongue")
+
+        # =====================================
+        # INPUT VALIDATION
+        # =====================================
+
+        has_foods = len(foods) > 0
+
+        has_symptoms = len(symptoms) > 0
+
+        has_images = (
+
+            eye_image is not None or
+            nail_image is not None or
+            tongue_image is not None
+
+        )
+
+        if not has_foods and not has_symptoms and not has_images:
+
+            return jsonify({
+
+                "error":
+                "Please enter food intake, symptoms, or upload at least one medical image."
+
+            }), 400
 
         # =====================================
         # SAVE FOOD LOG
@@ -595,56 +611,16 @@ def predict():
                 tongue_image
             )
 
-        # =====================================
-        # CLEAN IMAGE ANALYSIS
-        # =====================================
-
-        if eye_score >= 80:
-
-            eye_result = "Possible Anemia Detected"
-
-        elif eye_score >= 50:
-
-            eye_result = "Mild Eye Deficiency Signs"
-
-        else:
-
-            eye_result = "Normal"
-
-        if nail_score >= 80:
-
-            nail_result = "Nail Deficiency Signs Detected"
-
-        elif nail_score >= 50:
-
-            nail_result = "Mild Nail Abnormality"
-
-        else:
-
-            nail_result = "Normal"
-
-        if tongue_score >= 80:
-
-            tongue_result = "Tongue Deficiency Signs Detected"
-
-        elif tongue_score >= 50:
-
-            tongue_result = "Mild Tongue Abnormality"
-
-        else:
-
-            tongue_result = "Normal"
-
         image_analysis = {
 
             "eye_analysis":
-            eye_result,
+            eye_score,
 
             "nail_analysis":
-            nail_result,
+            nail_score,
 
             "tongue_analysis":
-            tongue_result
+            tongue_score
 
         }
 
@@ -740,13 +716,8 @@ def predict():
                 previous_record[1]
             )
 
-        print(
-            "PREVIOUS RISK:",
-            previous_risk_score
-        )
-
         # =====================================
-        # CURRENT RISK SCORE
+        # WEIGHTED MULTIMODAL LATE FUSION
         # =====================================
 
         severity_score = 0
@@ -781,23 +752,36 @@ def predict():
         elif tongue_score >= 50:
             image_risk += 8
 
+        food_weight = 0.5
+
+        image_weight = 0.3
+
+        symptom_weight = 0.2
+
+        food_score = severity_score
+
+        medical_image_score = image_risk
+
+        questionnaire_score = symptom_risk
+
         current_session_score = (
 
-            severity_score
+            (food_score * food_weight)
 
             +
 
-            image_risk
+            (medical_image_score * image_weight)
 
             +
 
-            symptom_risk
+            (questionnaire_score * symptom_weight)
 
         )
 
-        # =====================================
-        # HISTORY WEIGHT
-        # =====================================
+        current_session_score = round(
+            current_session_score,
+            2
+        )
 
         history_weight = 0
 
@@ -808,10 +792,6 @@ def predict():
         elif previous_risk_score >= 45:
 
             history_weight = 5
-
-        # =====================================
-        # FINAL SCORE
-        # =====================================
 
         final_risk_score = (
 
