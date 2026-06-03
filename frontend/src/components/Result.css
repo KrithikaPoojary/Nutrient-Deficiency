@@ -27,7 +27,7 @@
 
   width:100%;
 
-  max-width:1200px;
+  max-width:1250px;
 
   margin:auto;
 
@@ -55,16 +55,18 @@
 
   text-align:center;
 
-  margin-bottom:40px;
+  margin-bottom:50px;
 }
 
 .report-header h1{
 
-  font-size:42px;
+  font-size:44px;
 
   margin-bottom:12px;
 
   color:white;
+
+  font-weight:700;
 }
 
 .report-header p{
@@ -80,16 +82,18 @@
 
 .report-section{
 
-  margin-bottom:40px;
+  margin-bottom:50px;
 }
 
 .report-section h2{
 
-  font-size:30px;
+  font-size:34px;
 
-  margin-bottom:25px;
+  margin-bottom:28px;
 
   color:#5eead4;
+
+  font-weight:700;
 }
 
 /* ========================================= */
@@ -101,9 +105,9 @@
   display:grid;
 
   grid-template-columns:
-  repeat(auto-fit,minmax(320px,1fr));
+  repeat(auto-fit,minmax(340px,1fr));
 
-  gap:24px;
+  gap:28px;
 }
 
 /* ========================================= */
@@ -113,16 +117,20 @@
 .deficiency-card{
 
   background:
-  rgba(15,23,42,0.45);
+  rgba(15,23,42,0.55);
 
   border:
-  1px solid rgba(255,255,255,0.05);
+  1px solid rgba(255,255,255,0.06);
 
-  border-radius:24px;
+  border-radius:26px;
 
-  padding:26px;
+  padding:28px;
 
   transition:0.3s;
+
+  position:relative;
+
+  overflow:hidden;
 }
 
 .deficiency-card:hover{
@@ -130,7 +138,7 @@
   transform:translateY(-4px);
 
   box-shadow:
-  0 10px 25px rgba(0,0,0,0.25);
+  0 12px 28px rgba(0,0,0,0.3);
 }
 
 /* ========================================= */
@@ -147,16 +155,18 @@
 
   gap:15px;
 
-  margin-bottom:22px;
+  margin-bottom:24px;
 }
 
 .deficiency-top h3{
 
   margin:0;
 
-  font-size:30px;
+  font-size:34px;
 
   color:white;
+
+  font-weight:700;
 }
 
 /* ========================================= */
@@ -171,7 +181,7 @@
 
   font-size:14px;
 
-  font-weight:600;
+  font-weight:700;
 }
 
 .status-severe{
@@ -207,25 +217,71 @@
 }
 
 /* ========================================= */
+/* AI ANALYSIS */
+/* ========================================= */
+
+.ai-analysis-box{
+
+  margin-bottom:24px;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  background:
+  rgba(255,255,255,0.04);
+
+  border:
+  1px solid rgba(255,255,255,0.05);
+}
+
+.ai-analysis-box h4{
+
+  margin-bottom:12px;
+
+  color:#5eead4;
+
+  font-size:19px;
+
+  font-weight:700;
+}
+
+.ai-analysis-box p{
+
+  color:#dbeafe;
+
+  line-height:1.8;
+
+  font-size:15px;
+}
+
+/* ========================================= */
 /* NUTRIENT DATA */
 /* ========================================= */
 
 .nutrient-data{
 
-  margin-bottom:24px;
+  margin-bottom:26px;
 }
 
 .nutrient-data p{
 
-  margin-bottom:10px;
+  margin-bottom:12px;
 
   color:#dbeafe;
 
-  line-height:1.6;
+  line-height:1.7;
+
+  font-size:15px;
+}
+
+.nutrient-data strong{
+
+  color:white;
 }
 
 /* ========================================= */
-/* PROGRESS */
+/* PROGRESS BAR */
 /* ========================================= */
 
 .progress-bar{
@@ -262,14 +318,25 @@
 /* FOOD SECTION */
 /* ========================================= */
 
+.food-section{
+
+  margin-top:20px;
+}
+
 .food-section h4{
 
   margin-bottom:16px;
 
   color:#5eead4;
 
-  font-size:20px;
+  font-size:21px;
+
+  font-weight:700;
 }
+
+/* ========================================= */
+/* FOOD LIST */
+/* ========================================= */
 
 .food-list{
 
@@ -292,6 +359,16 @@
   color:#99f6e4;
 
   font-size:14px;
+
+  transition:0.3s;
+}
+
+.food-chip:hover{
+
+  transform:scale(1.05);
+
+  background:
+  rgba(20,184,166,0.22);
 }
 
 /* ========================================= */
@@ -306,9 +383,9 @@
 
   flex-wrap:wrap;
 
-  gap:22px;
+  gap:24px;
 
-  margin-top:45px;
+  margin-top:55px;
 }
 
 /* ========================================= */
@@ -318,7 +395,7 @@
 .view-report-btn,
 .download-report-btn{
 
-  padding:18px 32px;
+  padding:18px 34px;
 
   border:none;
 
@@ -328,7 +405,7 @@
 
   font-size:17px;
 
-  font-weight:600;
+  font-weight:700;
 
   cursor:pointer;
 
@@ -355,6 +432,9 @@
 .view-report-btn:hover{
 
   transform:translateY(-3px);
+
+  box-shadow:
+  0 14px 30px rgba(59,130,246,0.35);
 }
 
 /* ========================================= */
@@ -377,6 +457,9 @@
 .download-report-btn:hover{
 
   transform:translateY(-3px);
+
+  box-shadow:
+  0 14px 30px rgba(20,184,166,0.35);
 }
 
 /* ========================================= */
@@ -387,11 +470,32 @@
 
   text-align:center;
 
-  padding:50px;
+  padding:60px;
 
-  font-size:26px;
+  font-size:28px;
 
   color:white;
+}
+
+/* ========================================= */
+/* SCROLLBAR */
+/* ========================================= */
+
+::-webkit-scrollbar{
+
+  width:10px;
+}
+
+::-webkit-scrollbar-track{
+
+  background:#071821;
+}
+
+::-webkit-scrollbar-thumb{
+
+  background:#14b8a6;
+
+  border-radius:20px;
 }
 
 /* ========================================= */
@@ -402,7 +506,7 @@
 
   .result-page{
 
-    padding:20px;
+    padding:18px;
   }
 
   .report-container{
@@ -413,6 +517,11 @@
   .report-header h1{
 
     font-size:30px;
+  }
+
+  .report-section h2{
+
+    font-size:26px;
   }
 
   .deficiency-grid{
@@ -427,6 +536,11 @@
     align-items:flex-start;
   }
 
+  .deficiency-top h3{
+
+    font-size:28px;
+  }
+
   .report-buttons{
 
     flex-direction:column;
@@ -439,3 +553,4 @@
   }
 
 }
+
