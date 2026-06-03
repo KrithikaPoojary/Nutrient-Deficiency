@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import downloadReport from "./DownloadReport";
-
 import "./Result.css";
 
 function Result({
@@ -29,7 +26,7 @@ function Result({
   }, []);
 
   // =========================================
-  // EMPTY RESULT
+  // EMPTY
   // =========================================
 
   if (!result || Object.keys(result).length === 0) {
@@ -45,18 +42,6 @@ function Result({
     );
 
   }
-
-  // =========================================
-  // RISK SCORE
-  // =========================================
-
-  const riskScore = Math.min(
-
-    Number(fullResult?.risk_score || 0),
-
-    100
-
-  );
 
   // =========================================
   // PERCENT
@@ -107,6 +92,33 @@ function Result({
   };
 
   // =========================================
+  // EXPLAINABLE AI TEXT
+  // =========================================
+
+  const getExplanation = (
+
+    nutrient,
+    status
+
+  ) => {
+
+    if (status === "Normal") {
+
+      return `No major deficiency detected in ${nutrient}. Current nutritional indicators appear stable.`;
+
+    }
+
+    if (status === "Moderate") {
+
+      return `${nutrient} deficiency risk detected based on dietary intake, nutritional imbalance, and multimodal health analysis.`;
+
+    }
+
+    return `${nutrient} severe deficiency detected. AI analysis indicates high nutritional risk requiring dietary improvement and monitoring.`;
+
+  };
+
+  // =========================================
   // UI
   // =========================================
 
@@ -133,104 +145,6 @@ function Result({
             Personalized Nutrient Assessment
 
           </p>
-
-        </div>
-
-        {/* ========================================= */}
-        {/* RISK SCORE */}
-        {/* ========================================= */}
-
-        <div className="report-section">
-
-          <h2>
-
-            Risk Assessment
-
-          </h2>
-
-          <div className="summary-grid">
-
-            <div className="summary-box">
-
-              <h3>
-
-                Risk Score
-
-              </h3>
-
-              <p>
-
-                {riskScore.toFixed(1)}/100
-
-              </p>
-
-            </div>
-
-            <div className="summary-box">
-
-              <h3>
-
-                Risk Level
-
-              </h3>
-
-              <p>
-
-                {
-
-                  fullResult?.risk_level ||
-
-                  "Low"
-
-                }
-
-              </p>
-
-            </div>
-
-            <div className="summary-box">
-
-              <h3>
-
-                Previous Risk
-
-              </h3>
-
-              <p>
-
-                {
-
-                  fullResult?.previous_risk_score || 0
-
-                }/100
-
-              </p>
-
-            </div>
-
-            <div className="summary-box">
-
-              <h3>
-
-                Health Trend
-
-              </h3>
-
-              <p>
-
-                {
-
-                  fullResult?.trend_message ||
-
-                  "No Trend"
-
-                }
-
-              </p>
-
-            </div>
-
-          </div>
 
         </div>
 
@@ -279,6 +193,10 @@ function Result({
 
                     >
 
+                      {/* ========================================= */}
+                      {/* TOP */}
+                      {/* ========================================= */}
+
                       <div className="deficiency-top">
 
                         <h3>
@@ -299,6 +217,33 @@ function Result({
 
                       </div>
 
+                      {/* ========================================= */}
+                      {/* EXPLAINABLE AI */}
+                      {/* ========================================= */}
+
+                      <div className="ai-analysis-box">
+
+                        <h4>
+
+                          Explainable AI Analysis
+
+                        </h4>
+
+                        <p>
+
+                          {getExplanation(
+                            key,
+                            val
+                          )}
+
+                        </p>
+
+                      </div>
+
+                      {/* ========================================= */}
+                      {/* NUTRIENT DATA */}
+                      {/* ========================================= */}
+
                       {
 
                         value !== undefined &&
@@ -308,8 +253,9 @@ function Result({
 
                             <p>
 
-                              Current:
+                              Current Intake:
                               {" "}
+
                               <strong>
 
                                 {value}
@@ -320,8 +266,9 @@ function Result({
 
                             <p>
 
-                              Required:
+                              Recommended Intake:
                               {" "}
+
                               <strong>
 
                                 {required}
@@ -361,9 +308,12 @@ function Result({
 
                       }
 
+                      {/* ========================================= */}
+                      {/* FOOD RECOMMENDATIONS */}
+                      {/* ========================================= */}
+
                       {
 
-                        val !== "Normal" &&
                         rec &&
                         Array.isArray(rec.foods) &&
                         rec.foods.length > 0 && (
@@ -372,7 +322,7 @@ function Result({
 
                             <h4>
 
-                              Recommended Foods
+                              Personalized Food Recommendations
 
                             </h4>
 
@@ -428,106 +378,6 @@ function Result({
         </div>
 
         {/* ========================================= */}
-        {/* EXPLAINABLE AI */}
-        {/* ========================================= */}
-
-        {
-
-          fullResult?.shap_explanations && (
-
-            <div className="report-section">
-
-              <h2>
-
-                Explainable AI Analysis
-
-              </h2>
-
-              <div className="deficiency-grid">
-
-                {
-
-                  Object.entries(
-
-                    fullResult.shap_explanations
-
-                  ).map(
-
-                    ([nutrient, reasons]) => (
-
-                      <div
-
-                        key={nutrient}
-
-                        className="deficiency-card"
-
-                      >
-
-                        <h3>
-
-                          {nutrient}
-
-                        </h3>
-
-                        <p>
-
-                          AI detected this
-                          deficiency based on:
-
-                        </p>
-
-                        <ul>
-
-                          {
-
-                            reasons.map(
-
-                              (item, i) => (
-
-                                <li key={i}>
-
-                                  {
-
-                                    item.feature
-
-                                  }
-
-                                  :
-                                  {" "}
-
-                                  {
-
-                                    item.value
-
-                                  }
-
-                                </li>
-
-                              )
-
-                            )
-
-                          }
-
-                        </ul>
-
-                      </div>
-
-                    )
-
-                  )
-
-                }
-
-              </div>
-
-            </div>
-
-          )
-
-        }
-
-        {/* ========================================= */}
         {/* BUTTONS */}
         {/* ========================================= */}
 
@@ -565,7 +415,13 @@ function Result({
 
             className="download-report-btn"
 
-            onClick={downloadReport}
+            onClick={() =>
+              downloadReport(
+                result,
+                recommendations,
+                nutrients
+              )
+            }
 
           >
 
@@ -584,3 +440,4 @@ function Result({
 }
 
 export default Result;
+
