@@ -13,14 +13,14 @@ function Home({ user }) {
 
   const handleAssessment = () => {
 
-    // ✅ IF LOGGED IN
+    //  IF LOGGED IN
     if (user) {
 
       navigate("/dashboard");
 
     }
 
-    // ❌ NOT LOGGED IN
+    //  NOT LOGGED IN
     else {
 
       navigate("/");
@@ -39,7 +39,7 @@ function Home({ user }) {
       <nav className="navbar">
 
         <div className="logo">
-          🥗 NutriHealth AI
+           NutriHealth AI
         </div>
 
         <div className="nav-links">
@@ -106,7 +106,7 @@ function Home({ user }) {
         <div className="feature-card">
 
           <h3>
-            🧠 ML Prediction
+             ML Prediction
           </h3>
 
           <p>
@@ -118,7 +118,7 @@ function Home({ user }) {
         <div className="feature-card">
 
           <h3>
-            🥗 7 Nutrients
+             7 Nutrients
           </h3>
 
           <p>
@@ -131,7 +131,7 @@ function Home({ user }) {
         <div className="feature-card">
 
           <h3>
-            📄 PDF Reports
+             PDF Reports
           </h3>
 
           <p>
@@ -144,7 +144,7 @@ function Home({ user }) {
         <div className="feature-card">
 
           <h3>
-            ❤️ Health Profile
+             Health Profile
           </h3>
 
           <p>
@@ -157,7 +157,7 @@ function Home({ user }) {
         <div className="feature-card">
 
           <h3>
-            🍽 Food Assessment
+             Food Assessment
           </h3>
 
           <p>
@@ -170,7 +170,7 @@ function Home({ user }) {
         <div className="feature-card">
 
           <h3>
-            📈 Progress Tracking
+             Progress Tracking
           </h3>
 
           <p>
