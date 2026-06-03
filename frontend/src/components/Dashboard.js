@@ -19,7 +19,7 @@ function Dashboard({ user }) {
       <div className="sidebar">
 
         <h2 className="sidebar-logo">
-          🥗 NutriHealth AI
+           NutriHealth AI
         </h2>
 
         <div className="sidebar-menu">
@@ -29,7 +29,7 @@ function Dashboard({ user }) {
               navigate("/dashboard")
             }
           >
-            🏠 Dashboard
+             Dashboard
           </button>
 
           <button
@@ -37,7 +37,7 @@ function Dashboard({ user }) {
               navigate("/assessment")
             }
           >
-            📋 Assessment
+             Assessment
           </button>
 
           <button
@@ -45,7 +45,7 @@ function Dashboard({ user }) {
               navigate("/history")
             }
           >
-            📈 History
+             History
           </button>
 
           <button
@@ -53,7 +53,7 @@ function Dashboard({ user }) {
               navigate("/full-report")
             }
           >
-            📄 Reports
+             Reports
           </button>
 
           <button
@@ -61,7 +61,7 @@ function Dashboard({ user }) {
               navigate("/")
             }
           >
-            🔐 Logout
+             Logout
           </button>
 
         </div>
@@ -83,7 +83,7 @@ function Dashboard({ user }) {
           <div>
 
             <h1>
-              Welcome, {user?.username} 👋
+              Welcome, {user?.username} 
             </h1>
 
             <p>
@@ -137,7 +137,7 @@ function Dashboard({ user }) {
           <div className="dash-card">
 
             <h3>
-              🧠 AI Prediction
+               AI Prediction
             </h3>
 
             <p>
@@ -150,7 +150,7 @@ function Dashboard({ user }) {
           <div className="dash-card">
 
             <h3>
-              👁️ Image Analysis
+               Image Analysis
             </h3>
 
             <p>
@@ -163,7 +163,7 @@ function Dashboard({ user }) {
           <div className="dash-card">
 
             <h3>
-              📋 Symptom Questionnaire
+               Symptom Questionnaire
             </h3>
 
             <p>
@@ -177,7 +177,7 @@ function Dashboard({ user }) {
           <div className="dash-card">
 
             <h3>
-              📈 Trend Monitoring
+              Trend Monitoring
             </h3>
 
             <p>
@@ -190,7 +190,7 @@ function Dashboard({ user }) {
           <div className="dash-card">
 
             <h3>
-              🥗 Personalized Plans
+               Personalized Plans
             </h3>
 
             <p>
@@ -203,7 +203,7 @@ function Dashboard({ user }) {
           <div className="dash-card">
 
             <h3>
-              🤖 Explainable AI
+               Explainable AI
             </h3>
 
             <p>
@@ -223,7 +223,7 @@ function Dashboard({ user }) {
         <div className="system-overview">
 
           <h2>
-            🔬 Multimodal Healthcare Framework
+             Multimodal Healthcare Framework
           </h2>
 
           <div className="overview-grid">
@@ -231,7 +231,7 @@ function Dashboard({ user }) {
             <div className="overview-card">
 
               <h3>
-                🍽 Food Intake
+                 Food Intake
               </h3>
 
               <p>
@@ -244,7 +244,7 @@ function Dashboard({ user }) {
             <div className="overview-card">
 
               <h3>
-                👁 Medical Images
+                Medical Images
               </h3>
 
               <p>
@@ -257,7 +257,7 @@ function Dashboard({ user }) {
             <div className="overview-card">
 
               <h3>
-                📋 Symptoms
+               Symptoms
               </h3>
 
               <p>
