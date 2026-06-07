@@ -83,7 +83,7 @@ function History({ user }) {
   };
 
   // =========================================
-  // SCORE
+  // SCORE (for nutrient bar width)
   // =========================================
 
   const statusScore = (status) => {
@@ -127,10 +127,29 @@ function History({ user }) {
   };
 
   // =========================================
-  // TREND MESSAGE
+  // RISK LEVEL COLOR
   // =========================================
 
-  const getTrendMessage = (
+  const getRiskLevelColor = (level) => {
+
+    switch (level) {
+
+      case "High":
+        return "#ef4444";
+
+      case "Moderate":
+        return "#f59e0b";
+
+      default:
+        return "#10b981";
+    }
+  };
+
+  // =========================================
+  // TREND MESSAGE (fallback if not in data)
+  // =========================================
+
+  const computeTrendMessage = (
 
     current,
     previous
@@ -141,16 +160,10 @@ function History({ user }) {
       return "First Analysis";
 
     if (current < previous)
-
-      return (
-        "✅ Health Improving"
-      );
+      return "✅ Health Improving";
 
     if (current > previous)
-
-      return (
-        "⚠ Risk Increasing"
-      );
+      return "⚠ Risk Increasing";
 
     return "➖ Stable";
   };
@@ -287,27 +300,15 @@ function History({ user }) {
 
               <div className="overview-card">
 
-                <h3>
+                <h3>Total Reports</h3>
 
-                  Total Reports
-
-                </h3>
-
-                <p>
-
-                  {sortedEntries.length}
-
-                </p>
+                <p>{sortedEntries.length}</p>
 
               </div>
 
               <div className="overview-card">
 
-                <h3>
-
-                  Latest Risk
-
-                </h3>
+                <h3>Latest Risk</h3>
 
                 <p>
 
@@ -326,17 +327,9 @@ function History({ user }) {
 
               <div className="overview-card">
 
-                <h3>
+                <h3>Monitoring Status</h3>
 
-                  Monitoring Status
-
-                </h3>
-
-                <p>
-
-                  Active
-
-                </p>
+                <p>Active</p>
 
               </div>
 
@@ -364,12 +357,62 @@ function History({ user }) {
                     ]?.[1]
                     ?.risk_score;
 
+                  // Use backend trend_message if present,
+                  // otherwise compute from scores
+                  const trendMsg =
+                    nutrients.trend_message ||
+                    computeTrendMessage(
+                      currentScore,
+                      previousScore
+                    );
+
                   return (
 
                     <div
                       key={index}
                       className="history-card"
                     >
+
+                      {/* ========================================= */}
+                      {/* RISK SUMMARY — top of card */}
+                      {/* ========================================= */}
+
+                      <div className="risk-summary">
+
+                        <div className="risk-summary-item">
+
+                          <span className="risk-summary-label">
+                            Risk Score
+                          </span>
+
+                          <span className="risk-summary-value">
+                            {currentScore ?? "—"}
+                          </span>
+
+                        </div>
+
+                        <div className="risk-summary-divider" />
+
+                        <div className="risk-summary-item">
+
+                          <span className="risk-summary-label">
+                            Risk Level
+                          </span>
+
+                          <span
+                            className="risk-summary-value"
+                            style={{
+                              color: getRiskLevelColor(
+                                nutrients.risk_level
+                              )
+                            }}
+                          >
+                            {nutrients.risk_level ?? "—"}
+                          </span>
+
+                        </div>
+
+                      </div>
 
                       {/* ========================================= */}
                       {/* DATE */}
@@ -383,66 +426,12 @@ function History({ user }) {
                       </div>
 
                       {/* ========================================= */}
-                      {/* RISK SECTION */}
-                      {/* ========================================= */}
-
-                      <div className="risk-section">
-
-                        <div className="risk-box">
-
-                          <h4>
-
-                            Risk Score
-
-                          </h4>
-
-                          <p>
-
-                            {
-                              nutrients.risk_score
-                            }
-
-                          </p>
-
-                        </div>
-
-                        <div className="risk-box">
-
-                          <h4>
-
-                            Risk Level
-
-                          </h4>
-
-                          <p>
-
-                            {
-                              nutrients.risk_level
-                            }
-
-                          </p>
-
-                        </div>
-
-                      </div>
-
-                      {/* ========================================= */}
                       {/* TREND STATUS */}
                       {/* ========================================= */}
 
                       <div className="trend-message">
 
-                        {
-
-                          getTrendMessage(
-
-                            currentScore,
-
-                            previousScore
-
-                          )
-
-                        }
+                        {trendMsg}
 
                       </div>
 
@@ -450,27 +439,15 @@ function History({ user }) {
                       {/* NUTRIENTS */}
                       {/* ========================================= */}
 
-                      {Object.entries(
-                        nutrients
+                      {Object.entries(nutrients)
+
+                      .filter(([key]) =>
+                        key !== "risk_score" &&
+                        key !== "risk_level" &&
+                        key !== "trend_message"
                       )
 
-                      .filter(
-
-                        ([key]) =>
-
-                          key !==
-                          "risk_score"
-
-                          &&
-
-                          key !==
-                          "risk_level"
-
-                      )
-
-                      .map(
-
-                        ([nutrient, status]) => (
+                      .map(([nutrient, status]) => (
 
                           <div
                             key={nutrient}
@@ -488,8 +465,7 @@ function History({ user }) {
                               <span
                                 className="status-text"
                                 style={{
-                                  color:
-                                  getColor(status)
+                                  color: getColor(status)
                                 }}
                               >
 
@@ -518,9 +494,9 @@ function History({ user }) {
 
                           </div>
 
-                        )
+                        ))
 
-                      )}
+                      }
 
                     </div>
 
@@ -542,4 +518,3 @@ function History({ user }) {
 }
 
 export default History;
-
