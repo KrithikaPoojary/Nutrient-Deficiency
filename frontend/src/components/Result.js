@@ -16,6 +16,25 @@ function Result({
   const navigate = useNavigate();
 
   // =========================================
+  // SHAP + RISK DATA FROM BACKEND
+  // =========================================
+
+  const shapExplanations =
+    fullResult?.shap_explanations || {};
+
+  const riskScore =
+    fullResult?.risk_score || 0;
+
+  const riskLevel =
+    fullResult?.risk_level || "Low";
+
+  const previousRiskScore =
+    fullResult?.previous_risk_score || 0;
+
+  const trendMessage =
+    fullResult?.trend_message || "";
+
+  // =========================================
   // AUTO SCROLL
   // =========================================
 
@@ -92,6 +111,27 @@ function Result({
   };
 
   // =========================================
+  // RISK LEVEL CLASS
+  // =========================================
+
+  const getRiskClass = (level) => {
+
+    switch (level) {
+
+      case "High":
+        return "risk-high";
+
+      case "Moderate":
+        return "risk-moderate";
+
+      default:
+        return "risk-low";
+
+    }
+
+  };
+
+  // =========================================
   // EXPLAINABLE AI TEXT
   // =========================================
 
@@ -126,7 +166,10 @@ function Result({
 
     <div className="result-page">
 
-      <div className="report-container">
+      <div
+        id="report"
+        className="report-container"
+        >
 
         {/* ========================================= */}
         {/* HEADER */}
@@ -145,6 +188,49 @@ function Result({
             Personalized Nutrient Assessment
 
           </p>
+
+        </div>
+
+        {/* ========================================= */}
+        {/* OVERALL HEALTH RISK */}
+        {/* ========================================= */}
+
+        <div className="report-section">
+
+          <h2>Overall Health Risk</h2>
+
+          <div className="risk-summary">
+
+            <div className="risk-card">
+              <h3>Current Risk Score</h3>
+              <p className="risk-score-value">
+                {riskScore}
+              </p>
+            </div>
+
+            <div className="risk-card">
+              <h3>Risk Level</h3>
+              <p className={`risk-level-badge ${getRiskClass(riskLevel)}`}>
+                {riskLevel}
+              </p>
+            </div>
+
+            <div className="risk-card">
+              <h3>Previous Score</h3>
+              <p className="risk-score-value risk-score-previous">
+                {previousRiskScore > 0
+                  ? previousRiskScore
+                  : "No prior data"}
+              </p>
+            </div>
+
+          </div>
+
+          {trendMessage && (
+            <div className="trend-message">
+              {trendMessage}
+            </div>
+          )}
 
         </div>
 
@@ -237,6 +323,27 @@ function Result({
                           )}
 
                         </p>
+
+                        {shapExplanations[key] &&
+                          shapExplanations[key].length > 0 && (
+
+                          <ul className="shap-list">
+
+                            {shapExplanations[key].map(
+                              (item, index) => (
+                                <li key={index}>
+                                  <strong>{item.feature}</strong>
+                                  {" | Value: "}
+                                  {item.value}
+                                  {" | Impact: "}
+                                  {item.impact}
+                                </li>
+                              )
+                            )}
+
+                          </ul>
+
+                        )}
 
                       </div>
 
@@ -440,4 +547,3 @@ function Result({
 }
 
 export default Result;
-
