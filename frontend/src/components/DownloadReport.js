@@ -1,136 +1,84 @@
 import jsPDF from "jspdf";
-
 import html2canvas from "html2canvas";
 
 const downloadReport = async () => {
 
-  const input = document.getElementById(
-    "full-report-download"
-  );
+  const input = document.getElementById("report");
 
   if (!input) {
 
-    alert(
-      "Report section not found"
-    );
+    alert("Report section not found");
 
     return;
+
   }
 
   try {
 
-    // =====================================
-    // SCREENSHOT
-    // =====================================
+    const canvas = await html2canvas(input, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      scrollY: -window.scrollY
+    });
 
-    const canvas =
-      await html2canvas(input, {
+    const imgData = canvas.toDataURL("image/png");
 
-        scale: 2,
-
-        useCORS: true,
-
-        scrollY:
-          -window.scrollY
-
-      });
-
-    // =====================================
-    // IMAGE
-    // =====================================
-
-    const imgData =
-      canvas.toDataURL(
-        "image/png"
-      );
-
-    // =====================================
-    // PDF
-    // =====================================
-
-    const pdf =
-      new jsPDF(
-
-        "p",
-        "mm",
-        "a4"
-
-      );
+    const pdf = new jsPDF(
+      "p",
+      "mm",
+      "a4"
+    );
 
     const pdfWidth =
-      pdf.internal.pageSize
-      .getWidth();
+      pdf.internal.pageSize.getWidth();
 
     const pdfHeight =
-      pdf.internal.pageSize
-      .getHeight();
+      pdf.internal.pageSize.getHeight();
+
+    const margin = 5;
 
     const imgWidth =
-      pdfWidth;
+      pdfWidth - (margin * 2);
 
     const imgHeight =
-      (
-        canvas.height *
-        imgWidth
-      ) / canvas.width;
+      (canvas.height * imgWidth) /
+      canvas.width;
 
-    let heightLeft =
-      imgHeight;
+    let heightLeft = imgHeight;
 
     let position = 0;
 
-    // =====================================
-    // FIRST PAGE
-    // =====================================
-
     pdf.addImage(
-
       imgData,
       "PNG",
-
-      0,
+      margin,
       position,
-
       imgWidth,
       imgHeight
-
     );
 
-    heightLeft -=
-      pdfHeight;
-
-    // =====================================
-    // MULTIPLE PAGES
-    // =====================================
+    heightLeft -= pdfHeight;
 
     while (heightLeft > 0) {
 
       position =
-        heightLeft -
-        imgHeight;
+        heightLeft - imgHeight;
 
       pdf.addPage();
 
       pdf.addImage(
-
         imgData,
         "PNG",
-
-        0,
+        margin,
         position,
-
         imgWidth,
         imgHeight
-
       );
 
-      heightLeft -=
-        pdfHeight;
-    }
+      heightLeft -= pdfHeight;
 
-    // =====================================
-    // SAVE
-    // =====================================
+    }
 
     pdf.save(
       "AI_Nutrition_Report.pdf"
